@@ -43,6 +43,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -77,6 +85,8 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -116,9 +126,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\KhoaController.cs" />
+    <Compile Include="EF\BaiBao.cs" />
+    <Compile Include="EF\BoMon.cs" />
+    <Compile Include="EF\CN_BoMon.cs" />
+    <Compile Include="EF\CN_Khoa.cs" />
+    <Compile Include="EF\DeTai.cs" />
+    <Compile Include="EF\GiaoVien.cs" />
+    <Compile Include="EF\GV_BaiBao.cs" />
+    <Compile Include="EF\GV_BienSoanSach.cs" />
+    <Compile Include="EF\GV_BoMon.cs" />
+    <Compile Include="EF\GV_ChamThi.cs" />
+    <Compile Include="EF\GV_DeTaiNghienCuu.cs" />
+    <Compile Include="EF\GV_HoiDong.cs" />
+    <Compile Include="EF\GV_HuongDan.cs" />
+    <Compile Include="EF\GV_LopHocPhan.cs" />
+    <Compile Include="EF\He.cs" />
+    <Compile Include="EF\HocPhan.cs" />
+    <Compile Include="EF\HocVien.cs" />
+    <Compile Include="EF\HoiDong.cs" />
+    <Compile Include="EF\Khoa.cs" />
+    <Compile Include="EF\LoaiBaiBao.cs" />
+    <Compile Include="EF\LoaiChamThi.cs" />
+    <Compile Include="EF\LoaiDayHoc.cs" />
+    <Compile Include="EF\LoaiDeTai.cs" />
+    <Compile Include="EF\LoaiHoiDong.cs" />
+    <Compile Include="EF\LoaiHuongDan.cs" />
+    <Compile Include="EF\LoaiSach.cs" />
+    <Compile Include="EF\Lop.cs" />
+    <Compile Include="EF\LopHocPhan.cs" />
+    <Compile Include="EF\QuanLyGiaoVienDb.cs" />
+    <Compile Include="EF\Sach.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\KhoaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -135,8 +177,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
