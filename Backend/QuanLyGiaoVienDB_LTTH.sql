@@ -526,7 +526,15 @@ INSERT [dbo].[LoaiSach] ([Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Gi�
 INSERT [dbo].[LoaiSach] ([Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Giáo trình tái bản', 1, 120, N'Nếu sách do tập thể thực hiện thì cán bộ chủ trì đc hưởng 1/5 số giờ chuẩn, còn lại 4/5 số giờ chuẩn được chia đều cho tất cả những người tham gia cả bán bộ chủ trì')
 INSERT [dbo].[LoaiSach] ([Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Tài liệu biên dịch, sách tham khảo', 1, 100, N'Nếu sách do tập thể thực hiện thì cán bộ chủ trì đc hưởng 1/5 số giờ chuẩn, còn lại 4/5 số giờ chuẩn được chia đều cho tất cả những người tham gia cả bán bộ chủ trì')
 INSERT [dbo].[LoaiSach] ([Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Sách hướng dẫn, bài giảng với học phần chưa có giáo trình', 1, 75, N'Nếu sách do tập thể thực hiện thì cán bộ chủ trì đc hưởng 1/5 số giờ chuẩn, còn lại 4/5 số giờ chuẩn được chia đều cho tất cả những người tham gia cả bán bộ chủ trì')
-go
+
+INSERT [dbo].[LoaiBaiBao] ( [Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Đăng trong các kỳ hội nghị khoa học trong nước', 1, 100, N'Số giờ chuẩn chia đều cho các tác giả')
+INSERT [dbo].[LoaiBaiBao] ( [Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Đăng trong tạp chí Khoa học trong nước, có chỉ số ISSN', 1, 150, N'Số giờ chuẩn chia đều cho các tác giả')
+INSERT [dbo].[LoaiBaiBao] ( [Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Đăng trong các kỳ Hội nghị Khoa học Quốc tế', 1, 150, N'Số giờ chuẩn chia đều cho các tác giả')
+INSERT [dbo].[LoaiBaiBao] ( [Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Đăng trong tạp chí Khoa học Quốc tế có chỉ số ISI', 1, 200, N'Số giờ chuẩn chia đều cho các tác giả')
+
+INSERT [dbo].[LoaiDeTai] ([Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Đề tài, dự án nghiên cứu cấp nhà nước', 1, 400, N'Nếu công trình do tập thể thực hiện thì cán bộ chủ trì hưởng 1/5 số giờ, 4/5 giờ chuẩn còn lại được chia đều cho tất cả các thành viên kể (kể cả cán bộ chủ trì)')
+INSERT [dbo].[LoaiDeTai] ([Ten], [DonViTinh], [GioChuan], [GhiChu]) VALUES (N'Đề tài, dự án nghiên cứu cấp học viện', 1, 200, N'Nếu công trình do tập thể thực hiện thì cán bộ chủ trì hưởng 1/5 số giờ, 4/5 giờ chuẩn còn lại được chia đều cho tất cả các thành viên kể (kể cả cán bộ chủ trì)')
+
 INSERT [dbo].[Khoa]  VALUES ('K00001', N'Khoa Công Nghệ Thông Tin')
 INSERT [dbo].[Khoa]  VALUES ('K00002', N'Khoa Cơ Khí')
 go
@@ -547,3 +555,22 @@ INSERT [dbo].[GiaoVien]  VALUES (N'GV0008', N'Nguyễn Văn C', 1, CAST(N'1980-0
 INSERT [dbo].[GiaoVien]  VALUES (N'GV0009', N'Nguyễn Thị H', 0, CAST(N'1980-01-30' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv09@gmail.com')
 INSERT [dbo].[GiaoVien]  VALUES (N'GV0010', N'Nguyễn Thị K', 0, CAST(N'1980-01-24' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv10@gmail.com')
 INSERT [dbo].[GiaoVien]  VALUES (N'GV0011', N'Nguyễn Thị E', 0, CAST(N'1980-01-09' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv10@gmail.com')
+go
+
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S001', N'Sách 1', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 0, 3, 1)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S002', N'Sách 2', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 3, 3, 2)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S003', N'Sách 3', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 0, 4, 1)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S004', N'Sách 4', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 0, 5, 1)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S005', N'Sách 5', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 0, 2, 1)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S006', N'Sách 6', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 4, 4, 3)
+
+INSERT [dbo].[DeTai] ([Ten], [NgayBatDau], [NgayKetThuc], [CoQuanQuanLy], [TinhTrang], [SoThanhVien], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', CAST(N'2017-01-01' AS Date), CAST(N'2018-01-01' AS Date), N'Bộ quốc phòng', 1, 4, 1)
+INSERT [dbo].[DeTai] ([Ten], [NgayBatDau], [NgayKetThuc], [CoQuanQuanLy], [TinhTrang], [SoThanhVien], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', CAST(N'2018-01-01' AS Date), CAST(N'2019-01-01' AS Date), N'Bộ quốc phòng', 1, 3, 1)
+INSERT [dbo].[DeTai] ([Ten], [NgayBatDau], [NgayKetThuc], [CoQuanQuanLy], [TinhTrang], [SoThanhVien], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', CAST(N'2017-01-01' AS Date), CAST(N'2018-01-01' AS Date), N'Học viện kỹ thuật quân sự', 1, 5, 2)
+
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo T', N'Tạp chí kỹ thuật', CAST(N'2018-03-27' AS Date), 4,1)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo bac', N'Ứng dụng mới', CAST(N'2019-02-01' AS Date), 3, 1)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo VN', N'Kỹ thuật lập trình hiệu quả', CAST(N'2019-01-01' AS Date),5, 2)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo số 2', CAST(N'2018-05-05' AS Date), 1, 2)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo abc', CAST(N'2018-03-03' AS Date), 3, 3)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo abc', N'Bài báo xyz', CAST(N'2018-04-04' AS Date), 1, 3)
