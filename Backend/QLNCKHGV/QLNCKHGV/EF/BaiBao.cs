@@ -26,8 +26,9 @@ namespace QLNCKHGV.EF
         [StringLength(150)]
         public string TenTapChiCongBo { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? NgayCongBo { get; set; }
+        public int? KiHoc { get; set; }
+
+        public int? NamHoc { get; set; }
 
         public int SoThanhVien { get; set; }
 

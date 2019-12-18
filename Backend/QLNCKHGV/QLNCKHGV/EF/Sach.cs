@@ -26,8 +26,9 @@ namespace QLNCKHGV.EF
         [StringLength(100)]
         public string NoiXuatBan { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? NgayXuatBan { get; set; }
+        public int? KiHoc { get; set; }
+
+        public int? NamHoc { get; set; }
 
         public int? SoTinChi { get; set; }
 

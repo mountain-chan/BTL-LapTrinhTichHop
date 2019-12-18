@@ -12,8 +12,7 @@ namespace QLNCKHGV.Controllers
     public class KhoaController : ApiController
     {
         private QuanLyGiaoVienDb db = new QuanLyGiaoVienDb();
-
-
+        
         [Route("api/Khoa/GetAllKhoa")]
         public IHttpActionResult GetAllKhoa()
         {

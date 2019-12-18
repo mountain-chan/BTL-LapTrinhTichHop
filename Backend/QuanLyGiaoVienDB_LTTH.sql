@@ -1,4 +1,7 @@
-﻿create database QuanLyGiaoVienDB_LTTH
+﻿
+-- drop database QuanLyGiaoVienDB_LTTH
+
+create database QuanLyGiaoVienDB_LTTH
 go
 
 use QuanLyGiaoVienDB_LTTH
@@ -13,7 +16,6 @@ Create table GiaoVien
 	Ten Nvarchar(40),
 	GioiTinh Bit, 
 	NgaySinh Date,
-	QueQuan Nvarchar(100),
 	DiaChi Nvarchar(100),
 	DienThoai varchar(12),
 	Email varchar(50)
@@ -33,8 +35,8 @@ Create table CN_Khoa
 	Id int Identity Primary key,
 	IdChuNghiem int references GiaoVien(Id),
 	IdKhoa int references Khoa(Id),
-	NgayBatDau Date,
-	NgayKetThuc Date
+	KiHoc int,
+	NamHoc int,
 )
 go
 
@@ -52,8 +54,8 @@ Create table CN_BoMon
 	Id int Identity Primary key,
 	IdChuNghiem int references GiaoVien(Id),
 	IdBoMon int references BoMon(Id),
-	NgayBatDau Date,
-	NgayKetThuc Date
+	KiHoc int,
+	NamHoc int,
 )
 go
 
@@ -62,8 +64,8 @@ Create table GV_BoMon
 	Id int Identity Primary key,
 	IdGiaoVien int references GiaoVien(Id),
 	IdBoMon int references BoMon(Id),
-	NgayChuyenDen Date,
-	NgayChuyenDi Date
+	KiHoc int,
+	NamHoc int,
 )
 go
 
@@ -141,8 +143,8 @@ Create table GV_HuongDan
 	IdLoaiHuongDan int references LoaiHuongDan(Id),
 	IdHocVien int references HocVien(Id),
 	TenDeTai Nvarchar(50),
-	NgayBatDau Date,
-	NgayKetThuc Date,
+	KiHoc int,
+	NamHoc int,
 	BaoVeThanhCong Bit, -- 1 là bảo vệ thành công, 0 là đang hướng dẫn hoặc bảo vệ thất bại
 	SoGio int default 0
 )
@@ -227,7 +229,8 @@ Create table Sach
 	Ma varchar(6),
 	Ten Nvarchar(100),
 	NoiXuatBan Nvarchar(100),
-	NgayXuatBan Date,
+	KiHoc int,
+	NamHoc int,
 	SoTinChi int default 0,
 	SoThanhVien int check (SoThanhVien <> 0),
 	IdLoaiSach int references LoaiSach(Id)
@@ -260,7 +263,8 @@ Create table BaiBao
 	Ma varchar(6),
 	Ten Nvarchar(100),
 	TenTapChiCongBo Nvarchar(150),
-	NgayCongBo Date,
+	KiHoc int,
+	NamHoc int,
 	SoThanhVien int check (SoThanhVien <> 0) not null,
 	IdLoaiBaiBao int references LoaiBaiBao(Id),
 )
@@ -289,8 +293,8 @@ Create table DeTai
 	Id int Identity Primary key,
 	Ma varchar(6),
 	Ten Nvarchar(200),
-	NgayBatDau Date,
-	NgayKetThuc Date,
+	KiHoc int,
+	NamHoc int,
 	CoQuanQuanLy Nvarchar(200),
 	TinhTrang bit, -- 1 đã nghiệm thu, 0 chưa nghiệm thu
 	SoThanhVien int check (SoThanhVien <> 0) not null,
@@ -544,33 +548,51 @@ INSERT [dbo].[BoMon] VALUES ('BM0003', N'Bộ Môn Kỹ Thuật Phần Mềm', 1
 INSERT [dbo].[BoMon] VALUES ('BM0004', N'Bộ Môn Cơ Học Máy', 2)
 INSERT [dbo].[BoMon] VALUES ('BM0005', N'Bộ Môn Chế Tạo Máy', 2)
 go
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0001', N'Lữ Thành K', 1, CAST(N'1975-05-10' AS Date), N'Hải Phòng', N'Xuân Mai Huyện Chươnng Mỹ Thành Phố Hà Nôi', N'0987389277', N'thanhlong@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0002', N'Hà Văn A', 1, CAST(N'1976-03-01' AS Date), N'Ninh Bình', N'236 Hoàng Quốc Việt', N'123456678   ', N'gv02@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0003', N'Chu Thị H', 0, CAST(N'1977-04-01' AS Date), N'Hà Nội', N'210 Cầu Giấy', N'123443221   ', N'gv03@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0004', N'Tạ Văn N', 1, CAST(N'1975-05-01' AS Date), N'Bắc Giang', N'236 Hoàng Quốc Việt', N'123456789   ', N'gv04@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0005', N'Nguyễn Văn B', 1, CAST(N'1980-02-01' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv05@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0006', N'Nguyễn Văn C', 1, CAST(N'1980-04-01' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv06@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0007', N'Chu Văn A', 1, CAST(N'1980-06-01' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv07@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0008', N'Nguyễn Văn C', 1, CAST(N'1980-01-05' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv08@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0009', N'Nguyễn Thị H', 0, CAST(N'1980-01-30' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv09@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0010', N'Nguyễn Thị K', 0, CAST(N'1980-01-24' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv10@gmail.com')
-INSERT [dbo].[GiaoVien]  VALUES (N'GV0011', N'Nguyễn Thị E', 0, CAST(N'1980-01-09' AS Date), N'Hà Nội', N'117 Trần Cung', N'123456789   ', N'gv10@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0001', N'Lữ Thành K', 1, CAST(N'1975-05-10' AS Date), N'Xuân Mai Huyện Chươnng Mỹ Thành Phố Hà Nôi', N'0987389277', N'thanhlong@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0002', N'Hà Văn A', 1, CAST(N'1976-03-01' AS Date),  N'236 Hoàng Quốc Việt', N'123456678   ', N'gv02@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0003', N'Chu Thị H', 0, CAST(N'1977-04-01' AS Date), N'210 Cầu Giấy', N'123443221   ', N'gv03@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0004', N'Tạ Văn N', 1, CAST(N'1975-05-01' AS Date), N'236 Hoàng Quốc Việt', N'123456789   ', N'gv04@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0005', N'Nguyễn Văn B', 1, CAST(N'1980-02-01' AS Date),  N'117 Trần Cung', N'123456789   ', N'gv05@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0006', N'Nguyễn Văn C', 1, CAST(N'1980-04-01' AS Date),  N'117 Trần Cung', N'123456789   ', N'gv06@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0007', N'Chu Văn A', 1, CAST(N'1980-06-01' AS Date),  N'117 Trần Cung', N'123456789   ', N'gv07@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0008', N'Nguyễn Văn C', 1, CAST(N'1980-01-05' AS Date),  N'117 Trần Cung', N'123456789   ', N'gv08@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0009', N'Nguyễn Thị H', 0, CAST(N'1980-01-30' AS Date),  N'117 Trần Cung', N'123456789   ', N'gv09@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0010', N'Nguyễn Thị K', 0, CAST(N'1980-01-24' AS Date),  N'117 Trần Cung', N'123456789   ', N'gv10@gmail.com')
+INSERT [dbo].[GiaoVien]  VALUES (N'GV0011', N'Nguyễn Thị E', 0, CAST(N'1980-01-09' AS Date),  N'117 Trần Cung', N'123456789   ', N'gv10@gmail.com')
 go
 
-INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S001', N'Sách 1', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 0, 3, 1)
-INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S002', N'Sách 2', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 3, 3, 2)
-INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S003', N'Sách 3', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 0, 4, 1)
-INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S004', N'Sách 4', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 0, 5, 1)
-INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S005', N'Sách 5', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 0, 2, 1)
-INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NgayXuatBan], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S006', N'Sách 6', N'Học viện Kỹ Thuật Quân Sự', CAST(N'2018-01-01' AS Date), 4, 4, 3)
 
-INSERT [dbo].[DeTai] ([Ten], [NgayBatDau], [NgayKetThuc], [CoQuanQuanLy], [TinhTrang], [SoThanhVien], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', CAST(N'2017-01-01' AS Date), CAST(N'2018-01-01' AS Date), N'Bộ quốc phòng', 1, 4, 1)
-INSERT [dbo].[DeTai] ([Ten], [NgayBatDau], [NgayKetThuc], [CoQuanQuanLy], [TinhTrang], [SoThanhVien], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', CAST(N'2018-01-01' AS Date), CAST(N'2019-01-01' AS Date), N'Bộ quốc phòng', 1, 3, 1)
-INSERT [dbo].[DeTai] ([Ten], [NgayBatDau], [NgayKetThuc], [CoQuanQuanLy], [TinhTrang], [SoThanhVien], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', CAST(N'2017-01-01' AS Date), CAST(N'2018-01-01' AS Date), N'Học viện kỹ thuật quân sự', 1, 5, 2)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NamHoc], [NamHoc], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S001', N'Sách 1', N'Học viện Kỹ Thuật Quân Sự', 2019, 1, 0, 3, 1)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NamHoc], [NamHoc], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S002', N'Sách 2', N'Học viện Kỹ Thuật Quân Sự', 2018, 1, 3, 3, 2)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NamHoc], [NamHoc], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S003', N'Sách 3', N'Học viện Kỹ Thuật Quân Sự', 2019, 1, 0, 4, 1)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NamHoc], [NamHoc], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S004', N'Sách 4', N'Học viện Kỹ Thuật Quân Sự', 2019, 2, 0, 5, 1)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NamHoc], [NamHoc], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S005', N'Sách 5', N'Học viện Kỹ Thuật Quân Sự', 2018, 2, 0, 2, 1)
+INSERT [dbo].[Sach] ([Ma], [Ten], [NoiXuatBan], [NamHoc], [NamHoc], [SoTinChi], [SoThanhVien], [IdLoaiSach]) VALUES (N'S006', N'Sách 6', N'Học viện Kỹ Thuật Quân Sự', 2019, 2, 4, 4, 3)
 
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo T', N'Tạp chí kỹ thuật', CAST(N'2018-03-27' AS Date), 4,1)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo bac', N'Ứng dụng mới', CAST(N'2019-02-01' AS Date), 3, 1)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo VN', N'Kỹ thuật lập trình hiệu quả', CAST(N'2019-01-01' AS Date),5, 2)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo số 2', CAST(N'2018-05-05' AS Date), 1, 2)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo abc', CAST(N'2018-03-03' AS Date), 3, 3)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NgayCongBo], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo abc', N'Bài báo xyz', CAST(N'2018-04-04' AS Date), 1, 3)
+INSERT [dbo].[DeTai] ([Ten], [NamHoc], [NamHoc], [CoQuanQuanLy], [TinhTrang], [SoThanhVien], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', 2018, 1, N'Bộ quốc phòng', 1, 4, 1)
+INSERT [dbo].[DeTai] ([Ten], [NamHoc], [NamHoc], [CoQuanQuanLy], [TinhTrang], [SoThanhVien], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', 2018, 2, N'Bộ quốc phòng', 1, 3, 1)
+INSERT [dbo].[DeTai] ([Ten], [NamHoc], [NamHoc], [CoQuanQuanLy], [TinhTrang], [SoThanhVien], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', 2019, 1, N'Học viện kỹ thuật quân sự', 1, 5, 2)
+
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [NamHoc], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo T', N'Tạp chí kỹ thuật', 2019, 1, 4,1)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [NamHoc], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo bac', N'Ứng dụng mới', 2018, 1, 3, 1)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [NamHoc], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo VN', N'Kỹ thuật lập trình hiệu quả', 2019, 2,5, 2)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [NamHoc], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo số 2', 2018, 2, 1, 2)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [NamHoc], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo abc', 2019, 2, 3, 3)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [NamHoc], [SoThanhVien], [IdLoaiBaiBao]) VALUES (N'Báo abc', N'Bài báo xyz', 2019, 1, 1, 3)
+
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (1, 1, 2018, 1)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (1, 2, 2018, 1)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (2, 3, 2018, 2)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (2, 4, 2018, 2)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (3, 1, 2018, 2)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (3, 3, 2018, 1)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (3, 1, 2017, 1)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (4, 3, 2017, 1)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (5, 2, 2017, 2)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (6, 2, 2017, 2)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (7, 2, 2017, 2)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (8, 3, 2019, 2)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (9, 3, 2019, 2)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (10, 4, 2019, 2)
+INSERT [dbo].[GV_BoMon] ([IdGiaoVien], [IdBoMon], [NamHoc], [KiHoc]) VALUES (11, 5, 2019, 2)
+

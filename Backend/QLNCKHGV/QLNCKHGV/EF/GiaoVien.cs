@@ -38,9 +38,6 @@ namespace QLNCKHGV.EF
         public DateTime? NgaySinh { get; set; }
 
         [StringLength(100)]
-        public string QueQuan { get; set; }
-
-        [StringLength(100)]
         public string DiaChi { get; set; }
 
         [StringLength(12)]

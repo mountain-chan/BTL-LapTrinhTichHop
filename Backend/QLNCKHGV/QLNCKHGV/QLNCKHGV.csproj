@@ -126,6 +126,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BoMonController.cs" />
+    <Compile Include="Controllers\GiaoVienController.cs" />
     <Compile Include="Controllers\KhoaController.cs" />
     <Compile Include="EF\BaiBao.cs" />
     <Compile Include="EF\BoMon.cs" />
@@ -160,6 +162,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BoMonModel.cs" />
+    <Compile Include="Models\GiaoVienModel.cs" />
     <Compile Include="Models\KhoaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

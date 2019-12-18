@@ -14,11 +14,9 @@ namespace QLNCKHGV.EF
 
         public int? IdBoMon { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? NgayChuyenDen { get; set; }
+        public int? KiHoc { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? NgayChuyenDi { get; set; }
+        public int? NamHoc { get; set; }
 
         public virtual BoMon BoMon { get; set; }
 

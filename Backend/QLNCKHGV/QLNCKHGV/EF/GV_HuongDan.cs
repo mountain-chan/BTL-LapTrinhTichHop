@@ -19,11 +19,9 @@ namespace QLNCKHGV.EF
         [StringLength(50)]
         public string TenDeTai { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? NgayBatDau { get; set; }
+        public int? KiHoc { get; set; }
 
-        [Column(TypeName = "date")]
-        public DateTime? NgayKetThuc { get; set; }
+        public int? NamHoc { get; set; }
 
         public bool? BaoVeThanhCong { get; set; }
 
