@@ -26,6 +26,8 @@ E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Bac
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Newtonsoft.Json.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Net.Http.Formatting.dll
+E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Cors.dll
+E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.Cors.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.WebHost.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\EntityFramework.xml
@@ -36,10 +38,10 @@ E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Bac
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Microsoft.AI.WindowsServer.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Microsoft.ApplicationInsights.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Newtonsoft.Json.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Net.Http.Formatting.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.xml
+E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.Cors.xml
+E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Newtonsoft.Json.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.WebHost.xml
-E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\obj\Debug\QLNCKHGV.csprojResolveAssemblyReference.cache
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\obj\Debug\QLNCKHGV.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\obj\Debug\QLNCKHGV.pdb
