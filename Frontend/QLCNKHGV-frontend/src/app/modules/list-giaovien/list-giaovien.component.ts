@@ -25,4 +25,8 @@ export class ListGiaovienComponent implements OnInit {
       });
   }
 
+  addNewgiaovien(){
+    console.log(this.listGiaoVien);
+  }
+
 }

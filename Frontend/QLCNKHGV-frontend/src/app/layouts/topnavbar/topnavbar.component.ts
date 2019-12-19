@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./topnavbar.component.scss']
 })
 export class TopnavbarComponent implements OnInit {
-
+  
+  resultSearchUsers: any[] = [];
   constructor() { }
 
   ngOnInit() {

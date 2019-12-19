@@ -7,6 +7,9 @@ import { ListDetaiComponent } from './list-detai/list-detai.component';
 import { ListGiaovienComponent } from './list-giaovien/list-giaovien.component';
 import { ListSachComponent } from './list-sach/list-sach.component';
 import { HttpClientModule } from '@angular/common/http';
+import {
+  MatIconModule
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -21,8 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
     // modules
+    MatIconModule
     
 
   ],
