@@ -25,6 +25,8 @@ E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Bac
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Microsoft.ApplicationInsights.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Newtonsoft.Json.dll
+E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\PagedList.dll
+E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\PagedList.Mvc.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Net.Http.Formatting.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Cors.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.Cors.dll
@@ -38,6 +40,8 @@ E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Bac
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Microsoft.AI.WindowsServer.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Microsoft.ApplicationInsights.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\PagedList.xml
+E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\PagedList.Mvc.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Net.Http.Formatting.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.Cors.xml

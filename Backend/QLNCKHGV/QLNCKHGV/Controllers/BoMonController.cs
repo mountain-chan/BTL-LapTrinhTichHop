@@ -21,8 +21,7 @@ namespace QLNCKHGV.Controllers
             {
                 Id = k.Id,
                 Ma = k.Ma,
-                Ten = k.Ten,
-                IdKhoa = k.IdKhoa
+                Ten = k.Ten
             }).ToList<BoMonModel>();
 
             if (listBoMon.Count == 0)
@@ -42,8 +41,7 @@ namespace QLNCKHGV.Controllers
                 {
                     Id = k.Id,
                     Ma = k.Ma,
-                    Ten = k.Ten,
-                    IdKhoa = k.IdKhoa
+                    Ten = k.Ten
                 }).FirstOrDefault<BoMonModel>();
 
             if (bomon == null)
@@ -53,26 +51,6 @@ namespace QLNCKHGV.Controllers
 
             return Ok(bomon);
         }
-
-        [Route("api/BoMon/GetBoMonByKhoa")]
-        public IHttpActionResult GetBoMonByKhoa(int idKhoa)
-        {
-            IList<BoMonModel> listBoMon = null;
-            listBoMon = db.BoMons.Where(bm => bm.IdKhoa == idKhoa)
-                .Select(k => new BoMonModel()
-            {
-                Id = k.Id,
-                Ma = k.Ma,
-                Ten = k.Ten,
-                IdKhoa = k.IdKhoa
-            }).ToList<BoMonModel>();
-
-            if (listBoMon.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Ok(listBoMon);
-        }
+        
     }
 }

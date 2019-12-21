@@ -12,11 +12,8 @@ namespace QLNCKHGV.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GiaoVien()
         {
-            CN_BoMon = new HashSet<CN_BoMon>();
-            CN_Khoa = new HashSet<CN_Khoa>();
             GV_BaiBao = new HashSet<GV_BaiBao>();
             GV_BienSoanSach = new HashSet<GV_BienSoanSach>();
-            GV_BoMon = new HashSet<GV_BoMon>();
             GV_ChamThi = new HashSet<GV_ChamThi>();
             GV_DeTaiNghienCuu = new HashSet<GV_DeTaiNghienCuu>();
             GV_HoiDong = new HashSet<GV_HoiDong>();
@@ -26,7 +23,7 @@ namespace QLNCKHGV.EF
 
         public int Id { get; set; }
 
-        [StringLength(6)]
+        [StringLength(5)]
         public string Ma { get; set; }
 
         [StringLength(40)]
@@ -46,20 +43,15 @@ namespace QLNCKHGV.EF
         [StringLength(50)]
         public string Email { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CN_BoMon> CN_BoMon { get; set; }
+        public int? IdBoMon { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CN_Khoa> CN_Khoa { get; set; }
+        public virtual BoMon BoMon { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GV_BaiBao> GV_BaiBao { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GV_BienSoanSach> GV_BienSoanSach { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GV_BoMon> GV_BoMon { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GV_ChamThi> GV_ChamThi { get; set; }

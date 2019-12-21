@@ -84,6 +84,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -129,6 +137,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\PagedList.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
@@ -138,16 +147,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BoMonController.cs" />
     <Compile Include="Controllers\GiaoVienController.cs" />
-    <Compile Include="Controllers\KhoaController.cs" />
     <Compile Include="EF\BaiBao.cs" />
     <Compile Include="EF\BoMon.cs" />
-    <Compile Include="EF\CN_BoMon.cs" />
-    <Compile Include="EF\CN_Khoa.cs" />
     <Compile Include="EF\DeTai.cs" />
     <Compile Include="EF\GiaoVien.cs" />
     <Compile Include="EF\GV_BaiBao.cs" />
     <Compile Include="EF\GV_BienSoanSach.cs" />
-    <Compile Include="EF\GV_BoMon.cs" />
     <Compile Include="EF\GV_ChamThi.cs" />
     <Compile Include="EF\GV_DeTaiNghienCuu.cs" />
     <Compile Include="EF\GV_HoiDong.cs" />
@@ -157,7 +162,6 @@
     <Compile Include="EF\HocPhan.cs" />
     <Compile Include="EF\HocVien.cs" />
     <Compile Include="EF\HoiDong.cs" />
-    <Compile Include="EF\Khoa.cs" />
     <Compile Include="EF\LoaiBaiBao.cs" />
     <Compile Include="EF\LoaiChamThi.cs" />
     <Compile Include="EF\LoaiDayHoc.cs" />
@@ -174,7 +178,6 @@
     </Compile>
     <Compile Include="Models\BoMonModel.cs" />
     <Compile Include="Models\GiaoVienModel.cs" />
-    <Compile Include="Models\KhoaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

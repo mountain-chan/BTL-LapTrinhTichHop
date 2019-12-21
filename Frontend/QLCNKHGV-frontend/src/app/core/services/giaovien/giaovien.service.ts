@@ -11,8 +11,8 @@ export class GiaoVienService {
     private http: HttpClient) {
   }
 
-  getAllGiaoVien(): Observable<any> {
-    return this.http.get(`${getAllGiaoVienUrl}`);
+  getAllGiaoVien(pageSize: number, pageNumber: number): Observable<any> {
+    return this.http.get(`${getAllGiaoVienUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
 }

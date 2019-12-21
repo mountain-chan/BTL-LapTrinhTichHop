@@ -1,4 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-size: 13px;
+}
+
+.table-data{
+    padding: 30px;
+}
+
+.table{
+    font-weight: 100;
+    color: #676a6c;
+}
+
+.table-container{
+    margin-top: 10px;
+}
+
+th{
+    border-bottom: 2px solid #e0e0e0;
+    font-weight: bold;
+    color: black;
+    vertical-align: bottom;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    font-size: 14px;
+    transition: all .3s ease;
+}
+
+.toolbar{
+    display: flex;
+    justify-content: baseline;
+    -webkit-justify-content: flex-end;
+    width: 100%;
+}

@@ -22,5 +22,9 @@ namespace QLNCKHGV.Models
         public string DienThoai { get; set; }
         
         public string Email { get; set; }
+
+        public int? IdBoMon { get; set; }
+
+        public virtual BoMonModel BoMon { get; set; }
     }
 }

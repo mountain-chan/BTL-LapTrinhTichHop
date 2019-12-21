@@ -12,7 +12,5 @@ namespace QLNCKHGV.Models
         public string Ma { get; set; }
         
         public string Ten { get; set; }
-
-        public int? IdKhoa { get; set; }
     }
 }

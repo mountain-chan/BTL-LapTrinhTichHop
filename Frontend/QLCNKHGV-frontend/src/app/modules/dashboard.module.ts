@@ -8,7 +8,7 @@ import { ListGiaovienComponent } from './list-giaovien/list-giaovien.component';
 import { ListSachComponent } from './list-sach/list-sach.component';
 import { HttpClientModule } from '@angular/common/http';
 import {
-  MatIconModule
+  MatIconModule, MatDialog, MatPaginatorModule
 } from '@angular/material';
 
 @NgModule({
@@ -26,7 +26,8 @@ import {
     ReactiveFormsModule,
     HttpClientModule,
     // modules
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule
     
 
   ],

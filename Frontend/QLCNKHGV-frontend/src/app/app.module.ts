@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { DashboardModule } from './modules/dashboard.module';
 import { LayoutModule } from './layouts/layout.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentsModule } from './core/components/component.model';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     //main module
     LayoutModule,
     DashboardModule,
+    ComponentsModule,
+    
     BrowserAnimationsModule
   ],
   providers: [],

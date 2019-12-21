@@ -1,0 +1,113 @@
+<div class="dialog-container">
+    <div mat-dialog-title>
+      <h1 *ngIf="isCreate" class="text-center" mat-dialog-title>
+        THÊM NGÀY NGHỈ LỄ
+        <mat-icon (click)="cancel()" class="mat-18 close close-dialog" style="cursor: pointer;">close
+        </mat-icon>
+      </h1>
+      
+      <h1 *ngIf="isView" class="text-center" mat-dialog-title>
+        THÔNG TIN NGÀY NGHỈ LỄ
+        <mat-icon (click)="cancel()" class="mat-18 close close-dialog" style="cursor: pointer;">close
+        </mat-icon>
+      </h1>
+    
+      <h1 *ngIf="isUpdate" class="text-center" mat-dialog-title>
+        CẬP NHẬT NGÀY NGHỈ LỄ
+        <mat-icon (click)="cancel()" class="mat-18 close close-dialog" style="cursor: pointer;">close
+        </mat-icon>
+      </h1>
+    
+    </div>
+    <div class="" mat-dialog-content>
+      <form [formGroup]="holidayForm">
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Tên ngày nghỉ</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input formControlName="tenNgayNghi"
+            [attr.tabindex]="isView ? -1 : ''"
+                    class="form-control"
+                    [ngClass]="setClassInput()" 
+                    required=""
+                    type="text"
+                    placeholder="Tên ngày nghỉ"
+                    >
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Từ ngày</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input
+            [attr.tabindex]="isView ? -1 : ''"
+              (dateTimeChange)="setStartDate($event)"
+              (input)="onChangeInputStartDate($event)"
+              [owlDateTime]="tuNgay"
+              [owlDateTimeTrigger]="tuNgay"
+              [ngClass]="setClassInput()" 
+              class="form-control"
+              formControlName="tuNgay"
+              id="tuNgay"
+              placeholder="Ngày bắt đầu"
+              type="text"
+              >
+            <owl-date-time [pickerType]="'calendar'" #tuNgay></owl-date-time>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Đến ngày</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input 
+            [attr.tabindex]="isView ? -1 : ''"
+              (dateTimeChange)="setEndDate($event)"
+              (input)="onChangeInputEndDate($event)"
+              [owlDateTime]="denNgay" 
+              [owlDateTimeTrigger]="denNgay"
+              [ngClass]="setClassInput()" 
+              class="form-control" 
+              formControlName="denNgay" 
+              id="denNgay"
+              placeholder="Ngày kết thúc"
+              >
+            <owl-date-time [pickerType]="'calendar'" #denNgay></owl-date-time>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Số ngày nghỉ</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input formControlName="soNgayNghi"
+            [attr.tabindex]="isView ? -1 : ''"
+                    class="form-control disabled"
+                    required=""
+                    type="number"
+                    placeholder="Tổng số ngày"
+                    >
+          </div>
+        </div>
+      </form>
+    </div>
+    <div mat-dialog-actions>
+      <button (click)="cancel()" class="btn btn-danger btn-submit">Hủy</button>
+      <button
+        *ngIf="isUpdate"
+        [disabled]="disableUpdateButton()"
+        (click)="editHoliday()"
+        class="btn btn-success btn-submit1">Cập nhập
+      </button>
+      <button
+        *ngIf="isCreate"
+        [disabled]="disableCreateButton()"
+        (click)="createHoliday()"
+        class="btn btn-success btn-submit1">Thêm
+      </button>
+    </div>
+  </div>
+  
+  

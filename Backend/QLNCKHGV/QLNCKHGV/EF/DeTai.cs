@@ -17,7 +17,7 @@ namespace QLNCKHGV.EF
 
         public int Id { get; set; }
 
-        [StringLength(6)]
+        [StringLength(5)]
         public string Ma { get; set; }
 
         [StringLength(200)]
