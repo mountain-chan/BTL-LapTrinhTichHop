@@ -74,17 +74,17 @@ namespace QLNCKHGV.Controllers
             
             return Ok(new
             {
-                items = listGiaoVien.ToPagedList(pageNumber, pageSize),
+                items = listGiaoVien.ToPagedList(pageNumber + 1, pageSize),
                 totals = totalItems
             });
         }
 
 
         [Route("api/GiaoVien/GetGiaoVienById")]
-        public IHttpActionResult GetGiaoVienById(int IdGiaoVien)
+        public IHttpActionResult GetGiaoVienById(int idGiaoVien)
         {
             GiaoVienModel giaoVien = null;
-            giaoVien = db.GiaoViens.Where(k => k.Id == IdGiaoVien)
+            giaoVien = db.GiaoViens.Where(k => k.Id == idGiaoVien)
                 .Select(k => new GiaoVienModel()
                 {
                     Id = k.Id,
@@ -95,6 +95,7 @@ namespace QLNCKHGV.Controllers
                     DiaChi = k.DiaChi,
                     DienThoai = k.DienThoai,
                     Email = k.Email,
+                    IdBoMon = k.IdBoMon,
                     BoMon = k.IdBoMon == null ? null : new BoMonModel()
                     {
                         Id = k.BoMon.Id,

@@ -6,7 +6,7 @@ import { getAllGiaoVienUrl, getGiaoVienByIdUrl, getGiaoVienByBoMonUrl, createGia
 @Injectable({
   providedIn: 'root'
 })
-export class GiaoVienService {
+export class SachService {
   constructor(
     private http: HttpClient) {
   }

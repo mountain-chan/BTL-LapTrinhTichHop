@@ -58,24 +58,23 @@ export class ListGiaovienComponent implements OnInit {
       });
   }
 
-  addNewgiaovien(){
+  openDialogGroup(action: string, idGiaoVien?: any) {
     const dialogRef = this.dialog.open(GiaovienDialogComponent, {
       width: '700px',
+      closeOnNavigation: true,
       data: {
-        isCreate: true,
-        isUpdate: false,
-        isView: false
-      },
-      closeOnNavigation: true
+        action,
+        idGiaoVien
+      }
     });
-    // dialogRef.afterClosed()
-    //   .subscribe((data) => {
-    //     if (data !== undefined && data !== null) {
-    //       if (data === true) {
-    //         this.getListHoliday(this.pageSize, this.pageNumber);
-    //       }
-    //     }
-    //   });
+    dialogRef.afterClosed()
+      .subscribe((data) => {
+        if (data !== null && data !== undefined) {
+          if (data === true) {
+            this.getListGiaoVien();
+          }
+        }
+      });
   }
 
   pageSizeChange($event: PageEvent) {

@@ -22,7 +22,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
   ], 
-  exports: [
+  entryComponents: [
       GiaovienDialogComponent
     ]
 })

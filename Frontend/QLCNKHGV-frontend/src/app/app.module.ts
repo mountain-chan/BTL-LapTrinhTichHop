@@ -7,6 +7,7 @@ import { DashboardModule } from './modules/dashboard.module';
 import { LayoutModule } from './layouts/layout.model';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentsModule } from './core/components/component.model';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ComponentsModule } from './core/components/component.model';
     BrowserModule,
     AppRoutingModule,
     
+    ToastrModule.forRoot(),
     //main module
     LayoutModule,
     DashboardModule,

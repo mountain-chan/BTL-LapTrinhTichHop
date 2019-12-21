@@ -1,113 +1,137 @@
 <div class="dialog-container">
     <div mat-dialog-title>
-      <h1 *ngIf="isCreate" class="text-center" mat-dialog-title>
-        THÊM NGÀY NGHỈ LỄ
+      <h1 class="text-center" mat-dialog-title>
+        <span *ngIf="action=='create'">THÊM MỚI</span>
+        <span *ngIf="action=='update'">CẬP NHẬT THÔNG TIN</span>
+        <span *ngIf="action=='delete'">XÁC NHẬN XÓA</span>
+        GIÁO VIÊN
         <mat-icon (click)="cancel()" class="mat-18 close close-dialog" style="cursor: pointer;">close
         </mat-icon>
       </h1>
-      
-      <h1 *ngIf="isView" class="text-center" mat-dialog-title>
-        THÔNG TIN NGÀY NGHỈ LỄ
-        <mat-icon (click)="cancel()" class="mat-18 close close-dialog" style="cursor: pointer;">close
-        </mat-icon>
-      </h1>
-    
-      <h1 *ngIf="isUpdate" class="text-center" mat-dialog-title>
-        CẬP NHẬT NGÀY NGHỈ LỄ
-        <mat-icon (click)="cancel()" class="mat-18 close close-dialog" style="cursor: pointer;">close
-        </mat-icon>
-      </h1>
-    
     </div>
     <div class="" mat-dialog-content>
-      <form [formGroup]="holidayForm">
-        <div class="row">
-          <div class="form-group col-md-4">
-            <label>Tên ngày nghỉ</label>
+
+      <div class="row" *ngIf="action=='delete'">
+        Bạn có chắc chắn muốn xóa giáo viên này không?
+      </div>
+
+      <form [formGroup]="giaovienForm" *ngIf="action!='delete'">
+
+        <div class="row" *ngIf="action==='update'">
+          <div class="col-md-4">
+            <label>Mã giáo viên</label>
           </div>
           <div class="form-group col-md-8">
-            <input formControlName="tenNgayNghi"
-            [attr.tabindex]="isView ? -1 : ''"
-                    class="form-control"
-                    [ngClass]="setClassInput()" 
-                    required=""
-                    type="text"
-                    placeholder="Tên ngày nghỉ"
-                    >
+            <input class="form-control" formControlName="maGiaoVien" type="text" disabled>
           </div>
         </div>
+
         <div class="row">
-          <div class="form-group col-md-4">
-            <label>Từ ngày</label>
+          <div class="col-md-4">
+            <label>Tên giáo viên</label>
           </div>
           <div class="form-group col-md-8">
-            <input
-            [attr.tabindex]="isView ? -1 : ''"
-              (dateTimeChange)="setStartDate($event)"
-              (input)="onChangeInputStartDate($event)"
-              [owlDateTime]="tuNgay"
-              [owlDateTimeTrigger]="tuNgay"
-              [ngClass]="setClassInput()" 
-              class="form-control"
-              formControlName="tuNgay"
-              id="tuNgay"
-              placeholder="Ngày bắt đầu"
-              type="text"
-              >
-            <owl-date-time [pickerType]="'calendar'" #tuNgay></owl-date-time>
+            <input class="form-control" 
+            formControlName="tenGiaoVien" 
+            placeholder="Tên giáo viên"
+            type="text" >
           </div>
         </div>
+
         <div class="row">
-          <div class="form-group col-md-4">
-            <label>Đến ngày</label>
+          <div class="col-md-4">
+            <label>Bộ môn</label>
           </div>
           <div class="form-group col-md-8">
-            <input 
-            [attr.tabindex]="isView ? -1 : ''"
-              (dateTimeChange)="setEndDate($event)"
-              (input)="onChangeInputEndDate($event)"
-              [owlDateTime]="denNgay" 
-              [owlDateTimeTrigger]="denNgay"
-              [ngClass]="setClassInput()" 
-              class="form-control" 
-              formControlName="denNgay" 
-              id="denNgay"
-              placeholder="Ngày kết thúc"
-              >
-            <owl-date-time [pickerType]="'calendar'" #denNgay></owl-date-time>
+            <select  class="form-control m-b" formControlName="idBoMon">
+              <option value="">Bộ môn</option>
+              <option *ngFor="let bomon of listBoMon" [value]="bomon?.Id">
+                {{bomon?.Ten}}
+              </option>
+            </select>
           </div>
         </div>
+
         <div class="row">
-          <div class="form-group col-md-4">
-            <label>Số ngày nghỉ</label>
+          <div class="col-md-4">
+            <label>Giới tính</label>
           </div>
           <div class="form-group col-md-8">
-            <input formControlName="soNgayNghi"
-            [attr.tabindex]="isView ? -1 : ''"
-                    class="form-control disabled"
-                    required=""
-                    type="number"
-                    placeholder="Tổng số ngày"
-                    >
+            <label class="radio-inline">
+              <input type="radio" formControlName="gioiTinh" [value]="true" name="gioiTinh" checked>Nam
+            </label>&nbsp;&nbsp;
+            <label class="radio-inline">
+              <input type="radio" formControlName="gioiTinh" [value]="false" name="gioiTinh">Nữ
+            </label>
           </div>
         </div>
-      </form>
-    </div>
-    <div mat-dialog-actions>
-      <button (click)="cancel()" class="btn btn-danger btn-submit">Hủy</button>
-      <button
-        *ngIf="isUpdate"
-        [disabled]="disableUpdateButton()"
-        (click)="editHoliday()"
-        class="btn btn-success btn-submit1">Cập nhập
-      </button>
-      <button
-        *ngIf="isCreate"
-        [disabled]="disableCreateButton()"
-        (click)="createHoliday()"
-        class="btn btn-success btn-submit1">Thêm
-      </button>
-    </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Ngày sinh</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input [owlDateTime]="ngaySinh" [owlDateTimeTrigger]="ngaySinh" class="form-control"
+              formControlName="ngaySinh" id="ngaySinh">
+            <owl-date-time [pickerType]="'calendar'" #ngaySinh></owl-date-time>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Địa chỉ</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input class="form-control" 
+            formControlName="diaChi" 
+            placeholder="Địa chỉ giáo viên"
+            type="text" >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Số điện thoại</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input class="form-control" 
+            formControlName="soDienThoai" 
+            placeholder="Số điện thoại"
+            type="text" >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Email</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input class="form-control" 
+            formControlName="email" 
+            placeholder="Email"
+            type="text" >
+          </div>
+        </div>
+
+    </form>
   </div>
+
+  <div mat-dialog-actions>
+    <button (click)="cancel()" class="btn btn-danger my-btn">Hủy</button>
+
+    <button (click)="submit()" *ngIf="action==='create'" [disabled]="disableCreateButton()"
+      class="btn btn-success my-btn">Thêm mới
+    </button>
+
+    <button (click)="submit()" *ngIf="action==='update'" [disabled]="disableUpdateButton()"
+      class="btn btn-success my-btn">Cập nhật
+    </button>
+
+    <button (click)="submit()" *ngIf="action==='delete'"
+      class="btn btn-success my-btn">Đồng ý
+    </button>
+
+  </div>
+</div>
   
   

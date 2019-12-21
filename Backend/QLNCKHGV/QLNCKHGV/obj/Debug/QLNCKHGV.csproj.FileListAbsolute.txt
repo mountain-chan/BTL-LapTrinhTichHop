@@ -49,3 +49,4 @@ E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Bac
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\bin\System.Web.Http.WebHost.xml
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\obj\Debug\QLNCKHGV.dll
 E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\obj\Debug\QLNCKHGV.pdb
+E:\BaiGiangCacMonHoc\2019-2020_1\CongNgheLapTrinhTichHop\BTL-LapTrinhTichHop\Backend\QLNCKHGV\QLNCKHGV\obj\Debug\QLNCKHGV.csprojResolveAssemblyReference.cache

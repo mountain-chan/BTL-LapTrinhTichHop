@@ -1,7 +1,7 @@
 <div class="table-data">
     <div class="toolbar">
       <div class="auto">
-        <button (click)="addNewgiaovien()"
+        <button (click)="openDialogGroup('create')"
           class="btn btn-primary pull-right">Thêm giáo viên
         </button>
       </div>
@@ -31,11 +31,11 @@
               <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.NgaySinh | date: 'dd/MM/yyyy'}}</td>
               <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Email}}</td>
               <td>
-                <mat-icon (click)="editgiaovien(giaovien?.Id)"
+                <mat-icon (click)="openDialogGroup('update', giaovien?.Id)"
                   class="mat-18" title="Sửa thông tin"
                   titlePosition="below" style="cursor: pointer;">edit
                 </mat-icon>
-                <mat-icon (click)="deletegiaovien(giaovien?.Ten, giaovien?.Id)"
+                <mat-icon (click)="openDialogGroup('delete', giaovien?.Id)"
                   class="mat-18" title="Xóa giáo viên"
                   style="cursor: pointer;">delete
                 </mat-icon>
