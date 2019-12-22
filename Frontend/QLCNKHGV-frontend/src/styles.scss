@@ -10,8 +10,9 @@ body {
     font-size: 13px;
 }
 
-.auto-with{
+.with-auto{
     width: auto;
+    margin-left: 10px;
 }
 
 *:focus {
@@ -35,7 +36,7 @@ body {
 
 th{
     border-bottom: 2px solid #e0e0e0;
-    font-weight: bold;
+    font-weight: 500;
     color: black;
     vertical-align: bottom;
     padding-top: 16px;
@@ -46,8 +47,7 @@ th{
 
 .toolbar{
     display: flex;
-    justify-content: baseline;
-    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
     width: 100%;
 }
 
