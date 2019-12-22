@@ -60,7 +60,7 @@ export class ListGiaovienComponent implements OnInit {
 
   openDialogGroup(action: string, idGiaoVien?: any) {
     const dialogRef = this.dialog.open(GiaovienDialogComponent, {
-      width: '700px',
+      width: '600px',
       closeOnNavigation: true,
       data: {
         action,

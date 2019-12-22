@@ -7,6 +7,21 @@ body {
     font-size: 13px;
 }
 
+input {
+    background-color: transparent;
+    border: 0px solid;
+    height: 20px;
+    width: 160px;
+    color: #CCC;
+}
+
+// input:focus {
+//     outline: none !important;
+//     border: none;
+//     box-shadow: none;
+// }
+
+// custom css table
 .table-data{
     padding: 30px;
 }
@@ -36,4 +51,42 @@ th{
     justify-content: baseline;
     -webkit-justify-content: flex-end;
     width: 100%;
+}
+
+.my-btn{
+    margin-left: 10px;
+    float: right;
+    height: 35px;
+}
+
+// custom css datepicker
+.cdk-overlay-connected-position-bounding-box> {
+    div {
+      width: 280px;
+    }
+  }
+
+owl-date-time-container,
+owl-date-time-container#owl-dt-picker-0,
+owl-date-time-container#owl-dt-picker-1 {
+  width: 100% !important;
+}
+
+.owl-dt-container-inner.ng-trigger.ng-trigger-fadeInPicker {
+    font-size: 15px !important;
+}
+
+owl-date-time-calendar.owl-dt-container-row.owl-dt-calendar {
+    overflow-y: hidden;
+}
+
+.owl-dt-container-row {
+    border-bottom: none;
+}
+
+// custom css dialog
+.mat-dialog-container{
+    box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
+    background: #ffffff;
+    color: #676a6c;
 }

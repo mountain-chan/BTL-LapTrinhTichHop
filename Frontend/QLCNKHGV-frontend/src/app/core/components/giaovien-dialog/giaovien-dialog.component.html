@@ -116,7 +116,7 @@
     </form>
   </div>
 
-  <div mat-dialog-actions>
+  <div mat-dialog-actions class="toolbar">
     <button (click)="cancel()" class="btn btn-danger my-btn">Hủy</button>
 
     <button (click)="submit()" *ngIf="action==='create'" [disabled]="disableCreateButton()"
