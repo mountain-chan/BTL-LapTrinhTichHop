@@ -7,6 +7,7 @@ import { NavigationStart, Router, RouterEvent } from '@angular/router';
 import { filter, take, tap, debounceTime } from 'rxjs/operators';
 import { SuccessTitle, ErrorTitle } from '../../enums/notification.enum';
 import { BoMonService } from '../../services/bomon/bomon.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-giaovien-dialog',
@@ -98,18 +99,17 @@ export class GiaovienDialogComponent implements OnInit {
 
   submit() {
     if (!this.giaovienForm.invalid) {
-
+      const ngaySinh = moment(this.f.ngaySinh.value).format('YYYY-MM-DD');
       if (this.action === 'create') {
         const data = {
-          tenGiaoVien: this.f.tenGiaoVien.value.trim(),
-          idBoMon: this.f.idBoMon.value,
-          gioiTinh: this.f.gioiTinh.value,
-          ngaySinh: this.f.ngaySinh.value,
-          diaChi: this.f.diaChi.value.trim(),
-          soDienThoai: this.f.soDienThoai.value.trim(),
-          email: this.f.email.value.trim()
+          Ten: this.f.tenGiaoVien.value.trim(),
+          IdBoMon: this.f.idBoMon.value,
+          GioiTinh: this.f.gioiTinh.value,
+          NgaySinh: ngaySinh,
+          DiaChi: this.f.diaChi.value.trim(),
+          DienThoai: this.f.soDienThoai.value.trim(),
+          Email: this.f.email.value.trim()
         }
-
         this.giaoVienService.createGiaoVien(data)
           .subscribe((res) => {
             if (res.code === 200 && res.status) {
@@ -123,13 +123,14 @@ export class GiaovienDialogComponent implements OnInit {
       } else if (this.action === 'update') {
 
         const data = {
-          tenGiaoVien: this.f.tenGiaoVien.value.trim(),
-          idBoMon: this.f.idBoMon.value,
-          gioiTinh: this.f.gioiTinh.value,
-          ngaySinh: this.f.ngaySinh.value,
-          diaChi: this.f.diaChi.value.trim(),
-          soDienThoai: this.f.soDienThoai.value.trim(),
-          email: this.f.email.value.trim()
+          Id: this.idGiaoVien,
+          Ten: this.f.tenGiaoVien.value.trim(),
+          IdBoMon: this.f.idBoMon.value,
+          GioiTinh: this.f.gioiTinh.value,
+          NgaySinh: ngaySinh,
+          DiaChi: this.f.diaChi.value.trim(),
+          DienThoai: this.f.soDienThoai.value.trim(),
+          Email: this.f.email.value.trim()
         }
 
         this.giaoVienService.updateGiaoVien(this.idGiaoVien, data)

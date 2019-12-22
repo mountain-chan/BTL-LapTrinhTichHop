@@ -44,7 +44,7 @@
           </div>
           <div class="form-group col-md-8">
             <select  class="form-control m-b" formControlName="idBoMon">
-              <option value="">Bộ môn</option>
+              <option value="1">Bộ môn</option>
               <option *ngFor="let bomon of listBoMon" [value]="bomon?.Id">
                 {{bomon?.Ten}}
               </option>

@@ -12,7 +12,7 @@ go
 Create table BoMon
 (
 	Id int Identity Primary key,
-	Ma char(5),
+	Ma varchar(5),
 	Ten Nvarchar(50)
 )
 go
@@ -20,7 +20,7 @@ go
 Create table GiaoVien
 (
 	Id int Identity Primary key,
-	Ma char(5),
+	Ma varchar(5),
 	Ten Nvarchar(40),
 	GioiTinh Bit, 
 	NgaySinh Date,
@@ -41,7 +41,7 @@ go
 Create table Lop
 (
 	Id int Identity Primary key,
-	Ma char(5),
+	Ma varchar(5),
 	Te Nvarchar(50),
 	SiSo int,
 	IdHe int references He(Id)
@@ -50,7 +50,7 @@ go
 Create table HocVien
 (
 	Id int Identity Primary key,
-	Ma char(5),
+	Ma varchar(5),
 	Ten Nvarchar(40),
 	GioiTinh Bit,
 	NgaySinh Date,
@@ -124,7 +124,7 @@ go
 Create table HocPhan
 (
 	Id int Identity Primary key,
-	Ma char(5),
+	Ma varchar(5),
 	Ten Nvarchar(100),
 	SoTinChi int,
 	IdDoiTuongHoc int references He(Id),
@@ -135,7 +135,7 @@ go
 Create table LopHocPhan
 (
 	Id int Identity Primary key,
-	Ma char(5),
+	Ma varchar(5),
 	SiSo int,
 	KiHoc int,
 	NamHoc int,
@@ -188,7 +188,7 @@ go
 Create table Sach
 (
 	Id int Identity Primary key,
-	Ma char(5),
+	Ma varchar(5),
 	Ten Nvarchar(100),
 	NoiXuatBan Nvarchar(100),
 	KiHoc int,
@@ -222,7 +222,7 @@ go
 Create table BaiBao
 (
 	Id int Identity Primary key,
-	Ma char(5),
+	Ma varchar(5),
 	Ten Nvarchar(100),
 	TenTapChiCongBo Nvarchar(150),
 	KiHoc int,
@@ -253,7 +253,7 @@ go
 Create table DeTai
 (
 	Id int Identity Primary key,
-	Ma char(5),
+	Ma varchar(5),
 	Ten Nvarchar(200),
 	KiHoc int,
 	NamHoc int,
@@ -279,10 +279,10 @@ go
 create trigger Insert_BoMon on BoMon for insert
 as
 begin
-	declare @Id int, @Ma char(5)
+	declare @Id int, @Ma varchar(5)
 	select @Id=Id from inserted
 
-	set @Ma = 'BM'+RIGHT('000'+CONVERT(char(3), @Id), 5)
+	set @Ma = 'BM'+RIGHT('000'+CONVERT(varchar(3), @Id), 3)
 
 	update BoMon set Ma=@Ma  where Id=@Id 
 end
@@ -291,10 +291,10 @@ go
 create trigger Insert_GiaoVien on GiaoVien for insert
 as
 begin
-	declare @Id int, @Ma char(5)
+	declare @Id int, @Ma varchar(5)
 	select @Id=Id from inserted
 
-	set @Ma = 'GV'+RIGHT('000'+CONVERT(char(3), @Id), 5)
+	set @Ma = 'GV'+RIGHT('000'+CONVERT(varchar(3), @Id), 3)
 
 	update GiaoVien set Ma=@Ma  where Id=@Id 
 end
@@ -303,10 +303,10 @@ go
 create trigger Insert_BaiBao on BaiBao for insert
 as
 begin
-	declare @Id int, @Ma char(5)
+	declare @Id int, @Ma varchar(5)
 	select @Id=Id from inserted
 
-	set @Ma = 'BB'+RIGHT('000'+CONVERT(char(3), @Id), 5)
+	set @Ma = 'BB'+RIGHT('000'+CONVERT(varchar(3), @Id), 3)
 
 	update BaiBao set Ma=@Ma  where Id=@Id 
 end
@@ -315,10 +315,10 @@ go
 create trigger Insert_DeTai on DeTai for insert
 as
 begin
-	declare @Id int, @Ma char(5)
+	declare @Id int, @Ma varchar(5)
 	select @Id=Id from inserted
 
-	set @Ma = 'DT'+RIGHT('000'+CONVERT(char(3), @Id), 5)
+	set @Ma = 'DT'+RIGHT('000'+CONVERT(varchar(3), @Id), 3)
 
 	update DeTai set Ma=@Ma  where Id=@Id 
 end
@@ -327,10 +327,10 @@ go
 create trigger Insert_Sach on Sach for insert
 as
 begin
-	declare @Id int, @Ma char(5)
+	declare @Id int, @Ma varchar(5)
 	select @Id=Id from inserted
 
-	set @Ma = 'SA'+RIGHT('000'+CONVERT(char(3), @Id), 5)
+	set @Ma = 'SA'+RIGHT('000'+CONVERT(varchar(3), @Id), 3)
 
 	update Sach set Ma=@Ma  where Id=@Id 
 end
@@ -569,11 +569,11 @@ INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoai
 INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoaiSach]) VALUES (N'Sách 4', N'Học viện Kỹ Thuật Quân Sự', 2019, 2, 3, 1)
 INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoaiSach]) VALUES (N'Sách 5', N'Học viện Kỹ Thuật Quân Sự', 2018, 2, 2, 1)
 INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoaiSach]) VALUES (N'Sách 6', N'Học viện Kỹ Thuật Quân Sự', 2019, 2, 4, 3)
-
+go
 INSERT [dbo].[DeTai] ([Ten], [NamHoc], [KiHoc], [CoQuanQuanLy], [TinhTrang], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', 2018, 1, N'Bộ quốc phòng', 1, 1)
 INSERT [dbo].[DeTai] ([Ten], [NamHoc], [KiHoc], [CoQuanQuanLy], [TinhTrang], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', 2018, 2, N'Bộ quốc phòng', 1,  1)
 INSERT [dbo].[DeTai] ([Ten], [NamHoc], [KiHoc], [CoQuanQuanLy], [TinhTrang], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', 2019, 1, N'Học viện kỹ thuật quân sự', 1, 2)
-
+go
 INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo T', N'Tạp chí kỹ thuật', 2019, 1, 1)
 INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo bac', N'Ứng dụng mới', 2018, 1,  1)
 INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo VN', N'Kỹ thuật lập trình hiệu quả', 2019, 2, 2)
