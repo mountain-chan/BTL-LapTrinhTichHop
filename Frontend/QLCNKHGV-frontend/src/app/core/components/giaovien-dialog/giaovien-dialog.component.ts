@@ -112,11 +112,11 @@ export class GiaovienDialogComponent implements OnInit {
         }
         this.giaoVienService.createGiaoVien(data)
           .subscribe((res) => {
-            if (res.code === 200 && res.status) {
+            if (res.status) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
               this.dialogRef.close(true);
             }
-            else if (res.code === 200 && res.status === false) {
+            else if (res.status === false) {
               this.notificationService.showError(res.message, ErrorTitle, 3000);
             }
           })
@@ -133,13 +133,13 @@ export class GiaovienDialogComponent implements OnInit {
           Email: this.f.email.value.trim()
         }
 
-        this.giaoVienService.updateGiaoVien(this.idGiaoVien, data)
+        this.giaoVienService.updateGiaoVien(data)
           .subscribe((res) => {
-            if (res.code === 200 && res.status === true) {
+            if (res.status === true) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
               this.dialogRef.close(true);
             }
-            else if (res.code === 200 && res.status === false) {
+            else if (res.status === false) {
               this.notificationService.showError(res.message, ErrorTitle, 3000);
             }
           });
@@ -148,14 +148,15 @@ export class GiaovienDialogComponent implements OnInit {
 
         this.giaoVienService.deleteGiaoVien(this.idGiaoVien)
           .subscribe((res) => {
-            if (res.code === 200 && res.status === true) {
+            if (res.status === true) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
               this.dialogRef.close(true);
             }
-            else if (res.code === 200 && res.status === false) {
+            else if (res.status === false) {
               this.notificationService.showError(res.message, ErrorTitle, 3000);
             }
           });
+          
       }
     } 
   }

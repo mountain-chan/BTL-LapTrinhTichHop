@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+
 html, body { height: 100%; }
 body { 
     margin: 0; 
@@ -7,19 +10,14 @@ body {
     font-size: 13px;
 }
 
-input {
-    background-color: transparent;
-    border: 0px solid;
-    height: 20px;
-    width: 160px;
-    color: #CCC;
+.auto-with{
+    width: auto;
 }
 
-// input:focus {
-//     outline: none !important;
-//     border: none;
-//     box-shadow: none;
-// }
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
 
 // custom css table
 .table-data{
@@ -56,31 +54,6 @@ th{
 .my-btn{
     margin-left: 10px;
     height: 35px;
-}
-
-// custom css datepicker
-.cdk-overlay-connected-position-bounding-box> {
-    div {
-      width: 280px;
-    }
-  }
-
-owl-date-time-container,
-owl-date-time-container#owl-dt-picker-0,
-owl-date-time-container#owl-dt-picker-1 {
-  width: 100% !important;
-}
-
-.owl-dt-container-inner.ng-trigger.ng-trigger-fadeInPicker {
-    font-size: 15px !important;
-}
-
-owl-date-time-calendar.owl-dt-container-row.owl-dt-calendar {
-    overflow-y: hidden;
-}
-
-.owl-dt-container-row {
-    border-bottom: none;
 }
 
 // custom css dialog

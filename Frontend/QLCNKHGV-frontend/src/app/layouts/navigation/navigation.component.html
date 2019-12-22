@@ -1,7 +1,26 @@
 <!-- Sidebar -->
 <div class="w3-sidebar sidebar-color w3-bar-block" style="width:15%">
-    <h3 class="w3-bar-item">Menu</h3>
-    <a href="#" class="w3-bar-item w3-button">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button">Link 3</a>
-  </div>
+  <p class="w3-bar-item my-icon">GV+</p>
+
+  <a [ngClass]="{active: activeRoute('/list-giaovien')}" class="w3-bar-item w3-button"
+    [routerLink]="['/list-giaovien']">
+    <i class="fa fa-users"></i>&nbsp;
+    <span class="nav-label">Giáo viên</span>
+  </a>
+
+  <a [ngClass]="{active: activeRoute('/list-baibao')}" class="w3-bar-item w3-button" [routerLink]="['/list-baibao']">
+    <i class="fa fa-newspaper-o"></i>&nbsp;
+    <span class="nav-label">Bài báo</span>
+  </a>
+
+  <a [ngClass]="{active: activeRoute('/list-detai')}" class="w3-bar-item w3-button" [routerLink]="['/list-detai']">
+    <i class="fa fa-lightbulb-o"></i>&nbsp;
+    <span class="nav-label">Đề tài</span>
+  </a>
+
+  <a [ngClass]="{active: activeRoute('/list-sach')}" class="w3-bar-item w3-button" [routerLink]="['/list-sach']">
+    <i class="fa fa-book"></i>&nbsp;
+    <span class="nav-label">Sách</span>
+  </a>
+
+</div>

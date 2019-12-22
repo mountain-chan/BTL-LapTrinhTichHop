@@ -1,9 +1,16 @@
 <div class="table-data">
     <div class="toolbar">
-      <div class="auto">
+      <div class="">
+
         <button (click)="openDialogGroup('create')"
-          class="btn btn-primary pull-right">Thêm giáo viên
+          class="btn btn-primary my-btn pull-right">Thêm giáo viên
         </button>
+
+        <select class="form-control auto-with" (change)="onBoMonChange($event.target.value)">
+          <option selected value="">Bộ môn</option>
+          <option *ngFor="let bomon of listBoMon" [value]="bomon?.Id">{{bomon?.Ten}}</option>
+        </select>
+
       </div>
     </div>
   

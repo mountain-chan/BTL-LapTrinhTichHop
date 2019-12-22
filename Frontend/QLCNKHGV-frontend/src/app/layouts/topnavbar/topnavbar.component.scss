@@ -18,3 +18,41 @@ input:focus {
   border: none;
   box-shadow: none;
 }
+
+li:hover {
+  background: lightgray;
+}
+
+.focus {
+  .search-result {
+    transform: translateY(0);
+    visibility: visible;
+
+    .recently {
+      max-width: 100%;
+    }
+  }
+}
+
+
+.search-result {
+  width: 600px;
+  height: 100%;
+  background: white;
+  box-shadow: 2px 3px 8px -2px rgba(0, 0, 0, 0.58);
+  border-radius: 4px;
+  visibility: hidden;
+
+  .list-users {
+    padding: 10px;
+
+    .user {
+      list-style: none;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #80808036;
+      display: flex;
+      cursor: pointer;
+      
+    }
+  }
+}

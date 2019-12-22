@@ -1,3 +1,36 @@
-<nav class="navbar navbar-expand-sm navbar-custom fixed-top">
-  <input class="form-control custom" type="text" placeholder="Search">
+<nav class="navbar navbar-expand-sm navbar-custom ">
+  <div (click)="onClickOutSide()" class="">
+
+    <input class="form-control custom" (input)="onNameChange($event.target.value)"
+    onClick="this.setSelectionRange(0, this.value.length)" type="text" placeholder="Search">
+
+    <div class="search-result" *ngIf="focused">
+      <ul class="list-users">
+        <li (click)="detailUser(user._id)" *ngFor="let user of resultSearchUsers" class="user row">
+          
+          <div class="col-md-4 margin-auto">
+            <span class="block m-t-xs">
+              <strong class="font-bold">{{user.Ten}}
+              </strong>
+            </span>
+            <span class="text-muted text-xs block">
+              {{user.Ma}}
+            </span>
+          </div>
+          <div class="col-md-4 margin-auto">
+            <span class="text-muted text-xs block">
+              {{user.DienThoai}}
+            </span>
+            <span class="text-muted text-xs block">
+              {{user.Email}}
+            </span>
+          </div>
+        </li>
+      </ul>
+      <div *ngIf="resultSearchUsers.length === 0">
+        Không tìm thấy kết quả
+      </div>
+    </div>
+  </div>
+  
 </nav>

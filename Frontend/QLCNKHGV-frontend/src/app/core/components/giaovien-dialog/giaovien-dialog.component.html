@@ -57,23 +57,29 @@
             <label>Giới tính</label>
           </div>
           <div class="form-group col-md-8">
+
             <label class="radio-inline">
-              <input type="radio" formControlName="gioiTinh" [value]="true" name="gioiTinh" checked>Nam
-            </label>&nbsp;&nbsp;
+              <input  type="radio" 
+              formControlName="gioiTinh" [value]="true" name="gioiTinh" checked>Nam
+            </label> &nbsp;&nbsp;
+
             <label class="radio-inline">
-              <input type="radio" formControlName="gioiTinh" [value]="false" name="gioiTinh">Nữ
+              <input  type="radio" 
+                formControlName="gioiTinh" [value]="false" name="gioiTinh">Nữ
             </label>
           </div>
         </div>
-
+ 
         <div class="row">
           <div class="col-md-4">
             <label>Ngày sinh</label>
           </div>
           <div class="form-group col-md-8">
-            <input [owlDateTime]="ngaySinh" [owlDateTimeTrigger]="ngaySinh" class="form-control"
-              formControlName="ngaySinh" id="ngaySinh">
+
+            <input formControlName="ngaySinh" class="form-control" 
+              [owlDateTimeTrigger]="ngaySinh" [owlDateTime]="ngaySinh" >
             <owl-date-time [pickerType]="'calendar'" #ngaySinh></owl-date-time>
+
           </div>
         </div>
 
@@ -112,7 +118,6 @@
             type="text" >
           </div>
         </div>
-
     </form>
   </div>
 

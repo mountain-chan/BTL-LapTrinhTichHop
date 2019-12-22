@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TopnavbarComponent } from './topnavbar/topnavbar.component';
 import { LayoutComponent } from './layout.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { LayoutComponent } from './layout.component';
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
+    AngularFontAwesomeModule
   ],
   declarations: [
     FooterComponent,
