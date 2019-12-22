@@ -139,5 +139,50 @@ namespace QLNCKHGV.Controllers
 
         //    return Ok(listGiaoVien);
         //}
+
+        [Route("api/GiaoVien/ThemGiaoVien")]
+        public IHttpActionResult PostThemGiaoVien(GiaoVien model)
+        {
+            if (!ModelState.IsValid)
+                return Ok(new { status = false, message = "Sai dữ liệu đầu vào!" });
+            db.GiaoViens.Add(model);
+            db.SaveChanges();
+            return Ok(new { status = true, message = "Thêm mới Giáo viên thành công!" });
+        }
+
+        [Route("api/GiaoVien/SuaGiaoVien")]
+        public IHttpActionResult PutSuaGiaoVien(GiaoVien model)
+        {
+            if (!ModelState.IsValid)
+                return Ok(new { status = false, message = "Sai dữ liệu đầu vào!" });
+            GiaoVien dbEntry = db.GiaoViens.Find(model.Id);
+            if (dbEntry == null)
+            {
+                return Ok(new { status = false, message = "Không tồn tại Giáo viên!" });
+            }
+            dbEntry.Ten = model.Ten;
+            dbEntry.GioiTinh = model.GioiTinh;
+            dbEntry.NgaySinh = model.NgaySinh;
+            dbEntry.DiaChi = model.DiaChi;
+            dbEntry.DienThoai = model.DienThoai;
+            dbEntry.Email = model.Email;
+            dbEntry.IdBoMon = model.IdBoMon;
+            db.SaveChanges();
+            return Ok(new { status = true, message = "Sửa Giáo viên thành công!" });
+        }
+
+        [Route("api/GiaoVien/XoaGiaoVien")]
+        public IHttpActionResult DeleteXoaGiaoVien(int Id)
+        {
+            GiaoVien dbEntry = db.GiaoViens.Find(Id);
+            if (dbEntry == null)
+            {
+                return Ok(new { status = false, message = "Không tồn tại Giáo viên!" });
+            }
+            db.GiaoViens.Remove(dbEntry);
+            db.SaveChanges();
+            return Ok(new { status = true, message = "Xóa Giáo viên thành công!" });
+        }
+
     }
 }
