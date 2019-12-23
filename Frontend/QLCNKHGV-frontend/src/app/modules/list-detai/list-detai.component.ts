@@ -5,8 +5,8 @@ import { ActivatedRoute, Router, RouterEvent, NavigationStart } from '@angular/r
 import { MatDialog, PageEvent } from '@angular/material';
 import { filter, tap } from 'rxjs/operators';
 import { updatePageSizeConfig } from 'src/app/core/helper/app.helper';
-import { PAGE_SIZE_CONFIG, LIST_GIAOVIEN } from 'src/app/core/enums/variables.enum';
-import { GiaovienDialogComponent } from 'src/app/core/components/giaovien-dialog/giaovien-dialog.component';
+import { PAGE_SIZE_CONFIG, LIST_DETAI } from 'src/app/core/enums/variables.enum';
+import { DetaiDialogComponent } from 'src/app/core/components/detai-dialog/detai-dialog.component';
 
 @Component({
   selector: 'app-list-detai',
@@ -43,7 +43,7 @@ export class ListDetaiComponent implements OnInit {
 
   ngOnInit() {
     this.pageSizeConfig = localStorage.getItem(PAGE_SIZE_CONFIG);
-    this.pageSize = JSON.parse(this.pageSizeConfig)[LIST_GIAOVIEN];
+    this.pageSize = JSON.parse(this.pageSizeConfig)[LIST_DETAI];
     this.route.queryParams
       .subscribe((params) => {
         if (params.page_size) {
@@ -69,13 +69,13 @@ export class ListDetaiComponent implements OnInit {
       });
   }
 
-  openDialogGroup(action: string, idGiaoVien?: any) {
-    const dialogRef = this.dialog.open(GiaovienDialogComponent, {
+  openDialog(action: string, id?: any) {
+    const dialogRef = this.dialog.open(DetaiDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
       data: {
         action,
-        idGiaoVien
+        id
       }
     });
     dialogRef.afterClosed()
@@ -119,8 +119,8 @@ export class ListDetaiComponent implements OnInit {
   }
 
   pageSizeChange($event: PageEvent) {
-    updatePageSizeConfig(LIST_GIAOVIEN, $event.pageSize);
-    return this.router.navigateByUrl(`/list-giaovien?page_number=${$event.pageIndex}&page_size=${$event.pageSize}`);
+    updatePageSizeConfig(LIST_DETAI, $event.pageSize);
+    return this.router.navigateByUrl(`/list-detai?page_number=${$event.pageIndex}&page_size=${$event.pageSize}`);
   }
 
 

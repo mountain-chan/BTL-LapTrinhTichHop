@@ -12,7 +12,7 @@
       <option [value]=2>Kì 2</option>
     </select>
 
-    <button (click)="addNewSach()"
+    <button (click)="openDialog('create')"
       class="btn btn-primary my-btn">Thêm sách
     </button>
   </div>
@@ -45,11 +45,11 @@
             <td (click)="viewsach(sach?.Id)">{{sach?.NamHoc}}</td>
             <td (click)="viewsach(sach?.Id)">{{sach?.KiHoc}}</td>
             <td>
-              <mat-icon (click)="editsach(sach?.Id)"
+              <mat-icon (click)="openDialog('update', sach?.Id)"
                 class="mat-18" title="Sửa thông tin"
                 titlePosition="below" style="cursor: pointer;">edit
               </mat-icon>
-              <mat-icon (click)="deletesach(sach?.Ten, sach?.Id)"
+              <mat-icon (click)="openDialog('delete', sach?.Id)"
                 class="mat-18" title="Xóa sách"
                 style="cursor: pointer;">delete
               </mat-icon>

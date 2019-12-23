@@ -4,9 +4,9 @@ import { ActivatedRoute, Router, NavigationStart, RouterEvent } from '@angular/r
 import { MatDialog, PageEvent } from '@angular/material';
 import { GiaoVienService } from 'src/app/core/services/giaovien/giaovien.service';
 import { filter, tap } from 'rxjs/operators';
-import { PAGE_SIZE_CONFIG, LIST_GIAOVIEN } from 'src/app/core/enums/variables.enum';
+import { PAGE_SIZE_CONFIG, LIST_BAIBAO } from 'src/app/core/enums/variables.enum';
 import { updatePageSizeConfig } from 'src/app/core/helper/app.helper';
-import { GiaovienDialogComponent } from 'src/app/core/components/giaovien-dialog/giaovien-dialog.component';
+import { BaibaoDialogComponent } from 'src/app/core/components/baibao-dialog/baibao-dialog.component';
 
 @Component({
   selector: 'app-list-baibao',
@@ -43,7 +43,7 @@ export class ListBaibaoComponent implements OnInit {
 
   ngOnInit() {
     this.pageSizeConfig = localStorage.getItem(PAGE_SIZE_CONFIG);
-    this.pageSize = JSON.parse(this.pageSizeConfig)[LIST_GIAOVIEN];
+    this.pageSize = JSON.parse(this.pageSizeConfig)[LIST_BAIBAO];
     this.route.queryParams
       .subscribe((params) => {
         if (params.page_size) {
@@ -69,13 +69,13 @@ export class ListBaibaoComponent implements OnInit {
       });
   }
 
-  openDialogGroup(action: string, idGiaoVien?: any) {
-    const dialogRef = this.dialog.open(GiaovienDialogComponent, {
+  openDialog(action: string, id?: any) {
+    const dialogRef = this.dialog.open(BaibaoDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
       data: {
         action,
-        idGiaoVien
+        id
       }
     });
     dialogRef.afterClosed()
@@ -119,8 +119,8 @@ export class ListBaibaoComponent implements OnInit {
   }
 
   pageSizeChange($event: PageEvent) {
-    updatePageSizeConfig(LIST_GIAOVIEN, $event.pageSize);
-    return this.router.navigateByUrl(`/list-giaovien?page_number=${$event.pageIndex}&page_size=${$event.pageSize}`);
+    updatePageSizeConfig(LIST_BAIBAO, $event.pageSize);
+    return this.router.navigateByUrl(`/list-baibao?page_number=${$event.pageIndex}&page_size=${$event.pageSize}`);
   }
 
 }

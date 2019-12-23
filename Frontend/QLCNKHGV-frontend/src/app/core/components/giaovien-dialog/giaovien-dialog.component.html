@@ -43,8 +43,8 @@
             <label>Bộ môn</label>
           </div>
           <div class="form-group col-md-8">
-            <select  class="form-control m-b" formControlName="idBoMon">
-              <option value="1">Bộ môn</option>
+            <select  class="form-control" formControlName="idBoMon">
+              <option value="">Bộ môn</option>
               <option *ngFor="let bomon of listBoMon" [value]="bomon?.Id">
                 {{bomon?.Ten}}
               </option>

@@ -5,10 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule, MatDialogModule, MatDatepickerModule } from '@angular/material';
 import { GiaovienDialogComponent } from './giaovien-dialog/giaovien-dialog.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { BaibaoDialogComponent } from './baibao-dialog/baibao-dialog.component';
+import { DetaiDialogComponent } from './detai-dialog/detai-dialog.component';
+import { SachDialogComponent } from './sach-dialog/sach-dialog.component';
 
 @NgModule({
   declarations: [
-    GiaovienDialogComponent
+    GiaovienDialogComponent,
+    BaibaoDialogComponent,
+    DetaiDialogComponent,
+    SachDialogComponent,
   ],
   imports: [
     // Core module
@@ -24,7 +30,10 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     OwlNativeDateTimeModule,
   ], 
   entryComponents: [
-      GiaovienDialogComponent
+      GiaovienDialogComponent,
+      BaibaoDialogComponent,
+      DetaiDialogComponent,
+      SachDialogComponent,
     ]
 })
 export class ComponentsModule { }

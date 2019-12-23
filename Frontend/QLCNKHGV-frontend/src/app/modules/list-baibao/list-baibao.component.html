@@ -12,7 +12,7 @@
         <option [value]=2>Kì 2</option>
       </select>
 
-      <button (click)="addNewbaibao()"
+      <button (click)="openDialog('create')"
         class="btn btn-primary my-btn">Thêm bài báo
       </button>
     </div>
@@ -45,11 +45,11 @@
               <td (click)="viewbaibao(baibao?.Id)">{{baibao?.NamHoc}}</td>
               <td (click)="viewbaibao(baibao?.Id)">{{baibao?.KiHoc}}</td>
               <td>
-                <mat-icon (click)="editbaibao(baibao?.Id)"
+                <mat-icon (click)="openDialog('update', baibao?.Id)"
                   class="mat-18" title="Sửa thông tin"
                   titlePosition="below" style="cursor: pointer;">edit
                 </mat-icon>
-                <mat-icon (click)="deletebaibao(baibao?.Ten, baibao?.Id)"
+                <mat-icon (click)="openDialog('delete', baibao?.Id)"
                   class="mat-18" title="Xóa giáo viên"
                   style="cursor: pointer;">delete
                 </mat-icon>

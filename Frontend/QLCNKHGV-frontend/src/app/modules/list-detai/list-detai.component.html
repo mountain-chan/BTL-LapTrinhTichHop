@@ -12,7 +12,7 @@
       <option [value]=2>Kì 2</option>
     </select>
 
-    <button (click)="addNewDeTai()"
+    <button (click)="openDialog('create')"
       class="btn btn-primary my-btn">Thêm đề tài
     </button>
   </div>
@@ -47,11 +47,11 @@
             <td (click)="viewdetai(detai?.Id)">{{detai?.NamHoc}}</td>
             <td (click)="viewdetai(detai?.Id)">{{detai?.KiHoc}}</td>
             <td>
-              <mat-icon (click)="editdetai(detai?.Id)"
+              <mat-icon (click)="openDialog('update', detai?.Id)"
                 class="mat-18" title="Sửa thông tin"
                 titlePosition="below" style="cursor: pointer;">edit
               </mat-icon>
-              <mat-icon (click)="deletedetai(detai?.Ten, detai?.Id)"
+              <mat-icon (click)="openDialog('delete', detai?.Id)"
                 class="mat-18" title="Xóa đề tài"
                 style="cursor: pointer;">delete
               </mat-icon>

@@ -6,7 +6,7 @@
         <option *ngFor="let bomon of listBoMon" [value]="bomon?.Id">{{bomon?.Ten}}</option>
       </select>
 
-      <button (click)="openDialogGroup('create')"
+      <button (click)="openDialog('create')"
         class="btn btn-primary my-btn">Thêm giáo viên
       </button>
 
@@ -38,11 +38,11 @@
               <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.NgaySinh | date: 'dd/MM/yyyy'}}</td>
               <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Email}}</td>
               <td>
-                <mat-icon (click)="openDialogGroup('update', giaovien?.Id)"
+                <mat-icon (click)="openDialog('update', giaovien?.Id)"
                   class="mat-18" title="Sửa thông tin"
                   titlePosition="below" style="cursor: pointer;">edit
                 </mat-icon>
-                <mat-icon (click)="openDialogGroup('delete', giaovien?.Id)"
+                <mat-icon (click)="openDialog('delete', giaovien?.Id)"
                   class="mat-18" title="Xóa giáo viên"
                   style="cursor: pointer;">delete
                 </mat-icon>

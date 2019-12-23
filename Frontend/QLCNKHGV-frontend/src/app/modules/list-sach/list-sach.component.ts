@@ -5,8 +5,9 @@ import { ActivatedRoute, Router, RouterEvent, NavigationStart } from '@angular/r
 import { MatDialog, PageEvent } from '@angular/material';
 import { filter, tap } from 'rxjs/operators';
 import { updatePageSizeConfig } from 'src/app/core/helper/app.helper';
-import { PAGE_SIZE_CONFIG, LIST_GIAOVIEN } from 'src/app/core/enums/variables.enum';
+import { PAGE_SIZE_CONFIG, LIST_GIAOVIEN, LIST_SACH } from 'src/app/core/enums/variables.enum';
 import { GiaovienDialogComponent } from 'src/app/core/components/giaovien-dialog/giaovien-dialog.component';
+import { SachDialogComponent } from 'src/app/core/components/sach-dialog/sach-dialog.component';
 
 @Component({
   selector: 'app-list-sach',
@@ -43,7 +44,7 @@ export class ListSachComponent implements OnInit {
 
   ngOnInit() {
     this.pageSizeConfig = localStorage.getItem(PAGE_SIZE_CONFIG);
-    this.pageSize = JSON.parse(this.pageSizeConfig)[LIST_GIAOVIEN];
+    this.pageSize = JSON.parse(this.pageSizeConfig)[LIST_SACH];
     this.route.queryParams
       .subscribe((params) => {
         if (params.page_size) {
@@ -69,13 +70,13 @@ export class ListSachComponent implements OnInit {
       });
   }
 
-  openDialogGroup(action: string, idGiaoVien?: any) {
-    const dialogRef = this.dialog.open(GiaovienDialogComponent, {
+  openDialog(action: string, id?: any) {
+    const dialogRef = this.dialog.open(SachDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
       data: {
         action,
-        idGiaoVien
+        id
       }
     });
     dialogRef.afterClosed()
@@ -119,7 +120,7 @@ export class ListSachComponent implements OnInit {
   }
 
   pageSizeChange($event: PageEvent) {
-    updatePageSizeConfig(LIST_GIAOVIEN, $event.pageSize);
-    return this.router.navigateByUrl(`/list-giaovien?page_number=${$event.pageIndex}&page_size=${$event.pageSize}`);
+    updatePageSizeConfig(LIST_SACH, $event.pageSize);
+    return this.router.navigateByUrl(`/list-sach?page_number=${$event.pageIndex}&page_size=${$event.pageSize}`);
   }
 }
