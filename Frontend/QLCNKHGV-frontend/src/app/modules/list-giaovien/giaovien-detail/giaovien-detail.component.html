@@ -1,0 +1,160 @@
+<div class="container-custom">
+    <div class="row">
+        <div class="col-md-4">
+            <p class="my-icon">GV+</p>
+        </div>
+        <div class="col-md-4">
+            <label class="block">Họ tên: {{Ten}}</label>
+            <label class="block">Mã giáo viên: {{Ma}}</label>
+            <label class="block">Số điện thoại: {{SDT}}</label>
+            <label class="block">Email: {{Email}}</label>
+        </div>
+
+        <div class="col-md-4">
+            <div class="toolbar">
+
+                <div class="wrapper-label">
+                    <label>Năm học: </label>
+                </div>
+                
+
+                <select class="form-control with-auto" >
+                    <option selected value="">Năm học</option>
+                    <option *ngFor="let nam of listNam" [value]="nam">{{nam}}</option>
+                </select>
+
+                <div class="wrapper-label">
+                    <label>Kì học: </label>
+                </div>
+
+                <select class="form-control with-auto" >
+                    <option selected value="">Kì học</option>
+                    <option [value]=1>Kì 1</option>
+                    <option [value]=2>Kì 2</option>
+                </select>
+            </div>
+
+            <div class="top-40">
+                <h5>Tổng tải nghiên cứu khoa học: {{TongTai}}</h5>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="tabs-nc">
+        <mat-tab-group animationDuration="0ms">
+
+            <mat-tab label="Bài báo khoa học">
+                <div class="column">
+                    <div class="table-container">
+                      <table class="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th>STT</th>
+                            <th>Mã bài báo</th>
+                            <th>Tên bài báo</th>
+                            <th>Loại bài báo</th>
+                            <th>Tên tạp chí công bố</th>
+                            <th>Năm học</th>
+                            <th>Kì học</th>
+                            <th>Số giờ</th>
+                          </tr>
+                        </thead>
+                        <tbody *ngIf="listBaiBao?.length > 0">
+                          <tr *ngFor="let baibao of listBaiBao; let i = index;"
+                           style="cursor: pointer;" (click)="viewbaibao(baibao?.Id)">
+                            <td>{{(i + 1) }}</td>
+                            <td>{{baibao?.Ma}}</td>
+                            <td>{{baibao?.Ten}}</td>
+                            <td>{{baibao?.LoaiBaiBao.Ten}}</td>
+                            <td>{{baibao?.TenTapChiCongBo}}</td>
+                            <td>{{baibao?.NamHoc}}</td>
+                            <td>{{baibao?.KiHoc}}</td>
+                            <td>{{baibao?.SoGio}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div *ngIf="listBaiBao?.length === 0" class="non-result">Không có kết quả tìm kiếm</div>
+                    </div>
+                  </div>
+            </mat-tab>
+        
+            <mat-tab label="Nghiên cứu đề tài">
+                <div class="column">
+                    <div class="table-container">
+                      <table class="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th>STT</th>
+                            <th>Mã đề tài</th>
+                            <th>Tên đề tài</th>
+                            <th>Loại đề tài</th>
+                            <th>Cơ quan quản lý</th>
+                            <th>Vai trò</th>
+                            <th>Năm học</th>
+                            <th>Kì học</th>
+                            <th>Số giờ</th>
+                          </tr>
+                        </thead>
+                        <tbody *ngIf="listDeTai?.length > 0">
+                          <tr *ngFor="let detai of listDeTai; let i = index;"
+                           style="cursor: pointer;" (click)="viewdetai(detai?.Id)">
+                            <td>{{(i + 1) }}</td>
+                            <td>{{detai?.Ma}}</td>
+                            <td>{{detai?.Ten}}</td>
+                            <td>{{detai?.LoaiDeTai.Ten}}</td>
+                            <td>{{detai?.CoQuanQuanLy}}</td>
+                            <td>{{detai?.ChuTri}}</td>
+                            <td>{{detai?.NamHoc}}</td>
+                            <td>{{detai?.KiHoc}}</td>
+                            <td>{{detai?.SoGio}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div *ngIf="listDeTai?.length === 0" class="non-result">Không có kết quả tìm kiếm</div>
+                    </div>
+                  </div>
+            </mat-tab>
+    
+            <mat-tab label="Biên soạn sách">
+                <div class="column">
+                    <div class="table-container">
+                      <table class="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th>STT</th>
+                            <th>Mã sách</th>
+                            <th>Tên sách</th>
+                            <th>Loại sách</th>
+                            <th>Nơi xuất bản</th>
+                            <th>Vai trò</th>
+                            <th>Năm học</th>
+                            <th>Kì học</th>
+                            <th>Số giờ</th>
+                          </tr>
+                        </thead>
+                        <tbody *ngIf="listSach?.length > 0">
+                          <tr *ngFor="let sach of listSach; let i = index;"
+                           style="cursor: pointer;"  (click)="viewsach(sach?.Id)">
+                            <td>{{(i + 1) }}</td>
+                            <td>{{sach?.Ma}}</td>
+                            <td>{{sach?.Ten}}</td>
+                            <td>{{sach?.LoaiSach.Ten}}</td>
+                            <td>{{sach?.NoiXuatBan}}</td>
+                            <td>{{sach?.ChuBien}}</td>
+                            <td>{{sach?.NamHoc}}</td>
+                            <td>{{sach?.KiHoc}}</td>
+                            <td>{{sach?.SoGio}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div *ngIf="listSach?.length === 0" class="non-result">Không có kết quả tìm kiếm</div>
+                    </div>
+                  </div>
+            </mat-tab>
+    
+          </mat-tab-group>
+    </div>
+
+    
+</div>

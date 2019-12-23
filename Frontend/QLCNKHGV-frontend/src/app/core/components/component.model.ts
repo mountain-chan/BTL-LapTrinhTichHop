@@ -8,6 +8,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BaibaoDialogComponent } from './baibao-dialog/baibao-dialog.component';
 import { DetaiDialogComponent } from './detai-dialog/detai-dialog.component';
 import { SachDialogComponent } from './sach-dialog/sach-dialog.component';
+import { ThemtvDialogComponent } from './themtv-dialog/themtv-dialog.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SachDialogComponent } from './sach-dialog/sach-dialog.component';
     BaibaoDialogComponent,
     DetaiDialogComponent,
     SachDialogComponent,
+    ThemtvDialogComponent,
   ],
   imports: [
     // Core module
@@ -34,6 +36,7 @@ import { SachDialogComponent } from './sach-dialog/sach-dialog.component';
       BaibaoDialogComponent,
       DetaiDialogComponent,
       SachDialogComponent,
+      ThemtvDialogComponent,
     ]
 })
 export class ComponentsModule { }

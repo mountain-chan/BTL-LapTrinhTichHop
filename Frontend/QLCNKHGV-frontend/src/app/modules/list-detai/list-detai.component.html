@@ -1,6 +1,10 @@
 <div class="table-data">
   <div class="toolbar">
 
+    <button [routerLink]="['/detai-detail']"
+        class="btn">Detail
+      </button>
+
     <select class="form-control with-auto" (change)="onNamChange($event.target.value)">
       <option selected value="">Năm học</option>
       <option *ngFor="let nam of listNam" [value]="nam">{{nam}}</option>

@@ -10,14 +10,13 @@ body {
     font-size: 13px;
 }
 
-.with-auto{
-    width: auto;
-    margin-left: 10px;
-}
-
 *:focus {
     outline: none !important;
     box-shadow: none !important;
+}
+
+.container-custom{
+    padding: 30px;
 }
 
 // custom css table
@@ -56,9 +55,48 @@ th{
     height: 35px;
 }
 
+.with-auto{
+    width: auto;
+    margin-left: 10px;
+}
+
 // custom css dialog
 .mat-dialog-container{
     box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
     background: #ffffff;
     color: #676a6c;
+}
+
+
+// change css tab active
+.mat-tab-label-active {
+    border: 1px solid #a9a9a933;
+}
+
+.mat-tab-body-content {
+    overflow: hidden !important;
+}
+
+.mat-tab-label{
+    color: black;
+}
+
+.block{
+    display: block;
+}
+
+.my-icon{
+    font-size: 80px;
+    text-align: center;
+    font-weight: 700;
+    font-family: inherit;
+    margin-bottom: 0px;
+}
+
+.my-icon-sm{
+    font-size: 60px;
+    text-align: center;
+    font-weight: 700;
+    font-family: inherit;
+    margin-bottom: 0px;
 }

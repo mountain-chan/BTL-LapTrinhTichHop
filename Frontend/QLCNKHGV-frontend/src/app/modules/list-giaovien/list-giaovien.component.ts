@@ -79,6 +79,10 @@ export class ListGiaovienComponent implements OnInit {
       });
   }
 
+  viewgiaovien(id: any) {
+    this.router.navigateByUrl(`giaovien-detail?id=${id}`);
+  }
+
   onBoMonChange(idBoMon: any) {
     if(status !== undefined && status !== null && status !== ''){
       this.giaoVienService.getGiaoVienByBoMon(idBoMon, this.pageSize, this.pageNumber)

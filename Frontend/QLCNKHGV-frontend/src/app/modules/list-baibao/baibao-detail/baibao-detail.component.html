@@ -1,0 +1,47 @@
+<div class="container-custom">
+    <div class="row">
+
+        <div class="col-md-2">
+            <p class="my-icon-sm">BB+</p>
+        </div>
+
+        <div class="col-md-3 infor">
+            <label class="block">Tên bài báo: {{Ten}}</label>
+            <label class="block">Mã bài báo: {{Ma}}</label>
+            <button (click)="openDialog('baibao')"
+                class="btn btn-primary btn-tv">Thêm thành viên
+            </button>
+        </div>
+
+        <div class="col-md-7">
+            <h4 class="text-center">Danh sách giáo viên tham gia</h4>
+            <div class="column">
+                <div class="table-container">
+                  <table class="table table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th>STT</th>
+                        <th>Mã giáo viên</th>
+                        <th>Tên giáo viên</th>
+                        <th>Bộ môn</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="listGiaoVien?.length > 0">
+                      <tr *ngFor="let giaovien of listGiaoVien; let i = index;"
+                       style="cursor: pointer;"  (click)="viewgiaovien(giaovien?.Id)">
+                        <td>{{pageNumber * pageSize + (i + 1) }}</td>
+                        <td>{{giaovien?.Ma}}</td>
+                        <td>{{giaovien?.Ten}}</td>
+                        <td>{{giaovien?.BoMon.Ten}}</td>
+                        <td>{{giaovien?.Email}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="listGiaoVien?.length === 0" class="non-result">Không có kết quả tìm kiếm</div>
+                </div>
+              </div>
+        </div>
+
+    </div>
+</div>
