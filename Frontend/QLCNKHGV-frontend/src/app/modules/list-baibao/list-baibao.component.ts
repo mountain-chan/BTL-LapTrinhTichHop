@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { VariablesConstant } from 'src/app/core/constants/variables.constant';
 import { ActivatedRoute, Router, NavigationStart, RouterEvent } from '@angular/router';
 import { MatDialog, PageEvent } from '@angular/material';
-import { GiaoVienService } from 'src/app/core/services/giaovien/giaovien.service';
 import { filter, tap } from 'rxjs/operators';
 import { PAGE_SIZE_CONFIG, LIST_BAIBAO } from 'src/app/core/enums/variables.enum';
 import { updatePageSizeConfig } from 'src/app/core/helper/app.helper';
 import { BaibaoDialogComponent } from 'src/app/core/components/baibao-dialog/baibao-dialog.component';
+import { BaiBaoService } from 'src/app/core/services/baibao/baibao.service';
 
 @Component({
   selector: 'app-list-baibao',
@@ -16,7 +16,7 @@ import { BaibaoDialogComponent } from 'src/app/core/components/baibao-dialog/bai
 export class ListBaibaoComponent implements OnInit {
 
   listBaiBao: any[] = [];
-  listNam: number[] = [];
+  listNam: string[] = [];
   pageSize = VariablesConstant.PAGE_SIZE;
   pageNumber = VariablesConstant.PAGE_NUMBER;
   totalItems: number;
@@ -26,7 +26,7 @@ export class ListBaibaoComponent implements OnInit {
   curentYear = new Date().getFullYear();
   
   constructor(
-    private giaoVienService: GiaoVienService,
+    private baiBaoService: BaiBaoService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
@@ -55,14 +55,15 @@ export class ListBaibaoComponent implements OnInit {
         this.getlistBaiBao();
     });
 
-    for (let year = 2015; year <= Number(this.curentYear); year++) {
-      this.listNam.push(year);
+    for (let year = 2015; year < Number(this.curentYear); year++) {
+      const yearStr = String(year) + '-' + String(year+1);
+      this.listNam.push(yearStr);
     }
 
   }
 
   private getlistBaiBao() {
-    this.giaoVienService.getAllGiaoVien(this.pageSize, this.pageNumber)
+    this.baiBaoService.getAllBaiBao(this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listBaiBao = res.items;
         this.totalItems = res.totals;
@@ -96,7 +97,7 @@ export class ListBaibaoComponent implements OnInit {
       this.namHocSelcted = 0;
     }
 
-    this.giaoVienService.getGiaoVienByBoMon(1, this.pageSize, this.pageNumber)
+    this.baiBaoService.getBaiBaoByKi(this.namHocSelcted, this.kiHocSlected, this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listBaiBao = res.items;
         this.totalItems = res.totals;
@@ -111,11 +112,15 @@ export class ListBaibaoComponent implements OnInit {
       this.kiHocSlected = 0;
     }
 
-    this.giaoVienService.getGiaoVienByBoMon(1, this.pageSize, this.pageNumber)
+    this.baiBaoService.getBaiBaoByKi(this.namHocSelcted, this.kiHocSlected, this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listBaiBao = res.items;
         this.totalItems = res.totals;
       });
+  }
+
+  viewbaibao(id: any) {
+    this.router.navigateByUrl(`baibao-detail?id=${id}`);
   }
 
   pageSizeChange($event: PageEvent) {

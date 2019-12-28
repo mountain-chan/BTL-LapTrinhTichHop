@@ -44,7 +44,7 @@
           </div>
           <div class="form-group col-md-8">
             <select  class="form-control " formControlName="IdLoai">
-              <option value="">Loại bài báo</option>
+              <option disabled selected value="">Loại bài báo</option>
               <option *ngFor="let loai of listLoai" [value]="loai?.Id">
                 {{loai?.Ten}}
               </option>
@@ -71,7 +71,7 @@
             </div>
             <div class="form-group col-md-8">
                 <select class="form-control " formControlName="NamHoc">>
-                    <option selected value="">Năm học</option>
+                    <option disabled selected value="">Năm học</option>
                     <option *ngFor="let nam of listNam" [value]="nam">{{nam}}</option>
                 </select>
             </div>
@@ -83,7 +83,7 @@
           </div>
           <div class="form-group col-md-8">
             <select class="form-control " formControlName="KiHoc">
-                <option selected value="">Kì học</option>
+                <option disabled selected value="">Kì học</option>
                 <option [value]=1>Kì 1</option>
                 <option [value]=2>Kì 2</option>
             </select>

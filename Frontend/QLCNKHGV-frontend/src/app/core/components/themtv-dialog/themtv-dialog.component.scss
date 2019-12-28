@@ -19,12 +19,4 @@
     background: #1ab394;
   }
 
-  .suggestion-manager{
-    margin-bottom: 80px;
-  }
-  @media(max-width: 1024px){
-    ::ng-deep .cdk-overlay-container {
-      margin-top: -30%;
-      }
 
-}

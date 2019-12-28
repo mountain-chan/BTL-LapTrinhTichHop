@@ -32,7 +32,7 @@ export class TopnavbarComponent implements OnInit {
   }
 
   detailUser(id: any) {
-    return this.router.navigateByUrl(`/giaovien?id=${id}`);
+    return this.router.navigateByUrl(`/giaovien-detail?id=${id}`);
   }
 
   onClickOutSide() {

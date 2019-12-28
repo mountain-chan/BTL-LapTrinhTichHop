@@ -6,8 +6,8 @@
         </div>
 
         <div class="col-md-3 infor">
-            <label class="block">Tên sach: {{Ten}}</label>
-            <label class="block">Mã sach: {{Ma}}</label>
+            <label class="block">Tên sach: {{sach?.Ten}}</label>
+            <label class="block">Mã sach: {{sach?.Ma}}</label>
             <button (click)="openDialog('sach')"
                 class="btn btn-primary btn-tv">Thêm thành viên
             </button>
@@ -30,7 +30,7 @@
                     <tbody *ngIf="listGiaoVien?.length > 0">
                       <tr *ngFor="let giaovien of listGiaoVien; let i = index;"
                        style="cursor: pointer;"  (click)="viewgiaovien(giaovien?.Id)">
-                        <td>{{pageNumber * pageSize + (i + 1) }}</td>
+                        <td>{{(i + 1) }}</td>
                         <td>{{giaovien?.Ma}}</td>
                         <td>{{giaovien?.Ten}}</td>
                         <td>{{giaovien?.BoMon.Ten}}</td>

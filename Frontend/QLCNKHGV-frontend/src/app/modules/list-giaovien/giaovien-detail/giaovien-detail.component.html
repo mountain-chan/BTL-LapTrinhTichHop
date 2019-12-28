@@ -4,10 +4,10 @@
             <p class="my-icon">GV+</p>
         </div>
         <div class="col-md-4">
-            <label class="block">Họ tên: {{Ten}}</label>
-            <label class="block">Mã giáo viên: {{Ma}}</label>
-            <label class="block">Số điện thoại: {{SDT}}</label>
-            <label class="block">Email: {{Email}}</label>
+            <label class="block">Họ tên: {{giaoVien?.Ten}}</label>
+            <label class="block">Mã giáo viên: {{giaoVien?.Ma}}</label>
+            <label class="block">Số điện thoại: {{giaoVien?.SDT}}</label>
+            <label class="block">Email: {{giaoVien?.Email}}</label>
         </div>
 
         <div class="col-md-4">
@@ -19,7 +19,6 @@
                 
 
                 <select class="form-control with-auto" >
-                    <option selected value="">Năm học</option>
                     <option *ngFor="let nam of listNam" [value]="nam">{{nam}}</option>
                 </select>
 
@@ -28,8 +27,7 @@
                 </div>
 
                 <select class="form-control with-auto" >
-                    <option selected value="">Kì học</option>
-                    <option [value]=1>Kì 1</option>
+                    <option selected [value]=1>Kì 1</option>
                     <option [value]=2>Kì 2</option>
                 </select>
             </div>

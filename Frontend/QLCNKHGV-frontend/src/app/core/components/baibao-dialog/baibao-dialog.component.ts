@@ -1,12 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { BoMonService } from '../../services/bomon/bomon.service';
 import { NotificationService } from '../../services/notification.service';
 import { Router, RouterEvent, NavigationStart } from '@angular/router';
 import { filter, tap, take } from 'rxjs/operators';
 import { SuccessTitle, ErrorTitle } from '../../enums/notification.enum';
-import { GiaoVienService } from '../../services/giaovien/giaovien.service';
+import { BaiBaoService } from '../../services/baibao/baibao.service';
 
 @Component({
   selector: 'app-baibao-dialog',
@@ -19,15 +18,14 @@ export class BaibaoDialogComponent implements OnInit {
   action: string;
   baibao: any;
   listLoai: any[] = [];
-  listNam: number[] = [];
+  listNam: string[] = [];
   Id: number;
   curentYear = new Date().getFullYear();
   
   constructor(
     public dialogRef: MatDialogRef<BaibaoDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private giaoVienService: GiaoVienService,
-    private boMonService: BoMonService,
+    private baiBaoService: BaiBaoService,
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -38,7 +36,7 @@ export class BaibaoDialogComponent implements OnInit {
       Ten: ['', [Validators.minLength(1), Validators.maxLength(255)]],
       IdLoai: [''],
       TenTapChiCongBo: ['', [Validators.minLength(1), Validators.maxLength(255)]],
-      NamHoc: [Number(this.curentYear)],
+      NamHoc: [String(this.curentYear-1)+'-'+String(this.curentYear)],
       KiHoc: ['']
     });
 
@@ -48,7 +46,7 @@ export class BaibaoDialogComponent implements OnInit {
 
         if (data.id !== undefined) {
             this.Id = data.id
-            this.getGiaoVienById(this.Id)
+            this.getBaiBaoById(this.Id)
         }
     }
 
@@ -61,13 +59,14 @@ export class BaibaoDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.boMonService.getAllBoMon()
+    this.baiBaoService.getLoaiBaiBao()
       .subscribe((res) => {
         this.listLoai = res;
     });
     
-    for (let year = 2015; year <= Number(this.curentYear); year++) {
-      this.listNam.push(year);
+    for (let year = 2015; year < Number(this.curentYear); year++) {
+      const yearStr = String(year) + '-' + String(year+1);
+      this.listNam.push(yearStr);
     }
 
   }
@@ -76,8 +75,8 @@ export class BaibaoDialogComponent implements OnInit {
     return this.baibaoForm.controls;
   }
 
-  private getGiaoVienById(id: number) {
-    this.giaoVienService.getGiaoVienById(id)
+  private getBaiBaoById(id: number) {
+    this.baiBaoService.getBaiBaoById(id)
       .subscribe((res) => {
         this.baibao = res;
         this.setValueForm(this.baibao);
@@ -110,7 +109,7 @@ export class BaibaoDialogComponent implements OnInit {
           KiHoc: this.f.KiHoc.value,
           NamHoc: this.f.NamHoc.value
         }
-        this.giaoVienService.createGiaoVien(data)
+        this.baiBaoService.createBaiBao(data)
           .subscribe((res) => {
             if (res.status) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
@@ -131,7 +130,7 @@ export class BaibaoDialogComponent implements OnInit {
           NamHoc: this.f.NamHoc.value
         }
 
-        this.giaoVienService.updateGiaoVien(data)
+        this.baiBaoService.updateBaiBao(data)
           .subscribe((res) => {
             if (res.status === true) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
@@ -144,7 +143,7 @@ export class BaibaoDialogComponent implements OnInit {
         
       } else {
 
-        this.giaoVienService.deleteGiaoVien(this.Id)
+        this.baiBaoService.deleteBaiBao(this.Id)
           .subscribe((res) => {
             if (res.status === true) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);

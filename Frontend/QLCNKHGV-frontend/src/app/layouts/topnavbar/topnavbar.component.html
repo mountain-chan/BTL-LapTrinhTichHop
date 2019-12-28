@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-sm navbar-custom ">
-  <div (click)="onClickOutSide()" class="">
+<nav class="navbar navbar-expand-sm fixed-top navbar-custom ">
+  <div (click)="onClickOutSide()">
 
     <input class="form-control custom" (input)="onNameChange($event.target.value)"
     onClick="this.setSelectionRange(0, this.value.length)" type="text" placeholder="Search">

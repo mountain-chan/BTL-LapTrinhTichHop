@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { getAllGiaoVienUrl, getGiaoVienByIdUrl, getGiaoVienByBoMonUrl, createGiaoVienUrl, updateGiaoVienUrl, deleteGiaoVienUrl, searchGiaoViendUrl } from '../../enums/url.enum';
+import { getAllGiaoVienUrl, getGiaoVienByIdUrl, getGiaoVienByBoMonUrl, createGiaoVienUrl, updateGiaoVienUrl, deleteGiaoVienUrl, searchGiaoViendUrl, getGiaoVienByBaiBaoUrl, getGiaoVienByDeTaiUrl, getGiaoVienBySachUrl } from '../../enums/url.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,18 @@ export class GiaoVienService {
 
   getGiaoVienByBoMon(idBoMon: number, pageSize: number, pageNumber: number): Observable<any> {
     return this.http.get(`${getGiaoVienByBoMonUrl}?idBoMon=${idBoMon}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  }
+
+  getGiaoVienByBaiBao(idBaiBao: number): Observable<any> {
+    return this.http.get(`${getGiaoVienByBaiBaoUrl}?id=${idBaiBao}`);
+  }
+
+  getGiaoVienByDeTai(idDeTai: number): Observable<any> {
+    return this.http.get(`${getGiaoVienByDeTaiUrl}?id=${idDeTai}`);
+  }
+
+  getGiaoVienBySach(idSach: number): Observable<any> {
+    return this.http.get(`${getGiaoVienBySachUrl}?id=${idSach}`);
   }
 
   searchGiaoVien(textSearch: any): Observable<any> {

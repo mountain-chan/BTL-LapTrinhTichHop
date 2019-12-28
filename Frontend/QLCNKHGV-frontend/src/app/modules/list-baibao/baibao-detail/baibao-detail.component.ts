@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, NavigationStart, RouterEvent } from '@angular/r
 import { MatDialog } from '@angular/material';
 import { filter, tap } from 'rxjs/operators';
 import { ThemtvDialogComponent } from 'src/app/core/components/themtv-dialog/themtv-dialog.component';
+import { BaiBaoService } from 'src/app/core/services/baibao/baibao.service';
 
 @Component({
   selector: 'app-baibao-detail',
@@ -13,12 +14,12 @@ import { ThemtvDialogComponent } from 'src/app/core/components/themtv-dialog/the
 export class BaibaoDetailComponent implements OnInit {
 
   listGiaoVien: any[] = [];
-  Ten = "";
-  Ma = "";
-  Id: number;
+  baiBao: any;
+  id: number;
 
   constructor(
     private giaoVienService: GiaoVienService,
+    private baiBaoService: BaiBaoService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
@@ -29,33 +30,40 @@ export class BaibaoDetailComponent implements OnInit {
       tap(() => this.dialog.closeAll())
     ).subscribe();
     
-   }
+  }
 
   ngOnInit() {
     this.route.queryParams
       .subscribe((params) => {
         if (params.id) {
-          this.Id = params.id;
+          this.id = params.id;
         }
         this.getListGiaoVien();
       });
     
   }
 
-  private getListGiaoVien() {
-    // this.giaoVienService.getAllGiaoVien()
-    //   .subscribe((res) => {
-    //     this.listGiaoVien = res.items;
-    //   });
+  private getBaiBaoById(){
+    this.baiBaoService.getBaiBaoById(this.id)
+      .subscribe((res) => {
+        this.baiBao = res;
+      })
   }
 
-  openDialog(action: string, id?: any) {
+  private getListGiaoVien() {
+    this.giaoVienService.getGiaoVienByBaiBao(this.id)
+      .subscribe((res) => {
+        this.listGiaoVien = res.items;
+      });
+  }
+
+  openDialog(action: string) {
     const dialogRef = this.dialog.open(ThemtvDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
       data: {
         action,
-        id
+        id : this.baiBao.Id
       }
     });
     dialogRef.afterClosed()

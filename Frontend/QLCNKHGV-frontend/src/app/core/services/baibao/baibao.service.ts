@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { getAllGiaoVienUrl, getGiaoVienByIdUrl, getGiaoVienByBoMonUrl, createGiaoVienUrl, updateGiaoVienUrl, deleteGiaoVienUrl } from '../../enums/url.enum';
+import { getAllBaiBaoUrl, getBaiBaoByGiaoVienUrl, getBaiBaoByKiUrl, createBaiBaoUrl, updateBaiBaoUrl, deleteBaiBaoUrl, themTVBaiBaoUrl, getBaiBaoByIdUrl, getLoaiBaiBaoUrl } from '../../enums/url.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -11,28 +11,40 @@ export class BaiBaoService {
     private http: HttpClient) {
   }
 
-  getAllGiaoVien(pageSize: number, pageNumber: number): Observable<any> {
-    return this.http.get(`${getAllGiaoVienUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  getLoaiBaiBao(): Observable<any> {
+    return this.http.get(`${getLoaiBaiBaoUrl}`);
   }
 
-  getGiaoVienByBoMon(idBoMon: number, pageSize: number, pageNumber: number): Observable<any> {
-    return this.http.get(`${getGiaoVienByBoMonUrl}?idBoMon=${idBoMon}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  getAllBaiBao(pageSize: number, pageNumber: number): Observable<any> {
+    return this.http.get(`${getAllBaiBaoUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
-  getGiaoVienById(idGiaoVien: number): Observable<any> {
-    return this.http.get(`${getGiaoVienByIdUrl}?idGiaoVien=${idGiaoVien}`);
+  getBaiBaoByGiaoVien(idGiaoVien: number, nam: any, ki: number): Observable<any> {
+    return this.http.get(`${getBaiBaoByGiaoVienUrl}?idGiaoVien=${idGiaoVien}&nam=${nam}&ki=${ki}`);
   }
 
-  createGiaoVien(data: any): Observable<any> {
-    return this.http.post(`${createGiaoVienUrl}`, data);
+  getBaiBaoByKi(nam: any, ki: number, pageSize: number, pageNumber: number): Observable<any> {
+    return this.http.get(`${getBaiBaoByKiUrl}?nam=${nam}&ki=${ki}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
-  updateGiaoVien(idGiaoVien: any, data: any): Observable<any> {
-    return this.http.put(`${updateGiaoVienUrl}?idGiaoVien=${idGiaoVien}`, data);
+  getBaiBaoById(id: number): Observable<any> {
+    return this.http.get(`${getBaiBaoByIdUrl}?id=${id}`);
   }
 
-  deleteGiaoVien(idGiaoVien: number): Observable<any>{
-    return this.http.delete(`${deleteGiaoVienUrl}?idGiaoVien=${idGiaoVien}`)
+  createBaiBao(data: any): Observable<any> {
+    return this.http.post(`${createBaiBaoUrl}`, data);
+  }
+
+  updateBaiBao(data: any): Observable<any> {
+    return this.http.put(`${updateBaiBaoUrl}`, data);
+  }
+
+  deleteBaiBao(id: number): Observable<any>{
+    return this.http.delete(`${deleteBaiBaoUrl}?id=${id}`)
+  }
+
+  themThanhVien(data: any): Observable<any> {
+    return this.http.put(`${themTVBaiBaoUrl}`, data);
   }
 
 }

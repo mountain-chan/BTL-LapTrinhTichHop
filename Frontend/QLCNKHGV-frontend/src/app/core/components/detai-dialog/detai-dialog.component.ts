@@ -1,12 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { GiaoVienService } from '../../services/giaovien/giaovien.service';
-import { BoMonService } from '../../services/bomon/bomon.service';
 import { NotificationService } from '../../services/notification.service';
 import { Router, RouterEvent, NavigationStart } from '@angular/router';
 import { filter, tap, take } from 'rxjs/operators';
 import { SuccessTitle, ErrorTitle } from '../../enums/notification.enum';
+import { DeTaiService } from '../../services/detai/detai.service';
 
 @Component({
   selector: 'app-detai-dialog',
@@ -19,15 +18,14 @@ export class DetaiDialogComponent implements OnInit {
   action: string;
   detai: any;
   listLoai: any[] = [];
-  listNam: number[] = [];
+  listNam: string[] = [];
   Id: number;
   curentYear = new Date().getFullYear();
   
   constructor(
     public dialogRef: MatDialogRef<DetaiDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private giaoVienService: GiaoVienService,
-    private boMonService: BoMonService,
+    private deTaiService: DeTaiService,
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -38,7 +36,7 @@ export class DetaiDialogComponent implements OnInit {
       Ten: ['', [Validators.minLength(1), Validators.maxLength(255)]],
       IdLoai: [''],
       CoQuanQuanLy: ['', [Validators.minLength(1), Validators.maxLength(255)]],
-      NamHoc: [Number(this.curentYear)],
+      NamHoc: [String(this.curentYear-1)+'-'+String(this.curentYear)],
       KiHoc: ['']
     });
 
@@ -48,7 +46,7 @@ export class DetaiDialogComponent implements OnInit {
 
         if (data.id !== undefined) {
             this.Id = data.id
-            this.getGiaoVienById(this.Id)
+            this.getDeTaiById(this.Id)
         }
     }
 
@@ -61,13 +59,14 @@ export class DetaiDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.boMonService.getAllBoMon()
+    this.deTaiService.getLoaiDeTai()
       .subscribe((res) => {
         this.listLoai = res;
     });
     
-    for (let year = 2015; year <= Number(this.curentYear); year++) {
-      this.listNam.push(year);
+    for (let year = 2015; year < Number(this.curentYear); year++) {
+      const yearStr = String(year) + '-' + String(year+1);
+      this.listNam.push(yearStr);
     }
 
   }
@@ -76,8 +75,8 @@ export class DetaiDialogComponent implements OnInit {
     return this.detaiForm.controls;
   }
 
-  private getGiaoVienById(id: number) {
-    this.giaoVienService.getGiaoVienById(id)
+  private getDeTaiById(id: number) {
+    this.deTaiService.getDeTaiById(id)
       .subscribe((res) => {
         this.detai = res;
         this.setValueForm(this.detai);
@@ -111,7 +110,7 @@ export class DetaiDialogComponent implements OnInit {
           NamHoc: this.f.NamHoc.value
         }
 
-        this.giaoVienService.createGiaoVien(data)
+        this.deTaiService.createDeTai(data)
           .subscribe((res) => {
             if (res.status) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
@@ -133,7 +132,7 @@ export class DetaiDialogComponent implements OnInit {
           NamHoc: this.f.NamHoc.value
         }
 
-        this.giaoVienService.updateGiaoVien(data)
+        this.deTaiService.updateDeTai(data)
           .subscribe((res) => {
             if (res.status === true) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
@@ -146,7 +145,7 @@ export class DetaiDialogComponent implements OnInit {
         
       } else {
 
-        this.giaoVienService.deleteGiaoVien(this.Id)
+        this.deTaiService.deleteDeTai(this.Id)
           .subscribe((res) => {
             if (res.status === true) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);

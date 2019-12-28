@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { VariablesConstant } from 'src/app/core/constants/variables.constant';
-import { GiaoVienService } from 'src/app/core/services/giaovien/giaovien.service';
 import { ActivatedRoute, Router, RouterEvent, NavigationStart } from '@angular/router';
 import { MatDialog, PageEvent } from '@angular/material';
 import { filter, tap } from 'rxjs/operators';
 import { updatePageSizeConfig } from 'src/app/core/helper/app.helper';
 import { PAGE_SIZE_CONFIG, LIST_DETAI } from 'src/app/core/enums/variables.enum';
 import { DetaiDialogComponent } from 'src/app/core/components/detai-dialog/detai-dialog.component';
+import { DeTaiService } from 'src/app/core/services/detai/detai.service';
 
 @Component({
   selector: 'app-list-detai',
@@ -16,17 +16,17 @@ import { DetaiDialogComponent } from 'src/app/core/components/detai-dialog/detai
 export class ListDetaiComponent implements OnInit {
 
   listDeTai: any[] = [];
-  listNam: number[] = [];
+  listNam: string[] = [];
   pageSize = VariablesConstant.PAGE_SIZE;
   pageNumber = VariablesConstant.PAGE_NUMBER;
   totalItems: number;
   pageSizeConfig: any;
-  namHocSelcted = 0;
+  namHocSelcted = '0';
   kiHocSlected = 0;
   curentYear = new Date().getFullYear();
   
   constructor(
-    private giaoVienService: GiaoVienService,
+    private deTaiService: DeTaiService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
@@ -56,13 +56,14 @@ export class ListDetaiComponent implements OnInit {
     });
 
     for (let year = 2015; year <= Number(this.curentYear); year++) {
-      this.listNam.push(year);
+      const yearStr = String(year) + '-' + String(year+1);
+      this.listNam.push(yearStr);
     }
 
   }
 
   private getlistDeTai() {
-    this.giaoVienService.getAllGiaoVien(this.pageSize, this.pageNumber)
+    this.deTaiService.getAllDeTai(this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listDeTai = res.items;
         this.totalItems = res.totals;
@@ -93,10 +94,10 @@ export class ListDetaiComponent implements OnInit {
       this.namHocSelcted = year;
     }
     else{
-      this.namHocSelcted = 0;
+      this.namHocSelcted = '0';
     }
 
-    this.giaoVienService.getGiaoVienByBoMon(1, this.pageSize, this.pageNumber)
+    this.deTaiService.getDeTaiByKi(this.namHocSelcted, this.kiHocSlected, this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listDeTai = res.items;
         this.totalItems = res.totals;
@@ -111,11 +112,15 @@ export class ListDetaiComponent implements OnInit {
       this.kiHocSlected = 0;
     }
 
-    this.giaoVienService.getGiaoVienByBoMon(1, this.pageSize, this.pageNumber)
+    this.deTaiService.getDeTaiByKi(this.namHocSelcted, this.kiHocSlected, this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listDeTai = res.items;
         this.totalItems = res.totals;
       });
+  }
+
+  viewdetai(id: any) {
+    this.router.navigateByUrl(`detai-detail?id=${id}`);
   }
 
   pageSizeChange($event: PageEvent) {

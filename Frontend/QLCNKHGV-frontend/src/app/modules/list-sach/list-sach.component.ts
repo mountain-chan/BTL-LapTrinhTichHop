@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { VariablesConstant } from 'src/app/core/constants/variables.constant';
-import { GiaoVienService } from 'src/app/core/services/giaovien/giaovien.service';
 import { ActivatedRoute, Router, RouterEvent, NavigationStart } from '@angular/router';
 import { MatDialog, PageEvent } from '@angular/material';
 import { filter, tap } from 'rxjs/operators';
 import { updatePageSizeConfig } from 'src/app/core/helper/app.helper';
-import { PAGE_SIZE_CONFIG, LIST_GIAOVIEN, LIST_SACH } from 'src/app/core/enums/variables.enum';
-import { GiaovienDialogComponent } from 'src/app/core/components/giaovien-dialog/giaovien-dialog.component';
+import { PAGE_SIZE_CONFIG, LIST_SACH } from 'src/app/core/enums/variables.enum';
 import { SachDialogComponent } from 'src/app/core/components/sach-dialog/sach-dialog.component';
+import { SachService } from 'src/app/core/services/sach/sach.service';
 
 @Component({
   selector: 'app-list-sach',
@@ -17,17 +16,17 @@ import { SachDialogComponent } from 'src/app/core/components/sach-dialog/sach-di
 export class ListSachComponent implements OnInit {
 
   listSach: any[] = [];
-  listNam: number[] = [];
+  listNam: string[] = [];
   pageSize = VariablesConstant.PAGE_SIZE;
   pageNumber = VariablesConstant.PAGE_NUMBER;
   totalItems: number;
   pageSizeConfig: any;
-  namHocSelcted = 0;
+  namHocSelcted = '0';
   kiHocSlected = 0;
   curentYear = new Date().getFullYear();
   
   constructor(
-    private giaoVienService: GiaoVienService,
+    private sachService: SachService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
@@ -57,13 +56,14 @@ export class ListSachComponent implements OnInit {
     });
 
     for (let year = 2015; year <= Number(this.curentYear); year++) {
-      this.listNam.push(year);
+      const yearStr = String(year) + '-' + String(year+1);
+      this.listNam.push(yearStr);
     }
 
   }
 
   private getlistSach() {
-    this.giaoVienService.getAllGiaoVien(this.pageSize, this.pageNumber)
+    this.sachService.getAllSach(this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listSach = res.items;
         this.totalItems = res.totals;
@@ -94,10 +94,10 @@ export class ListSachComponent implements OnInit {
       this.namHocSelcted = year;
     }
     else{
-      this.namHocSelcted = 0;
+      this.namHocSelcted = '0';
     }
 
-    this.giaoVienService.getGiaoVienByBoMon(1, this.pageSize, this.pageNumber)
+    this.sachService.getSachByKi(this.namHocSelcted, this.kiHocSlected, this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listSach = res.items;
         this.totalItems = res.totals;
@@ -112,11 +112,15 @@ export class ListSachComponent implements OnInit {
       this.kiHocSlected = 0;
     }
 
-    this.giaoVienService.getGiaoVienByBoMon(1, this.pageSize, this.pageNumber)
+    this.sachService.getSachByKi(this.namHocSelcted, this.kiHocSlected, this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listSach = res.items;
         this.totalItems = res.totals;
       });
+  }
+
+  viewsach(id: any) {
+    this.router.navigateByUrl(`sach-detail?id=${id}`);
   }
 
   pageSizeChange($event: PageEvent) {

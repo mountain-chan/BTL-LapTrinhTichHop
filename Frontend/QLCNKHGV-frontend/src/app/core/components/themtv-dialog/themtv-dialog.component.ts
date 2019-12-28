@@ -5,6 +5,10 @@ import { NotificationService } from '../../services/notification.service';
 import { GiaoVienService } from '../../services/giaovien/giaovien.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { filter, tap, take } from 'rxjs/operators';
+import { BaiBaoService } from '../../services/baibao/baibao.service';
+import { DeTaiService } from '../../services/detai/detai.service';
+import { SachService } from '../../services/sach/sach.service';
+import { SuccessTitle, ErrorTitle } from '../../enums/notification.enum';
 
 @Component({
   selector: 'app-themtv-dialog',
@@ -14,7 +18,7 @@ import { filter, tap, take } from 'rxjs/operators';
 export class ThemtvDialogComponent implements OnInit {
 
   IdGiaoVien: number;
-  departmentForm: FormGroup;
+  themTVForm: FormGroup;
   action: string;
   isDropDownManager = false;
   focusManagerInput = false;
@@ -26,6 +30,9 @@ export class ThemtvDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<ThemtvDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private giaoVienService: GiaoVienService,
+    private baiBaoService: BaiBaoService,
+    private deTaiService: DeTaiService,
+    private sachService: SachService,
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -53,7 +60,7 @@ export class ThemtvDialogComponent implements OnInit {
   }
 
   get f() {
-    return this.departmentForm.controls;
+    return this.themTVForm.controls;
   }
 
   cancel() {
@@ -71,7 +78,7 @@ export class ThemtvDialogComponent implements OnInit {
     this.focusManagerInput = false;
 
     this.isDropDownManager = false;
-    this.departmentForm.patchValue({
+    this.themTVForm.patchValue({
       tenGV: user.Ten,
       IdGiaoVien: user.Id
     });
@@ -91,6 +98,66 @@ export class ThemtvDialogComponent implements OnInit {
       }
     });
   }
+
+  submit() {
+    if (!this.themTVForm.invalid) {
+      if (this.action === 'baibao') {
+        const data = {
+          IdBaiBao: this.Id,
+          IdGiaoVien: this.f.IdGiaoVien.value,
+        }
+        this.baiBaoService.themThanhVien(data)
+          .subscribe((res) => {
+            if (res.status) {
+              this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
+              this.dialogRef.close(true);
+            }
+            else if (res.status === false) {
+              this.notificationService.showError(res.message, ErrorTitle, 3000);
+            }
+          });
+      } else if (this.action === 'detai') {
+
+        const data = {
+          IdBaiBao: this.Id,
+          IdGiaoVien: this.f.IdGiaoVien.value,
+          LaChuBien: this.f.LaChuBien
+        }
+
+        this.deTaiService.themThanhVien(data)
+          .subscribe((res) => {
+            if (res.status === true) {
+              this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
+              this.dialogRef.close(true);
+            }
+            else if (res.status === false) {
+              this.notificationService.showError(res.message, ErrorTitle, 3000);
+            }
+          });
+        
+      } else {
+
+        const data = {
+          IdBaiBao: this.Id,
+          IdGiaoVien: this.f.IdGiaoVien.value,
+          SoTrangDaViet: this.f.SoTrangDaViet
+        }
+
+        this.sachService.themThanhVien(data)
+          .subscribe((res) => {
+            if (res.status === true) {
+              this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
+              this.dialogRef.close(true);
+            }
+            else if (res.status === false) {
+              this.notificationService.showError(res.message, ErrorTitle, 3000);
+            }
+          });
+          
+      }
+    } 
+  }
+
 
   disableCreateButton() {
     return (this.IdGiaoVien === undefined 

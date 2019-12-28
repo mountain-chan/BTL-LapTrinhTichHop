@@ -1,12 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { GiaoVienService } from '../../services/giaovien/giaovien.service';
-import { BoMonService } from '../../services/bomon/bomon.service';
 import { NotificationService } from '../../services/notification.service';
 import { Router, RouterEvent, NavigationStart } from '@angular/router';
 import { filter, tap, take } from 'rxjs/operators';
 import { SuccessTitle, ErrorTitle } from '../../enums/notification.enum';
+import { SachService } from '../../services/sach/sach.service';
 
 @Component({
   selector: 'app-sach-dialog',
@@ -19,15 +18,14 @@ export class SachDialogComponent implements OnInit {
   action: string;
   sach: any;
   listLoai: any[] = [];
-  listNam: number[] = [];
+  listNam: string[] = [];
   Id: number;
   curentYear = new Date().getFullYear();
   
   constructor(
     public dialogRef: MatDialogRef<SachDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private giaoVienService: GiaoVienService,
-    private boMonService: BoMonService,
+    private sachService: SachService,
     private notificationService: NotificationService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -38,7 +36,7 @@ export class SachDialogComponent implements OnInit {
       Ten: ['', [Validators.minLength(1), Validators.maxLength(255)]],
       IdLoai: [''],
       NoiXuatBan: ['', [Validators.minLength(1), Validators.maxLength(255)]],
-      NamHoc: [Number(this.curentYear)],
+      NamHoc: [''],
       KiHoc: ['']
     });
 
@@ -48,7 +46,7 @@ export class SachDialogComponent implements OnInit {
 
         if (data.id !== undefined) {
             this.Id = data.id
-            this.getGiaoVienById(this.Id)
+            this.getSachById(this.Id)
         }
     }
 
@@ -61,13 +59,14 @@ export class SachDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.boMonService.getAllBoMon()
+    this.sachService.getLoaiSach()
       .subscribe((res) => {
         this.listLoai = res;
     });
     
     for (let year = 2015; year <= Number(this.curentYear); year++) {
-      this.listNam.push(year);
+      const yearStr = String(year) + '-' + String(year+1);
+      this.listNam.push(yearStr);
     }
 
   }
@@ -76,8 +75,8 @@ export class SachDialogComponent implements OnInit {
     return this.sachForm.controls;
   }
 
-  private getGiaoVienById(id: number) {
-    this.giaoVienService.getGiaoVienById(id)
+  private getSachById(id: number) {
+    this.sachService.getSachById(id)
       .subscribe((res) => {
         this.sach = res;
         this.setValueForm(this.sach);
@@ -111,7 +110,7 @@ export class SachDialogComponent implements OnInit {
           NamHoc: this.f.NamHoc.value
         }
 
-        this.giaoVienService.createGiaoVien(data)
+        this.sachService.createSach(data)
           .subscribe((res) => {
             if (res.status) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
@@ -133,7 +132,7 @@ export class SachDialogComponent implements OnInit {
           NamHoc: this.f.NamHoc.value
         }
 
-        this.giaoVienService.updateGiaoVien(data)
+        this.sachService.updateSach(data)
           .subscribe((res) => {
             if (res.status === true) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
@@ -146,7 +145,7 @@ export class SachDialogComponent implements OnInit {
         
       } else {
 
-        this.giaoVienService.deleteGiaoVien(this.Id)
+        this.sachService.deleteSach(this.Id)
           .subscribe((res) => {
             if (res.status === true) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
