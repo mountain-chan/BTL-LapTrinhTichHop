@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+
 html, body { height: 100%; }
 body { 
     margin: 0; 
@@ -7,23 +10,18 @@ body {
     font-size: 13px;
 }
 
-input {
-    background-color: transparent;
-    border: 0px solid;
-    height: 20px;
-    width: 160px;
-    color: #CCC;
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }
 
-// input:focus {
-//     outline: none !important;
-//     border: none;
-//     box-shadow: none;
-// }
+.container-custom{
+    padding: 60px 30px 30px;
+}
 
 // custom css table
 .table-data{
-    padding: 30px;
+    padding: 60px 30px 30px;
 }
 
 .table{
@@ -37,7 +35,7 @@ input {
 
 th{
     border-bottom: 2px solid #e0e0e0;
-    font-weight: bold;
+    font-weight: 500;
     color: black;
     vertical-align: bottom;
     padding-top: 16px;
@@ -48,8 +46,7 @@ th{
 
 .toolbar{
     display: flex;
-    justify-content: baseline;
-    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
     width: 100%;
 }
 
@@ -58,29 +55,9 @@ th{
     height: 35px;
 }
 
-// custom css datepicker
-.cdk-overlay-connected-position-bounding-box> {
-    div {
-      width: 280px;
-    }
-  }
-
-owl-date-time-container,
-owl-date-time-container#owl-dt-picker-0,
-owl-date-time-container#owl-dt-picker-1 {
-  width: 100% !important;
-}
-
-.owl-dt-container-inner.ng-trigger.ng-trigger-fadeInPicker {
-    font-size: 15px !important;
-}
-
-owl-date-time-calendar.owl-dt-container-row.owl-dt-calendar {
-    overflow-y: hidden;
-}
-
-.owl-dt-container-row {
-    border-bottom: none;
+.with-auto{
+    width: auto;
+    margin-left: 10px;
 }
 
 // custom css dialog
@@ -88,4 +65,38 @@ owl-date-time-calendar.owl-dt-container-row.owl-dt-calendar {
     box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12);
     background: #ffffff;
     color: #676a6c;
+}
+
+
+// change css tab active
+.mat-tab-label-active {
+    border: 1px solid #a9a9a933;
+}
+
+.mat-tab-body-content {
+    overflow: hidden !important;
+}
+
+.mat-tab-label{
+    color: black;
+}
+
+.block{
+    display: block;
+}
+
+.my-icon{
+    font-size: 80px;
+    text-align: center;
+    font-weight: 700;
+    font-family: inherit;
+    margin-bottom: 0px;
+}
+
+.my-icon-sm{
+    font-size: 60px;
+    text-align: center;
+    font-weight: 700;
+    font-family: inherit;
+    margin-bottom: 0px;
 }

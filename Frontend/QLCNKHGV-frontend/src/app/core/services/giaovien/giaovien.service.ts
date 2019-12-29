@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { getAllGiaoVienUrl, getGiaoVienByIdUrl, getGiaoVienByBoMonUrl, createGiaoVienUrl, updateGiaoVienUrl, deleteGiaoVienUrl } from '../../enums/url.enum';
+import { getAllGiaoVienUrl, getGiaoVienByIdUrl, getGiaoVienByBoMonUrl, createGiaoVienUrl, updateGiaoVienUrl, deleteGiaoVienUrl, searchGiaoViendUrl, getGiaoVienByBaiBaoUrl, getGiaoVienByDeTaiUrl, getGiaoVienBySachUrl } from '../../enums/url.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,22 @@ export class GiaoVienService {
     return this.http.get(`${getGiaoVienByBoMonUrl}?idBoMon=${idBoMon}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
+  getGiaoVienByBaiBao(idBaiBao: number): Observable<any> {
+    return this.http.get(`${getGiaoVienByBaiBaoUrl}?id=${idBaiBao}`);
+  }
+
+  getGiaoVienByDeTai(idDeTai: number): Observable<any> {
+    return this.http.get(`${getGiaoVienByDeTaiUrl}?id=${idDeTai}`);
+  }
+
+  getGiaoVienBySach(idSach: number): Observable<any> {
+    return this.http.get(`${getGiaoVienBySachUrl}?id=${idSach}`);
+  }
+
+  searchGiaoVien(textSearch: any): Observable<any> {
+    return this.http.get(`${searchGiaoViendUrl}?textSearch=${textSearch}`);
+  }
+
   getGiaoVienById(idGiaoVien: number): Observable<any> {
     return this.http.get(`${getGiaoVienByIdUrl}?idGiaoVien=${idGiaoVien}`);
   }
@@ -27,12 +43,12 @@ export class GiaoVienService {
     return this.http.post(`${createGiaoVienUrl}`, data);
   }
 
-  updateGiaoVien(idGiaoVien: any, data: any): Observable<any> {
-    return this.http.put(`${updateGiaoVienUrl}?idGiaoVien=${idGiaoVien}`, data);
+  updateGiaoVien(data: any): Observable<any> {
+    return this.http.put(`${updateGiaoVienUrl}`, data);
   }
 
   deleteGiaoVien(idGiaoVien: number): Observable<any>{
-    return this.http.delete(`${deleteGiaoVienUrl}?idGiaoVien=${idGiaoVien}`)
+    return this.http.delete(`${deleteGiaoVienUrl}?Id=${idGiaoVien}`)
   }
 
 }

@@ -8,15 +8,23 @@ import { ListGiaovienComponent } from './list-giaovien/list-giaovien.component';
 import { ListSachComponent } from './list-sach/list-sach.component';
 import { HttpClientModule } from '@angular/common/http';
 import {
-  MatIconModule, MatDialog, MatPaginatorModule
+  MatIconModule, MatDialog, MatPaginatorModule, MatTabsModule
 } from '@angular/material';
+import { GiaovienDetailComponent } from './list-giaovien/giaovien-detail/giaovien-detail.component';
+import { BaibaoDetailComponent } from './list-baibao/baibao-detail/baibao-detail.component';
+import { DetaiDetailComponent } from './list-detai/detai-detail/detai-detail.component';
+import { SachDetailComponent } from './list-sach/sach-detail/sach-detail.component';
 
 @NgModule({
   declarations: [
     ListBaibaoComponent,
     ListDetaiComponent,
     ListGiaovienComponent,
-    ListSachComponent
+    ListSachComponent,
+    GiaovienDetailComponent,
+    BaibaoDetailComponent,
+    DetaiDetailComponent,
+    SachDetailComponent
   ],
   imports: [
     // Core Module
@@ -27,8 +35,8 @@ import {
     HttpClientModule,
     // modules
     MatIconModule,
-    MatPaginatorModule
-    
+    MatPaginatorModule,
+    MatTabsModule,
 
   ],
   exports: [ListGiaovienComponent],

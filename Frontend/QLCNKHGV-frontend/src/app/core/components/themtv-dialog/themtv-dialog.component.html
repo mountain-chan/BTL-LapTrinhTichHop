@@ -1,0 +1,77 @@
+<div (click)="onClickOutSide($event)" class="dialog-container">
+    <div mat-dialog-title>
+      <h1 class="text-center" mat-dialog-title>
+          THÊM THÀNH VIÊN
+        <span *ngIf="action=='baibao'">BÀI BÁO</span>
+        <span *ngIf="action=='detai'">ĐỀ TÀI</span>
+        <span *ngIf="action=='sach'">SÁCH</span>
+
+        <mat-icon (click)="cancel()" class="close close-dialog" style="cursor: pointer;">close
+        </mat-icon>
+      </h1>
+    </div>
+    <div class="" mat-dialog-content>
+
+      <form [formGroup]="themTVForm">
+
+        <div class="row">
+            <div class="form-group col-md-4">
+            <label>Giáo viên</label>
+            </div>
+            <div class="form-group col-md-8">
+                <input 
+                    formControlName="tenGV"
+                    (focus)="focusManager()"
+                    type="text"
+                    autocomplete="off"
+                    (input)="onTextChange($event.target.value)"
+                    class="form-control"
+                    placeholder="Mã/Tên giáo viên"
+                    >
+                <ul (click)="onClickOutSide($event)" *ngIf="focusManagerInput"
+                    class="list-users" [ngStyle]="{'display':isDropDownManager ? 'block' : 'none' }">
+                    <li (click)="chooseManager(user)" *ngFor="let user of suggestionListManagerUser">
+                        {{user?.Ten}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="action=='sach'">
+          <div class="col-md-4">
+            <label>Số trang đã viết</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input class="form-control" 
+            formControlName="SoTrangDaViet"
+            type="number" >
+          </div>
+        </div>
+
+        <div class="row" *ngIf="action=='detai'">
+          <div class="col-md-4">
+            <label>Vai trò</label>
+          </div>
+          <div class="form-group col-md-8">
+            <select  class="form-control " formControlName="LaChuBien">
+                <option selected disabled value="">Vai trò</option>
+                <option [value]=1>Chủ trì</option>
+                <option [value]=0>Thành viên</option>
+            </select>
+          </div>
+        </div>
+
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="toolbar">
+    <button (click)="cancel()" class="btn btn-danger my-btn">Hủy</button>
+
+    <button (click)="submit()" [disabled]="disableCreateButton()"
+      class="btn btn-success my-btn">Thêm
+    </button>
+
+  </div>
+</div>
+  
+  

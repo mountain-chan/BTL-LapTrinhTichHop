@@ -6,6 +6,7 @@ import { MatDialog, PageEvent } from '@angular/material';
 import { updatePageSizeConfig } from 'src/app/core/helper/app.helper';
 import { PAGE_SIZE_CONFIG, LIST_GIAOVIEN } from 'src/app/core/enums/variables.enum';
 import { GiaovienDialogComponent } from 'src/app/core/components/giaovien-dialog/giaovien-dialog.component';
+import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-list-giaovien',
@@ -26,10 +27,11 @@ export class ListGiaovienComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
   ) {
-    // this.router.events.pipe(
-    //   filter((event: RouterEvent) => event instanceof NavigationStart),
-    //   tap(() => this.dialog.closeAll())
-    // ).subscribe();
+
+    this.router.events.pipe(
+      filter((event: RouterEvent) => event instanceof NavigationStart),
+      tap(() => this.dialog.closeAll())
+    ).subscribe();
     
     updatePageSizeConfig();
    }
@@ -58,7 +60,7 @@ export class ListGiaovienComponent implements OnInit {
       });
   }
 
-  openDialogGroup(action: string, idGiaoVien?: any) {
+  openDialog(action: string, idGiaoVien?: any) {
     const dialogRef = this.dialog.open(GiaovienDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
@@ -75,6 +77,23 @@ export class ListGiaovienComponent implements OnInit {
           }
         }
       });
+  }
+
+  viewgiaovien(id: any) {
+    this.router.navigateByUrl(`giaovien-detail?id=${id}`);
+  }
+
+  onBoMonChange(idBoMon: any) {
+    if(status !== undefined && status !== null && status !== ''){
+      this.giaoVienService.getGiaoVienByBoMon(idBoMon, this.pageSize, this.pageNumber)
+      .subscribe((res) => {
+        this.listGiaoVien = res.items;
+        this.totalItems = res.totals;
+      });
+    }
+    else{
+      this.getListGiaoVien();
+    }
   }
 
   pageSizeChange($event: PageEvent) {

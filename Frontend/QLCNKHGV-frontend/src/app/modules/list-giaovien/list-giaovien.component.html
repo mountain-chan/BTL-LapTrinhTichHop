@@ -1,10 +1,19 @@
 <div class="table-data">
     <div class="toolbar">
-      <div class="auto">
-        <button (click)="openDialogGroup('create')"
-          class="btn btn-primary pull-right">Thêm giáo viên
-        </button>
-      </div>
+
+      <button [routerLink]="['/giaovien-detail']"
+        class="btn">Detail
+      </button>
+
+      <select class="form-control with-auto" (change)="onBoMonChange($event.target.value)">
+        <option selected value="">Bộ môn</option>
+        <option *ngFor="let bomon of listBoMon" [value]="bomon?.Id">{{bomon?.Ten}}</option>
+      </select>
+
+      <button (click)="openDialog('create')"
+        class="btn btn-primary my-btn">Thêm giáo viên
+      </button>
+
     </div>
   
     <div class="column">
@@ -15,6 +24,7 @@
               <th>STT</th>
               <th>Mã giáo viên</th>
               <th>Tên giáo viên</th>
+              <th>Bộ môn</th>
               <th>Địa chỉ</th>
               <th>Ngày sinh</th>
               <th>Email</th>
@@ -27,15 +37,16 @@
               <td (click)="viewgiaovien(giaovien?.Id)">{{pageNumber * pageSize + (i + 1) }}</td>
               <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ma}}</td>
               <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ten}}</td>
+              <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.BoMon.Ten}}</td>
               <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.DiaChi}}</td>
               <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.NgaySinh | date: 'dd/MM/yyyy'}}</td>
               <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Email}}</td>
               <td>
-                <mat-icon (click)="openDialogGroup('update', giaovien?.Id)"
+                <mat-icon (click)="openDialog('update', giaovien?.Id)"
                   class="mat-18" title="Sửa thông tin"
                   titlePosition="below" style="cursor: pointer;">edit
                 </mat-icon>
-                <mat-icon (click)="openDialogGroup('delete', giaovien?.Id)"
+                <mat-icon (click)="openDialog('delete', giaovien?.Id)"
                   class="mat-18" title="Xóa giáo viên"
                   style="cursor: pointer;">delete
                 </mat-icon>

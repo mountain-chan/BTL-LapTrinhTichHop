@@ -1,0 +1,113 @@
+<div class="dialog-container">
+    <div mat-dialog-title>
+      <h1 class="text-center" mat-dialog-title>
+        <span *ngIf="action=='create'">THÊM MỚI</span>
+        <span *ngIf="action=='update'">CẬP NHẬT THÔNG TIN</span>
+        <span *ngIf="action=='delete'">XÁC NHẬN XÓA</span>
+        BÀI BÁO
+        <mat-icon (click)="cancel()" class="mat-18 close close-dialog" style="cursor: pointer;">close
+        </mat-icon>
+      </h1>
+    </div>
+    <div class="" mat-dialog-content>
+
+      <div class="row" *ngIf="action=='delete'">
+        Bạn có chắc chắn muốn xóa bài báo này không?
+      </div>
+
+      <form [formGroup]="baibaoForm" *ngIf="action!='delete'">
+
+        <div class="row" *ngIf="action==='update'">
+          <div class="col-md-4">
+            <label>Mã bài báo</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input class="form-control" formControlName="Ma" type="text" disabled>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Tên bài báo</label>
+          </div>
+          <div class="form-group col-md-8">
+            <input class="form-control" 
+            formControlName="Ten" 
+            placeholder="Tên bài báo"
+            type="text" >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Loại bài báo</label>
+          </div>
+          <div class="form-group col-md-8">
+            <select  class="form-control " formControlName="IdLoai">
+              <option disabled selected value="">Loại bài báo</option>
+              <option *ngFor="let loai of listLoai" [value]="loai?.Id">
+                {{loai?.Ten}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <label>Tên tạp chí công bố</label>
+            </div>
+            <div class="form-group col-md-8">
+                <input class="form-control" 
+                formControlName="TenTapChiCongBo" 
+                placeholder="Tên tạp chí công bố"
+                type="text" >
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <label>Năm học</label>
+            </div>
+            <div class="form-group col-md-8">
+                <select class="form-control " formControlName="NamHoc">>
+                    <option disabled selected value="">Năm học</option>
+                    <option *ngFor="let nam of listNam" [value]="nam">{{nam}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <label>Kì học</label>
+          </div>
+          <div class="form-group col-md-8">
+            <select class="form-control " formControlName="KiHoc">
+                <option disabled selected value="">Kì học</option>
+                <option [value]=1>Kì 1</option>
+                <option [value]=2>Kì 2</option>
+            </select>
+          </div>
+        </div>
+    </form>
+  </div>
+
+  <div mat-dialog-actions class="toolbar">
+    <button (click)="cancel()" class="btn btn-danger my-btn">Hủy</button>
+
+    <button (click)="submit()" *ngIf="action==='create'" [disabled]="disableCreateButton()"
+      class="btn btn-success my-btn">Thêm mới
+    </button>
+
+    <button (click)="submit()" *ngIf="action==='update'" [disabled]="disableUpdateButton()"
+      class="btn btn-success my-btn">Cập nhật
+    </button>
+
+    <button (click)="submit()" *ngIf="action==='delete'"
+      class="btn btn-success my-btn">Đồng ý
+    </button>
+
+  </div>
+</div>
+  
+  

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { getAllGiaoVienUrl, getGiaoVienByIdUrl, getGiaoVienByBoMonUrl, createGiaoVienUrl, updateGiaoVienUrl, deleteGiaoVienUrl } from '../../enums/url.enum';
+import { getAllSachUrl, getSachByGiaoVienUrl, getSachByKiUrl, createSachUrl, updateSachUrl, deleteSachUrl, themTVSachUrl, getSachByIdUrl, getLoaiSachUrl } from '../../enums/url.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -11,28 +11,40 @@ export class SachService {
     private http: HttpClient) {
   }
 
-  getAllGiaoVien(pageSize: number, pageNumber: number): Observable<any> {
-    return this.http.get(`${getAllGiaoVienUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  getLoaiSach(): Observable<any> {
+    return this.http.get(`${getLoaiSachUrl}`);
   }
 
-  getGiaoVienByBoMon(idBoMon: number, pageSize: number, pageNumber: number): Observable<any> {
-    return this.http.get(`${getGiaoVienByBoMonUrl}?idBoMon=${idBoMon}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  getAllSach(pageSize: number, pageNumber: number): Observable<any> {
+    return this.http.get(`${getAllSachUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
-  getGiaoVienById(idGiaoVien: number): Observable<any> {
-    return this.http.get(`${getGiaoVienByIdUrl}?idGiaoVien=${idGiaoVien}`);
+  getSachByGiaoVien(idGiaoVien: number, nam: any, ki: number): Observable<any> {
+    return this.http.get(`${getSachByGiaoVienUrl}?idGiaoVien=${idGiaoVien}&nam=${nam}&ki=${ki}`);
   }
 
-  createGiaoVien(data: any): Observable<any> {
-    return this.http.post(`${createGiaoVienUrl}`, data);
+  getSachByKi(nam: any, ki: number, pageSize: number, pageNumber: number): Observable<any> {
+    return this.http.get(`${getSachByKiUrl}?nam=${nam}&ki=${ki}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
-  updateGiaoVien(idGiaoVien: any, data: any): Observable<any> {
-    return this.http.put(`${updateGiaoVienUrl}?idGiaoVien=${idGiaoVien}`, data);
+  getSachById(id: number): Observable<any> {
+    return this.http.get(`${getSachByIdUrl}?id=${id}`);
   }
 
-  deleteGiaoVien(idGiaoVien: number): Observable<any>{
-    return this.http.delete(`${deleteGiaoVienUrl}?idGiaoVien=${idGiaoVien}`)
+  createSach(data: any): Observable<any> {
+    return this.http.post(`${createSachUrl}`, data);
+  }
+
+  updateSach(data: any): Observable<any> {
+    return this.http.put(`${updateSachUrl}`, data);
+  }
+
+  deleteSach(id: number): Observable<any>{
+    return this.http.delete(`${deleteSachUrl}?id=${id}`)
+  }
+
+  themThanhVien(data: any): Observable<any> {
+    return this.http.put(`${themTVSachUrl}`, data);
   }
 
 }

@@ -15,20 +15,4 @@ export class BoMonService {
     return this.http.get(`${getAllBoMonUrl}`);
   }
   
-  getGiaoVienById(idGiaoVien: number): Observable<any> {
-    return this.http.get(`${getGiaoVienByIdUrl}?idGiaoVien=${idGiaoVien}`);
-  }
-
-  createGiaoVien(data: any): Observable<any> {
-    return this.http.post(`${createGiaoVienUrl}`, data);
-  }
-
-  updateGiaoVien(idGiaoVien: any, data: any): Observable<any> {
-    return this.http.put(`${updateGiaoVienUrl}?idGiaoVien=${idGiaoVien}`, data);
-  }
-
-  deleteGiaoVien(idGiaoVien: number): Observable<any>{
-    return this.http.delete(`${deleteGiaoVienUrl}?idGiaoVien=${idGiaoVien}`)
-  }
-
 }
