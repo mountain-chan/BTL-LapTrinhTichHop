@@ -7,7 +7,7 @@ go
 use QuanLyGiaoVienDB_LTTH
 go
 
----------------Thông Tin Cá Nhân Và Thông Tin Liên Quan
+---------------Thông Tin Cá Nhân Giáo viên
 
 Create table BoMon
 (
@@ -80,7 +80,7 @@ Create table GV_HoiDong
 	IdGiaoVien int references GiaoVien(Id),
 	IdHoiDong int references HOIDONG(Id),
 	VaiTro Nvarchar(20),
-	NamHoc int,
+	NamHoc varchar(10),
 	KiHoc int,
 	Solan int,
 	SoGio int
@@ -106,7 +106,7 @@ Create table GV_HuongDan
 	IdHocVien int references HocVien(Id),
 	TenDeTai Nvarchar(50),
 	KiHoc int,
-	NamHoc int,
+	NamHoc varchar(10),
 	BaoVeThanhCong Bit, -- 1 là bảo vệ thành công, 0 là đang hướng dẫn hoặc bảo vệ thất bại
 	SoGio int default 0
 )
@@ -138,7 +138,7 @@ Create table LopHocPhan
 	Ma varchar(5),
 	SiSo int,
 	KiHoc int,
-	NamHoc int,
+	NamHoc varchar(10),
 	IdHocPhan int references HocPhan(Id)
 )
 go
@@ -168,7 +168,7 @@ Create table GV_ChamThi
 	IdGiaoVien int references GiaoVien(Id),
 	IdLoaiChamThi int references LoaiChamThi(Id),
 	SoLuong int,
-	NamHoc int,
+	NamHoc varchar(10),
 	KiHoc int,
 	SoGio int default 0
 )
@@ -192,19 +192,17 @@ Create table Sach
 	Ten Nvarchar(100),
 	NoiXuatBan Nvarchar(100),
 	KiHoc int,
-	NamHoc int,
-	SoTinChi int default 0,
-	SoThanhVien int default 1 check (SoThanhVien <> 0),
+	NamHoc varchar(10),
+	SoThanhVien int default 0,
 	IdLoaiSach int references LoaiSach(Id)
 )
 go
 
-Create table GV_BienSoanSach
+Create table GV_Sach
 (
 	Id int Identity Primary key,
 	IdGiaoVien int references GiaoVien(Id),
 	IdSach int references Sach(Id),
-	LaChuBien int check (0 <= LaChuBien and LaChuBien <= 1) default 0, -- 1 là cán bộ chủ biên
 	SoTrangDaViet int default 0,
 	SoGio int default 0
 )
@@ -226,8 +224,8 @@ Create table BaiBao
 	Ten Nvarchar(100),
 	TenTapChiCongBo Nvarchar(150),
 	KiHoc int,
-	NamHoc int,
-	SoThanhVien int default 1 check (SoThanhVien <> 0) not null,
+	NamHoc varchar(10),
+	SoThanhVien int default 0,
 	IdLoaiBaiBao int references LoaiBaiBao(Id),
 )
 go
@@ -236,7 +234,6 @@ Create table GV_BaiBao
 	Id int Identity Primary key,
 	IdGiaoVien int references GiaoVien(Id),
 	IdBaiBao int references BaiBao(Id),
-	VaiTro Nvarchar(50),
 	SoGio int default 0
 )
 go
@@ -256,14 +253,13 @@ Create table DeTai
 	Ma varchar(5),
 	Ten Nvarchar(200),
 	KiHoc int,
-	NamHoc int,
+	NamHoc varchar(10),
 	CoQuanQuanLy Nvarchar(200),
-	TinhTrang bit, -- 1 đã nghiệm thu, 0 chưa nghiệm thu
-	SoThanhVien int default 1 check (SoThanhVien <> 0) not null,
+	SoThanhVien int default 0,
 	IdLoaiDeTai int references LoaiDeTai(Id)
 )
 go
-Create table GV_DeTaiNghienCuu
+Create table GV_DeTai
 (
 	Id int Identity Primary key,
 	IdGiaoVien int references GiaoVien(Id),
@@ -275,7 +271,7 @@ go
 
 --======================================== Create trigger ==============
 
---Trigger insert for table GV_ChamThi
+--Trigger insert for table BoMon
 create trigger Insert_BoMon on BoMon for insert
 as
 begin
@@ -288,6 +284,7 @@ begin
 end
 go
 
+--Trigger insert for table GiaoVien
 create trigger Insert_GiaoVien on GiaoVien for insert
 as
 begin
@@ -300,6 +297,22 @@ begin
 end
 go
 
+--Trigger delete for table GiaoVien
+create trigger Delete_GiaoVein on GiaoVien instead of delete
+as
+begin
+	declare @Id int
+	select @Id=Id from deleted
+
+	delete GV_BaiBao where IdGiaoVien=@Id
+	delete GV_DeTai where IdGiaoVien=@Id
+	delete GV_Sach where IdGiaoVien=@Id
+	delete GiaoVien where Id=@Id
+end
+go
+
+
+--Trigger insert for table BaiBao
 create trigger Insert_BaiBao on BaiBao for insert
 as
 begin
@@ -312,6 +325,64 @@ begin
 end
 go
 
+--Trigger update for table BaiBao
+create trigger update_BaiBao on BaiBao for update
+as
+begin
+	declare @Id int, @GioChuan int, @SoTV int
+	select @Id=Id from inserted
+
+	select @GioChuan=GioChuan, @SoTV=SoThanhVien from LoaiBaiBao join BaiBao
+	on LoaiBaiBao.Id=BaiBao.IdLoaiBaiBao where BaiBao.Id=@Id
+	
+	if @SoTV > 0
+		update GV_BaiBao set SoGio=@GioChuan/@SoTV  where IdBaiBao=@Id
+end
+go
+
+--Trigger delete for table BaiBao
+create trigger Delete_BaiBao on BaiBao instead of delete
+as
+begin
+	declare @Id int
+	select @Id=Id from deleted
+
+	delete GV_BaiBao where IdBaiBao=@Id
+	delete BaiBao where Id=@Id
+end
+go
+
+--Trigger insert for table GV_BaiBao
+create trigger Insert_GV_BaiBao on GV_BaiBao for insert
+as
+begin
+	declare @Id int, @IdBaiBao int, @SoGio int, @SoTV int
+	select @Id=Id, @IdBaiBao=IdBaiBao from inserted
+
+	select @SoTV = COUNT(*) from GV_BaiBao where IdBaiBao=@IdBaiBao
+	update BaiBao set SoThanhVien=@SoTV  where Id=@IdBaiBao
+
+	select @SoGio=GioChuan/SoThanhVien from LoaiBaiBao join BaiBao 
+	on LoaiBaiBao.Id=BaiBao.IdLoaiBaiBao where BaiBao.Id=@IdBaiBao
+
+	update GV_BaiBao set SoGio=@SoGio  where Id=@Id
+end
+go
+
+--Trigger delete for table GV_BaiBao
+create trigger Delete_GV_BaiBao on GV_BaiBao for delete
+as
+begin
+	declare @IdBaiBao int
+	select @IdBaiBao=IdBaiBao from deleted
+
+	update BaiBao set SoThanhVien=(select COUNT(*) from GV_BaiBao where IdBaiBao=@IdBaiBao)  
+	where Id=@IdBaiBao
+end
+go
+
+
+--Trigger insert for table Detai
 create trigger Insert_DeTai on DeTai for insert
 as
 begin
@@ -324,6 +395,79 @@ begin
 end
 go
 
+--Trigger update for table Detai
+create trigger Update_Detai on Detai for update
+as
+begin
+	declare @Id int, @GioChuan int, @SoTV int
+	select @Id=Id from inserted
+
+	select @GioChuan=GioChuan, @SoTV=SoThanhVien from LoaiDeTai join DeTai 
+	on LoaiDeTai.Id=DeTai.IdLoaiDeTai  where DeTai.Id=@Id
+
+	if @SoTV > 0
+		update GV_DeTai set SoGio=(LaChuTri*@GioChuan/5 + @GioChuan*4/(5*@SoTV))  where Id=@Id
+end
+go
+
+--Trigger delete for table Detai
+create trigger Delete_Detai on Detai instead of delete
+as
+begin
+	declare @Id int
+	select @Id=Id from deleted
+
+	delete GV_DeTai where IdDeTai=@Id
+	delete DeTai where Id=@Id
+end
+go
+
+--Trigger insert for table GV_DeTai
+create trigger Insert_GV_DeTai on GV_DeTai for insert
+as
+begin
+	declare @Id int, @IdDeTai int, @GioChuan int, @SoTV int
+	select @Id=Id, @IdDeTai=IdDeTai from inserted
+
+	select @SoTV = COUNT(*) from GV_DeTai where IdDeTai=@IdDeTai
+	update DeTai set SoThanhVien=@SoTV  where Id=@IdDeTai
+
+	select @GioChuan=GioChuan from LoaiDeTai join DeTai 
+	on LoaiDeTai.Id=DeTai.IdLoaiDeTai  where DeTai.Id=@IdDeTai
+
+	update GV_DeTai set SoGio=(LaChuTri*@GioChuan/5 + @GioChuan*4/(5*@SoTV))  where Id=@Id
+end
+go
+
+--Trigger insert for table GV_DeTai
+create trigger Update_GV_DeTai on GV_DeTai for update
+as
+begin
+	declare @Id int, @IdDeTai int, @GioChuan int, @SoTV int
+	select @Id=Id, @IdDeTai=IdDeTai from inserted
+
+	select @GioChuan=GioChuan, @SoTV=SoThanhVien from LoaiDeTai join DeTai 
+	on LoaiDeTai.Id=DeTai.IdLoaiDeTai  where DeTai.Id=@IdDeTai
+
+	update GV_DeTai set SoGio=(LaChuTri*@GioChuan/5 + @GioChuan*4/(5*@SoTV))  where Id=@Id
+end
+go
+
+--Trigger delete for table GV_DeTai
+create trigger Delete_GV_DeTai on GV_DeTai for delete
+as
+begin
+	declare @IdDeTai int
+	select @IdDeTai=IdDeTai from deleted
+
+	update DeTai set SoThanhVien=(select COUNT(*) from GV_DeTai where IdDeTai=@IdDeTai)  
+	where Id=@IdDeTai
+end
+go
+
+
+
+--Trigger insert for table Sach
 create trigger Insert_Sach on Sach for insert
 as
 begin
@@ -336,197 +480,50 @@ begin
 end
 go
 
-
---Trigger insert for table GV_ChamThi
-create trigger Insert_GV_ChamThi on GV_ChamThi for insert
-as
-begin
-	declare @Id int, @IdLoaiChamThi int, @SoGio int
-	select @Id=Id, @IdLoaiChamThi=IdLoaiChamThi from inserted
-
-	select @SoGio=GioChuan*SoLuong/DonViTinh from LoaiChamThi join GV_ChamThi 
-	on LoaiChamThi.Id=GV_ChamThi.IdLoaiChamThi where LoaiChamThi.Id=@IdLoaiChamThi
-	update GV_ChamThi set SoGio=@SoGio  where Id=@Id 
-end
-go
-
---Trigger update for table LoaiChamThi
-create trigger update_LoaiChamThi on LoaiChamThi for update
-as
-begin
-	declare @Id int, @GioChuan int, @DonViTinh int
-	select @Id=Id, @GioChuan=GioChuan, @DonViTinh=DonViTinh from inserted
-	update GV_ChamThi set SoGio=@GioChuan*SoLuong/@DonViTinh  where IdLoaiChamThi=@Id 
-end
-go
-
-
---Trigger insert for table GV_HuongDan
-create trigger Insert_GV_HuongDan on GV_HuongDan for insert
-as
-begin
-	declare @Id int, @IdLoaiHuongDan int, @SoGio int
-	select @Id=Id, @IdLoaiHuongDan=IdLoaiHuongDan from inserted
-
-	select @SoGio=GioChuan/DonViTinh from LoaiHuongDan join GV_HuongDan 
-	on LoaiHuongDan.Id=GV_HuongDan.IdLoaiHuongDan where LoaiHuongDan.Id=@IdLoaiHuongDan
-	update GV_HuongDan set SoGio=@SoGio  where Id=@Id
-end
-go
-
---Trigger update for table LoaiHuongDan
-create trigger update_LoaiHuongDan on LoaiHuongDan for update
-as
-begin
-	declare @Id int, @GioChuan int, @DonViTinh int
-	select @Id=Id, @GioChuan=GioChuan, @DonViTinh=DonViTinh from inserted
-	update GV_HuongDan set SoGio=@GioChuan/@DonViTinh  where IdLoaiHuongDan=@Id 
-end
-go
-
---Trigger insert for table GV_LopHocPhan
-create trigger Insert_GV_LopHocPhan on GV_LopHocPhan for insert
-as
-begin
-	declare @Id int, @IdLopHocPhan int, @SoGio int
-	select @Id=Id, @IdLopHocPhan=IdLopHocPhan from inserted
-
-	select @SoGio=GioChuan*SoTiet/DonViTinh from LoaiDayHoc join HocPhan 
-	on LoaiDayHoc.Id=HocPhan.IdLoaiDayHoc join LopHocPhan on LopHocPhan.IdHocPhan=HocPhan.Id
-	join GV_LopHocPhan on GV_LopHocPhan.IdLopHocPhan=LopHocPhan.Id where LopHocPhan.Id=@IdLopHocPhan
-	update GV_LopHocPhan set SoGio=@SoGio  where Id=@Id
-end
-go
-
---Trigger update for table LoaiDayHoc
-create trigger update_LoaiDayHoc on LoaiDayHoc for update
-as
-begin
-	declare @Id int, @IdLopHocPhan int, @GioChuan int, @DonViTinh int
-	select @Id=Id, @GioChuan=GioChuan, @DonViTinh=DonViTinh from inserted
-
-	select @IdLopHocPhan=LopHocPhan.Id from HocPhan join LopHocPhan 
-	on LopHocPhan.IdHocPhan=HocPhan.Id where HocPhan.IdLoaiDayHoc=@Id
-	update GV_LopHocPhan set SoGio=@GioChuan*SoTiet/@DonViTinh  where IdLopHocPhan=@IdLopHocPhan 
-end
-go
-
-
---Trigger insert for table GV_DeTaiNghienCuu
-create trigger Insert_GV_DeTaiNghienCuu on GV_DeTaiNghienCuu for insert
-as
-begin
-	declare @Id int, @IdDeTai int, @SoGio int, @SoTV int
-	select @Id=Id, @IdDeTai=IdDeTai from inserted
-
-	select @SoTV = COUNT(*) from GV_DeTaiNghienCuu where IdDeTai=@IdDeTai
-
-	select @SoGio=(LaChuTri*GioChuan/5 + GioChuan*4/(5*SoThanhVien)) from LoaiDeTai 
-	join DeTai on LoaiDeTai.Id=DeTai.IdLoaiDeTai join GV_DeTaiNghienCuu 
-	on GV_DeTaiNghienCuu.IdDeTai = DeTai.Id where DeTai.Id=@IdDeTai
-
-	update DeTai set SoThanhVien=@SoTV  where Id=@IdDeTai
-	update GV_DeTaiNghienCuu set SoGio=@SoGio  where Id=@Id
-end
-go
-
---Trigger update for table LoaiDeTai
-create trigger update_LoaiDeTai on LoaiDeTai for update
-as
-begin
-	declare @Id int, @IdDeTai int, @SoThanhVien int, @GioChuan int, @DonViTinh  int
-	select @Id=Id, @GioChuan=GioChuan, @DonViTinh=DonViTinh from inserted
-
-	select @IdDeTai=DeTai.Id, @SoThanhVien=SoThanhVien from LoaiDeTai 
-	join DeTai on LoaiDeTai.Id=DeTai.IdLoaiDeTai where LoaiDeTai.Id=@Id
-	update GV_DeTaiNghienCuu set SoGio=(LaChuTri*@GioChuan/5 + @GioChuan*4/(5*@SoThanhVien)) where IdDeTai=@IdDeTai 
-end
-go
-
---Trigger insert for table GV_BaiBao
-create trigger Insert_GV_BaiBao on GV_BaiBao for insert
-as
-begin
-	declare @Id int, @IdBaiBao int, @SoGio int, @SoTV int
-	select @Id=Id, @IdBaiBao=IdBaiBao from inserted
-
-	select @SoTV = COUNT(*) from GV_BaiBao where IdBaiBao=@IdBaiBao
-
-	select @SoGio=GioChuan/SoThanhVien from LoaiBaiBao join BaiBao 
-	on LoaiBaiBao.Id=BaiBao.IdLoaiBaiBao where BaiBao.Id=@IdBaiBao
-
-	update BaiBao set SoThanhVien=@SoTV  where Id=@IdBaiBao
-	update GV_BaiBao set SoGio=@SoGio  where Id=@Id
-end
-go
-
---Trigger update for table LoaiBaiBao
-create trigger update_LoaiBaiBao on LoaiBaiBao for update
-as
-begin
-	declare @Id int, @IdBaiBao int, @SoThanhVien int, @GioChuan int, @DonViTinh  int
-	select @Id=Id, @GioChuan=GioChuan, @DonViTinh=DonViTinh from inserted
-
-	select @IdBaiBao=BaiBao.Id, @SoThanhVien=SoThanhVien from LoaiBaiBao 
-	join BaiBao on LoaiBaiBao.Id=BaiBao.IdLoaiBaiBao where LoaiBaiBao.Id=@Id
-	update GV_BaiBao set SoGio=@GioChuan/@SoThanhVien where IdBaiBao=@IdBaiBao 
-end
-go
-
---Trigger insert for table GV_BienSoanSach
-create trigger Insert_GV_BienSoanSach on GV_BienSoanSach for insert
-as
-begin
-	declare @Id int, @IdSach int, @IdLoaiSach int, @GioChuan int, @DonViTinh int, 
-	@SoTinChi int, @SoThanhVien int, @SoTV int
-	select @Id=Id, @IdSach=IdSach from inserted
-
-	select @SoTV = COUNT(*) from GV_BienSoanSach where IdSach=@IdSach
-
-	select @IdLoaiSach=LoaiSach.Id, @GioChuan=GioChuan, @DonViTinh=DonViTinh, @SoTinChi=SoTinChi, @SoThanhVien=SoThanhVien 
-	from LoaiSach join Sach on LoaiSach.Id=Sach.IdLoaiSach  where Sach.Id=@IdSach
-
-	update Sach set SoThanhVien=@SoTV  where Id=@IdSach
-	if(@IdLoaiSach = 1)
-		update GV_BienSoanSach set SoGio=@GioChuan*SoTrangDaViet/@DonViTinh  where Id=@Id
-	else
-		update GV_BienSoanSach set SoGio=(LaChuBien*@GioChuan*@SoTinChi/5+@GioChuan*@SoTinChi*4/(5*@SoThanhVien)) where Id=@Id
-end
-go
-
---Trigger update for table LoaiSach
-create trigger update_LoaiSach on LoaiSach for update
-as
-begin
-	declare @Id int, @IdSach int, @SoThanhVien int, @GioChuan int, @DonViTinh  int,  @SoTinChi int
-	select @Id=Id, @GioChuan=GioChuan, @DonViTinh=DonViTinh from inserted
-
-	select @IdSach=Sach.Id, @SoThanhVien=SoThanhVien, @SoTinChi=SoTinChi from LoaiSach 
-	join Sach on LoaiSach.Id=Sach.IdLoaiSach where LoaiSach.Id=@Id
-
-	if(@Id = 1)
-		update GV_BienSoanSach set SoGio=@GioChuan*SoTrangDaViet/@DonViTinh  where IdSach=@IdSach
-	else
-		update GV_BienSoanSach set SoGio=(LaChuBien*@GioChuan*@SoTinChi/5+@GioChuan*@SoTinChi*4/(5*@SoThanhVien)) where IdSach=@IdSach
-end
-go
-
 --Trigger update for table Sach
 create trigger update_Sach on Sach for update
 as
 begin
-	declare @Id int, @IdLoaiSach int, @SoThanhVien int, @GioChuan int, @DonViTinh  int,  @SoTinChi int
-	select @Id=Id, @SoThanhVien=SoThanhVien, @SoTinChi=SoTinChi from inserted
+	declare @Id int, @GioChuan int, @DonViTinh  int
+	select @Id=Id from inserted
 
-	select @IdLoaiSach=LoaiSach.Id, @GioChuan=GioChuan, @DonViTinh=DonViTinh from LoaiSach 
+	select @GioChuan=GioChuan, @DonViTinh=DonViTinh from LoaiSach 
 	join Sach on LoaiSach.Id=Sach.IdLoaiSach where Sach.Id=@Id
 
-	if(@IdLoaiSach = 1)
-		update GV_BienSoanSach set SoGio=@GioChuan*SoTrangDaViet/@DonViTinh  where IdSach=@Id
-	else
-		update GV_BienSoanSach set SoGio=(LaChuBien*@GioChuan*@SoTinChi/5+@GioChuan*@SoTinChi*4/(5*@SoThanhVien)) where IdSach=@Id
+	update GV_Sach set SoGio=@GioChuan*SoTrangDaViet/@DonViTinh  where IdSach=@Id
 end
 go
+
+--Trigger delete for table Sach
+create trigger Delete_Sach on Sach instead of delete
+as
+begin
+	declare @Id int
+	select @Id=Id from deleted
+
+	delete GV_Sach where IdSach=@Id
+	delete Sach where Id=@Id
+end
+go
+
+
+--Trigger insert, update for table GV_Sach
+create trigger IU_GV_Sach on GV_Sach for insert, update
+as
+begin
+	declare @Id int, @IdSach int, @GioChuan int, @DonViTinh int
+	
+	select @Id=Id, @IdSach=IdSach from inserted
+
+	select @GioChuan=GioChuan, @DonViTinh=DonViTinh from LoaiSach 
+	join Sach on LoaiSach.Id=Sach.IdLoaiSach where Sach.Id=@IdSach
+
+	update GV_Sach set SoGio=@GioChuan*SoTrangDaViet/@DonViTinh  where Id=@Id
+	
+end
+go
+
+
 
 --======================================== Add some data for test ==============
 
@@ -563,20 +560,21 @@ INSERT [dbo].[GiaoVien] ([Ten], [GioiTinh], [NgaySinh], [DiaChi], [DienThoai], [
 INSERT [dbo].[GiaoVien] ([Ten], [GioiTinh], [NgaySinh], [DiaChi], [DienThoai], [Email], [IdBoMon]) VALUES (N'Nguyễn Thị K', 0, CAST(N'1980-01-24' AS Date),  N'117 Trần Cung', N'123456789   ', N'gv10@gmail.com', 5)
 INSERT [dbo].[GiaoVien] ([Ten], [GioiTinh], [NgaySinh], [DiaChi], [DienThoai], [Email], [IdBoMon]) VALUES (N'Nguyễn Thị E', 0, CAST(N'1980-01-09' AS Date),  N'117 Trần Cung', N'123456789   ', N'gv10@gmail.com', 1)
 go
-INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoaiSach]) VALUES (N'Sách 1', N'Học viện Kỹ Thuật Quân Sự', 2019, 1, 3, 1)
-INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoaiSach]) VALUES (N'Sách 2', N'Học viện Kỹ Thuật Quân Sự', 2018, 1, 3, 2)
-INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoaiSach]) VALUES (N'Sách 3', N'Học viện Kỹ Thuật Quân Sự', 2019, 1, 4, 1)
-INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoaiSach]) VALUES (N'Sách 4', N'Học viện Kỹ Thuật Quân Sự', 2019, 2, 3, 1)
-INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoaiSach]) VALUES (N'Sách 5', N'Học viện Kỹ Thuật Quân Sự', 2018, 2, 2, 1)
-INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [SoTinChi], [IdLoaiSach]) VALUES (N'Sách 6', N'Học viện Kỹ Thuật Quân Sự', 2019, 2, 4, 3)
+INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [IdLoaiSach]) VALUES (N'Sách 1', N'Học viện Kỹ Thuật Quân Sự', '2018-2019', 1, 1)
+INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [IdLoaiSach]) VALUES (N'Sách 2', N'Học viện Kỹ Thuật Quân Sự', '2017-2018', 1, 2)
+INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [IdLoaiSach]) VALUES (N'Sách 3', N'Học viện Kỹ Thuật Quân Sự', '2018-2019', 1, 1)
+INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [IdLoaiSach]) VALUES (N'Sách 4', N'Học viện Kỹ Thuật Quân Sự', '2018-2019', 2, 1)
+INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [IdLoaiSach]) VALUES (N'Sách 5', N'Học viện Kỹ Thuật Quân Sự', '2017-2018', 2, 1)
+INSERT [dbo].[Sach] ([Ten], [NoiXuatBan], [NamHoc], [KiHoc], [IdLoaiSach]) VALUES (N'Sách 6', N'Học viện Kỹ Thuật Quân Sự', '2018-2019', 2, 3)
 go
-INSERT [dbo].[DeTai] ([Ten], [NamHoc], [KiHoc], [CoQuanQuanLy], [TinhTrang], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', 2018, 1, N'Bộ quốc phòng', 1, 1)
-INSERT [dbo].[DeTai] ([Ten], [NamHoc], [KiHoc], [CoQuanQuanLy], [TinhTrang], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', 2018, 2, N'Bộ quốc phòng', 1,  1)
-INSERT [dbo].[DeTai] ([Ten], [NamHoc], [KiHoc], [CoQuanQuanLy], [TinhTrang], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', 2019, 1, N'Học viện kỹ thuật quân sự', 1, 2)
+INSERT [dbo].[DeTai] ([Ten], [NamHoc], [KiHoc], [CoQuanQuanLy], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', '2017-2018', 1, N'Bộ quốc phòng', 1)
+INSERT [dbo].[DeTai] ([Ten], [NamHoc], [KiHoc], [CoQuanQuanLy], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', '2017-2018', 2, N'Bộ quốc phòng', 1)
+INSERT [dbo].[DeTai] ([Ten], [NamHoc], [KiHoc], [CoQuanQuanLy], [IdLoaiDeTai]) VALUES (N'Nghiên cứu abc', '2018-2019', 1, N'Học viện kỹ thuật quân sự', 2)
 go
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo T', N'Tạp chí kỹ thuật', 2019, 1, 1)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo bac', N'Ứng dụng mới', 2018, 1,  1)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo VN', N'Kỹ thuật lập trình hiệu quả', 2019, 2, 2)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo số 2', 2018, 2, 2)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo abc', 2019, 2,  3)
-INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo abc', N'Bài báo xyz', 2019, 1, 3)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo T', N'Tạp chí kỹ thuật', '2018-2019', 1, 1)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo bac', N'Ứng dụng mới', '2017-2018', 1,  1)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo VN', N'Kỹ thuật lập trình hiệu quả', '2018-2019', 2, 2)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo số 2', '2017-2018', 2, 2)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo KHCN', N'Bài báo abc', '2018-2019', 2,  3)
+INSERT [dbo].[BaiBao] ([Ten], [TenTapChiCongBo], [NamHoc], [KiHoc], [IdLoaiBaiBao]) VALUES (N'Báo abc', N'Bài báo xyz', '2018-2019', 1, 3)
+
