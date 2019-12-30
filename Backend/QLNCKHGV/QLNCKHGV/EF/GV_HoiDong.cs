@@ -17,7 +17,8 @@ namespace QLNCKHGV.EF
         [StringLength(20)]
         public string VaiTro { get; set; }
 
-        public int? NamHoc { get; set; }
+        [StringLength(10)]
+        public string NamHoc { get; set; }
 
         public int? KiHoc { get; set; }
 

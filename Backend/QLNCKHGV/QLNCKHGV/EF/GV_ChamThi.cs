@@ -16,7 +16,8 @@ namespace QLNCKHGV.EF
 
         public int? SoLuong { get; set; }
 
-        public int? NamHoc { get; set; }
+        [StringLength(10)]
+        public string NamHoc { get; set; }
 
         public int? KiHoc { get; set; }
 

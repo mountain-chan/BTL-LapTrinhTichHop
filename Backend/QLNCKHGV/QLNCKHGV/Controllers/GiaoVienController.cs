@@ -29,6 +29,7 @@ namespace QLNCKHGV.Controllers
                 DiaChi = k.DiaChi,
                 DienThoai = k.DienThoai,
                 Email = k.Email,
+                IdBoMon = k.IdBoMon,
                 BoMon = k.IdBoMon == null ? null : new BoMonModel()
                 {
                     Id = k.BoMon.Id,
@@ -62,6 +63,7 @@ namespace QLNCKHGV.Controllers
                 DiaChi = k.DiaChi,
                 DienThoai = k.DienThoai,
                 Email = k.Email,
+                IdBoMon = k.IdBoMon,
                 BoMon = k.IdBoMon == null ? null : new BoMonModel()
                 {
                     Id = k.BoMon.Id,
@@ -77,6 +79,28 @@ namespace QLNCKHGV.Controllers
                 items = listGiaoVien.ToPagedList(pageNumber + 1, pageSize),
                 totals = totalItems
             });
+        }
+
+
+        [Route("api/GiaoVien/Search")]
+        public IHttpActionResult GetSearch(string textSearch)
+        {
+
+            IList<GiaoVienModel> listGiaoVien = null;
+            listGiaoVien = db.GiaoViens.Where(gv => gv.Ma.Contains(textSearch) || gv.Ten.Contains(textSearch))
+                .Select(k => new GiaoVienModel()
+                {
+                    Id = k.Id,
+                    Ma = k.Ma,
+                    Ten = k.Ten,
+                    GioiTinh = k.GioiTinh,
+                    NgaySinh = k.NgaySinh,
+                    DiaChi = k.DiaChi,
+                    DienThoai = k.DienThoai,
+                    Email = k.Email
+                }).ToList<GiaoVienModel>();
+
+            return Ok(listGiaoVien);
         }
 
 
@@ -112,33 +136,94 @@ namespace QLNCKHGV.Controllers
             return Ok(giaoVien);
         }
 
-        //[Route("api/GiaoVien/GetGiaoVienByBoMon")]
-        //public IHttpActionResult GetGiaoVienByBoMon(int idBoMon, int namHoc, int kiHoc)
-        //{
-        //    IList<GiaoVienModel> listGiaoVien = null;
-        //    listGiaoVien = (from gv in db.GiaoViens
-        //                    join gv_bm in db.GV_BoMon on gv.Id equals gv_bm.IdGiaoVien
-        //                    where gv_bm.IdBoMon == idBoMon && gv_bm.NamHoc == namHoc
-        //                    && gv_bm.KiHoc == kiHoc
-        //                    select new GiaoVienModel()
-        //                    {
-        //                        Id = gv.Id,
-        //                        Ma = gv.Ma,
-        //                        Ten = gv.Ten,
-        //                        GioiTinh = gv.GioiTinh,
-        //                        NgaySinh = gv.NgaySinh,
-        //                        DiaChi = gv.DiaChi,
-        //                        DienThoai = gv.DienThoai,
-        //                        Email = gv.Email
-        //                    }).ToList<GiaoVienModel>();
+        [Route("api/GiaoVien/GetGiaoVienByBaiBao")]
+        public IHttpActionResult GetGiaoVienByBaiBao(int id)
+        {
+            IList<GiaoVienModel> listGiaoVien = null;
+            listGiaoVien = (from gv in db.GiaoViens
+                            join gv_bb in db.GV_BaiBao on gv.Id equals gv_bb.IdGiaoVien
+                            where gv_bb.IdBaiBao == id
+                            select new GiaoVienModel()
+                            {
+                                Id = gv.Id,
+                                Ma = gv.Ma,
+                                Ten = gv.Ten,
+                                GioiTinh = gv.GioiTinh,
+                                NgaySinh = gv.NgaySinh,
+                                DiaChi = gv.DiaChi,
+                                DienThoai = gv.DienThoai,
+                                Email = gv.Email,
+                                IdGVBB = gv_bb.Id,
+                                BoMon = gv.IdBoMon == null ? null : new BoMonModel()
+                                {
+                                    Id = gv.BoMon.Id,
+                                    Ma = gv.BoMon.Ma,
+                                    Ten = gv.BoMon.Ten
+                                }
+                            }).ToList<GiaoVienModel>();
 
-        //    if (listGiaoVien.Count == 0)
-        //    {
-        //        return NotFound();
-        //    }
+            return Ok(listGiaoVien);
+        }
 
-        //    return Ok(listGiaoVien);
-        //}
+        [Route("api/GiaoVien/GetGiaoVienByDeTai")]
+        public IHttpActionResult GetGiaoVienByDeTai(int id)
+        {
+            IList<GiaoVienModel> listGiaoVien = null;
+            listGiaoVien = (from gv in db.GiaoViens
+                            join gv_dt in db.GV_DeTai on gv.Id equals gv_dt.IdGiaoVien
+                            where gv_dt.IdDeTai == id
+                            select new GiaoVienModel()
+                            {
+                                Id = gv.Id,
+                                Ma = gv.Ma,
+                                Ten = gv.Ten,
+                                GioiTinh = gv.GioiTinh,
+                                NgaySinh = gv.NgaySinh,
+                                DiaChi = gv.DiaChi,
+                                DienThoai = gv.DienThoai,
+                                Email = gv.Email,
+                                IdGVDT = gv_dt.Id,
+                                LaChuTri = gv_dt.LaChuTri,
+                                BoMon = gv.IdBoMon == null ? null : new BoMonModel()
+                                {
+                                    Id = gv.BoMon.Id,
+                                    Ma = gv.BoMon.Ma,
+                                    Ten = gv.BoMon.Ten
+                                }
+                            }).ToList<GiaoVienModel>();
+
+            return Ok(listGiaoVien);
+        }
+
+        [Route("api/GiaoVien/GetGiaoVienBySach")]
+        public IHttpActionResult GetGiaoVienBySach(int id)
+        {
+            IList<GiaoVienModel> listGiaoVien = null;
+            listGiaoVien = (from gv in db.GiaoViens
+                            join gv_sa in db.GV_Sach on gv.Id equals gv_sa.IdGiaoVien
+                            where gv_sa.IdSach == id
+                            select new GiaoVienModel()
+                            {
+                                Id = gv.Id,
+                                Ma = gv.Ma,
+                                Ten = gv.Ten,
+                                GioiTinh = gv.GioiTinh,
+                                NgaySinh = gv.NgaySinh,
+                                DiaChi = gv.DiaChi,
+                                DienThoai = gv.DienThoai,
+                                Email = gv.Email,
+                                IdGVSA = gv_sa.Id,
+                                SoTrangDaViet = gv_sa.SoTrangDaViet,
+                                BoMon = gv.IdBoMon == null ? null : new BoMonModel()
+                                {
+                                    Id = gv.BoMon.Id,
+                                    Ma = gv.BoMon.Ma,
+                                    Ten = gv.BoMon.Ten
+                                }
+                            }).ToList<GiaoVienModel>();
+
+            return Ok(listGiaoVien);
+        }
 
         [Route("api/GiaoVien/ThemGiaoVien")]
         public IHttpActionResult PostThemGiaoVien(GiaoVien model)

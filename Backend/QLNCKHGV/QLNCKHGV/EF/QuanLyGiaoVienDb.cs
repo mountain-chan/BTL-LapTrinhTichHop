@@ -17,12 +17,12 @@ namespace QLNCKHGV.EF
         public virtual DbSet<DeTai> DeTais { get; set; }
         public virtual DbSet<GiaoVien> GiaoViens { get; set; }
         public virtual DbSet<GV_BaiBao> GV_BaiBao { get; set; }
-        public virtual DbSet<GV_BienSoanSach> GV_BienSoanSach { get; set; }
         public virtual DbSet<GV_ChamThi> GV_ChamThi { get; set; }
-        public virtual DbSet<GV_DeTaiNghienCuu> GV_DeTaiNghienCuu { get; set; }
+        public virtual DbSet<GV_DeTai> GV_DeTai { get; set; }
         public virtual DbSet<GV_HoiDong> GV_HoiDong { get; set; }
         public virtual DbSet<GV_HuongDan> GV_HuongDan { get; set; }
         public virtual DbSet<GV_LopHocPhan> GV_LopHocPhan { get; set; }
+        public virtual DbSet<GV_Sach> GV_Sach { get; set; }
         public virtual DbSet<He> He { get; set; }
         public virtual DbSet<HocPhan> HocPhans { get; set; }
         public virtual DbSet<HocVien> HocViens { get; set; }
@@ -42,7 +42,10 @@ namespace QLNCKHGV.EF
         {
             modelBuilder.Entity<BaiBao>()
                 .Property(e => e.Ma)
-                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<BaiBao>()
+                .Property(e => e.NamHoc)
                 .IsUnicode(false);
 
             modelBuilder.Entity<BaiBao>()
@@ -52,7 +55,6 @@ namespace QLNCKHGV.EF
 
             modelBuilder.Entity<BoMon>()
                 .Property(e => e.Ma)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<BoMon>()
@@ -62,17 +64,19 @@ namespace QLNCKHGV.EF
 
             modelBuilder.Entity<DeTai>()
                 .Property(e => e.Ma)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<DeTai>()
-                .HasMany(e => e.GV_DeTaiNghienCuu)
+                .Property(e => e.NamHoc)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DeTai>()
+                .HasMany(e => e.GV_DeTai)
                 .WithOptional(e => e.DeTai)
                 .HasForeignKey(e => e.IdDeTai);
 
             modelBuilder.Entity<GiaoVien>()
                 .Property(e => e.Ma)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<GiaoVien>()
@@ -89,17 +93,12 @@ namespace QLNCKHGV.EF
                 .HasForeignKey(e => e.IdGiaoVien);
 
             modelBuilder.Entity<GiaoVien>()
-                .HasMany(e => e.GV_BienSoanSach)
-                .WithOptional(e => e.GiaoVien)
-                .HasForeignKey(e => e.IdGiaoVien);
-
-            modelBuilder.Entity<GiaoVien>()
                 .HasMany(e => e.GV_ChamThi)
                 .WithOptional(e => e.GiaoVien)
                 .HasForeignKey(e => e.IdGiaoVien);
 
             modelBuilder.Entity<GiaoVien>()
-                .HasMany(e => e.GV_DeTaiNghienCuu)
+                .HasMany(e => e.GV_DeTai)
                 .WithOptional(e => e.GiaoVien)
                 .HasForeignKey(e => e.IdGiaoVien);
 
@@ -118,6 +117,23 @@ namespace QLNCKHGV.EF
                 .WithOptional(e => e.GiaoVien)
                 .HasForeignKey(e => e.IdGiaoVien);
 
+            modelBuilder.Entity<GiaoVien>()
+                .HasMany(e => e.GV_Sach)
+                .WithOptional(e => e.GiaoVien)
+                .HasForeignKey(e => e.IdGiaoVien);
+
+            modelBuilder.Entity<GV_ChamThi>()
+                .Property(e => e.NamHoc)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GV_HoiDong>()
+                .Property(e => e.NamHoc)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GV_HuongDan>()
+                .Property(e => e.NamHoc)
+                .IsUnicode(false);
+
             modelBuilder.Entity<He>()
                 .HasMany(e => e.HocPhans)
                 .WithOptional(e => e.He)
@@ -130,7 +146,6 @@ namespace QLNCKHGV.EF
 
             modelBuilder.Entity<HocPhan>()
                 .Property(e => e.Ma)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<HocPhan>()
@@ -140,7 +155,6 @@ namespace QLNCKHGV.EF
 
             modelBuilder.Entity<HocVien>()
                 .Property(e => e.Ma)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<HocVien>()
@@ -190,7 +204,6 @@ namespace QLNCKHGV.EF
 
             modelBuilder.Entity<Lop>()
                 .Property(e => e.Ma)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Lop>()
@@ -200,7 +213,10 @@ namespace QLNCKHGV.EF
 
             modelBuilder.Entity<LopHocPhan>()
                 .Property(e => e.Ma)
-                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<LopHocPhan>()
+                .Property(e => e.NamHoc)
                 .IsUnicode(false);
 
             modelBuilder.Entity<LopHocPhan>()
@@ -210,11 +226,14 @@ namespace QLNCKHGV.EF
 
             modelBuilder.Entity<Sach>()
                 .Property(e => e.Ma)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<Sach>()
-                .HasMany(e => e.GV_BienSoanSach)
+                .Property(e => e.NamHoc)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Sach>()
+                .HasMany(e => e.GV_Sach)
                 .WithOptional(e => e.Sach)
                 .HasForeignKey(e => e.IdSach);
         }

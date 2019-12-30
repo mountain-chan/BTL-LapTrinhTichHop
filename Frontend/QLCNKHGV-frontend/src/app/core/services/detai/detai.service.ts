@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { getAllDeTaiUrl, getDeTaiByGiaoVienUrl, getDeTaiByKiUrl, createDeTaiUrl, updateDeTaiUrl, deleteDeTaiUrl, themTVDeTaiUrl, getDeTaiByIdUrl, getLoaiDeTaiUrl } from '../../enums/url.enum';
+import { getAllDeTaiUrl, getDeTaiByGiaoVienUrl, getDeTaiByKiUrl, createDeTaiUrl, updateDeTaiUrl, deleteDeTaiUrl, themTVDeTaiUrl, getDeTaiByIdUrl, getLoaiDeTaiUrl, deleteTVDTUrl, suaTVDeTaiUrl } from '../../enums/url.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +43,16 @@ export class DeTaiService {
     return this.http.delete(`${deleteDeTaiUrl}?id=${id}`)
   }
 
+  deleteThanhVien(id: number): Observable<any>{
+    return this.http.delete(`${deleteTVDTUrl}?id=${id}`)
+  }
+
   themThanhVien(data: any): Observable<any> {
-    return this.http.put(`${themTVDeTaiUrl}`, data);
+    return this.http.post(`${themTVDeTaiUrl}`, data);
+  }
+
+  suaThanhVien(data: any): Observable<any> {
+    return this.http.put(`${suaTVDeTaiUrl}`, data);
   }
 
 }

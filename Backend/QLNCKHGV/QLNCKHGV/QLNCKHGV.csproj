@@ -145,19 +145,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaiBaoController.cs" />
     <Compile Include="Controllers\BoMonController.cs" />
+    <Compile Include="Controllers\DeTaiController.cs" />
     <Compile Include="Controllers\GiaoVienController.cs" />
+    <Compile Include="Controllers\SachController.cs" />
     <Compile Include="EF\BaiBao.cs" />
     <Compile Include="EF\BoMon.cs" />
     <Compile Include="EF\DeTai.cs" />
     <Compile Include="EF\GiaoVien.cs" />
     <Compile Include="EF\GV_BaiBao.cs" />
-    <Compile Include="EF\GV_BienSoanSach.cs" />
     <Compile Include="EF\GV_ChamThi.cs" />
-    <Compile Include="EF\GV_DeTaiNghienCuu.cs" />
+    <Compile Include="EF\GV_DeTai.cs" />
     <Compile Include="EF\GV_HoiDong.cs" />
     <Compile Include="EF\GV_HuongDan.cs" />
     <Compile Include="EF\GV_LopHocPhan.cs" />
+    <Compile Include="EF\GV_Sach.cs" />
     <Compile Include="EF\He.cs" />
     <Compile Include="EF\HocPhan.cs" />
     <Compile Include="EF\HocVien.cs" />
@@ -176,8 +179,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BaiBaoModel.cs" />
     <Compile Include="Models\BoMonModel.cs" />
+    <Compile Include="Models\DeTaiModel.cs" />
     <Compile Include="Models\GiaoVienModel.cs" />
+    <Compile Include="Models\LoaiBBModel.cs" />
+    <Compile Include="Models\LoaiDTModel.cs" />
+    <Compile Include="Models\LoaiSachModel.cs" />
+    <Compile Include="Models\SachModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

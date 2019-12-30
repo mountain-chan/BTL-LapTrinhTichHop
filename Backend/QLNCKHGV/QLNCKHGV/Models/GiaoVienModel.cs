@@ -8,7 +8,13 @@ namespace QLNCKHGV.Models
     public class GiaoVienModel
     {
         public int Id { get; set; }
-        
+
+        public int IdGVBB { get; set; }
+
+        public int IdGVDT { get; set; }
+
+        public int IdGVSA { get; set; }
+
         public string Ma { get; set; }
         
         public string Ten { get; set; }
@@ -26,5 +32,9 @@ namespace QLNCKHGV.Models
         public int? IdBoMon { get; set; }
 
         public virtual BoMonModel BoMon { get; set; }
+
+        public int? SoTrangDaViet { get; set; }
+
+        public int? LaChuTri { get; set; }
     }
 }

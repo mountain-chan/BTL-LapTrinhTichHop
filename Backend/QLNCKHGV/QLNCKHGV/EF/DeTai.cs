@@ -12,7 +12,7 @@ namespace QLNCKHGV.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DeTai()
         {
-            GV_DeTaiNghienCuu = new HashSet<GV_DeTaiNghienCuu>();
+            GV_DeTai = new HashSet<GV_DeTai>();
         }
 
         public int Id { get; set; }
@@ -25,20 +25,19 @@ namespace QLNCKHGV.EF
 
         public int? KiHoc { get; set; }
 
-        public int? NamHoc { get; set; }
+        [StringLength(10)]
+        public string NamHoc { get; set; }
 
         [StringLength(200)]
         public string CoQuanQuanLy { get; set; }
 
-        public bool? TinhTrang { get; set; }
-
-        public int SoThanhVien { get; set; }
+        public int? SoThanhVien { get; set; }
 
         public int? IdLoaiDeTai { get; set; }
 
         public virtual LoaiDeTai LoaiDeTai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GV_DeTaiNghienCuu> GV_DeTaiNghienCuu { get; set; }
+        public virtual ICollection<GV_DeTai> GV_DeTai { get; set; }
     }
 }

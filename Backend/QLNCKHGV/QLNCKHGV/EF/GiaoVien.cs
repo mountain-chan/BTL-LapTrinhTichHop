@@ -13,12 +13,12 @@ namespace QLNCKHGV.EF
         public GiaoVien()
         {
             GV_BaiBao = new HashSet<GV_BaiBao>();
-            GV_BienSoanSach = new HashSet<GV_BienSoanSach>();
             GV_ChamThi = new HashSet<GV_ChamThi>();
-            GV_DeTaiNghienCuu = new HashSet<GV_DeTaiNghienCuu>();
+            GV_DeTai = new HashSet<GV_DeTai>();
             GV_HoiDong = new HashSet<GV_HoiDong>();
             GV_HuongDan = new HashSet<GV_HuongDan>();
             GV_LopHocPhan = new HashSet<GV_LopHocPhan>();
+            GV_Sach = new HashSet<GV_Sach>();
         }
 
         public int Id { get; set; }
@@ -51,13 +51,10 @@ namespace QLNCKHGV.EF
         public virtual ICollection<GV_BaiBao> GV_BaiBao { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GV_BienSoanSach> GV_BienSoanSach { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GV_ChamThi> GV_ChamThi { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GV_DeTaiNghienCuu> GV_DeTaiNghienCuu { get; set; }
+        public virtual ICollection<GV_DeTai> GV_DeTai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GV_HoiDong> GV_HoiDong { get; set; }
@@ -67,5 +64,8 @@ namespace QLNCKHGV.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GV_LopHocPhan> GV_LopHocPhan { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GV_Sach> GV_Sach { get; set; }
     }
 }

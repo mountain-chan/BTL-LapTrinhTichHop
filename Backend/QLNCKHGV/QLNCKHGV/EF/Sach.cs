@@ -12,7 +12,7 @@ namespace QLNCKHGV.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sach()
         {
-            GV_BienSoanSach = new HashSet<GV_BienSoanSach>();
+            GV_Sach = new HashSet<GV_Sach>();
         }
 
         public int Id { get; set; }
@@ -28,16 +28,15 @@ namespace QLNCKHGV.EF
 
         public int? KiHoc { get; set; }
 
-        public int? NamHoc { get; set; }
-
-        public int? SoTinChi { get; set; }
+        [StringLength(10)]
+        public string NamHoc { get; set; }
 
         public int? SoThanhVien { get; set; }
 
         public int? IdLoaiSach { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GV_BienSoanSach> GV_BienSoanSach { get; set; }
+        public virtual ICollection<GV_Sach> GV_Sach { get; set; }
 
         public virtual LoaiSach LoaiSach { get; set; }
     }

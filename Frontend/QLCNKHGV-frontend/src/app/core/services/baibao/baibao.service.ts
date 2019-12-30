@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { getAllBaiBaoUrl, getBaiBaoByGiaoVienUrl, getBaiBaoByKiUrl, createBaiBaoUrl, updateBaiBaoUrl, deleteBaiBaoUrl, themTVBaiBaoUrl, getBaiBaoByIdUrl, getLoaiBaiBaoUrl } from '../../enums/url.enum';
+import { getAllBaiBaoUrl, getBaiBaoByGiaoVienUrl, getBaiBaoByKiUrl, createBaiBaoUrl, updateBaiBaoUrl, deleteBaiBaoUrl, themTVBaiBaoUrl, getBaiBaoByIdUrl, getLoaiBaiBaoUrl, deleteTVBBUrl } from '../../enums/url.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +43,12 @@ export class BaiBaoService {
     return this.http.delete(`${deleteBaiBaoUrl}?id=${id}`)
   }
 
+  deleteThanhVien(id: number): Observable<any>{
+    return this.http.delete(`${deleteTVBBUrl}?id=${id}`)
+  }
+
   themThanhVien(data: any): Observable<any> {
-    return this.http.put(`${themTVBaiBaoUrl}`, data);
+    return this.http.post(`${themTVBaiBaoUrl}`, data);
   }
 
 }

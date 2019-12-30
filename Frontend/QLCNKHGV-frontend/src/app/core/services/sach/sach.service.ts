@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { getAllSachUrl, getSachByGiaoVienUrl, getSachByKiUrl, createSachUrl, updateSachUrl, deleteSachUrl, themTVSachUrl, getSachByIdUrl, getLoaiSachUrl } from '../../enums/url.enum';
+import { getAllSachUrl, getSachByGiaoVienUrl, getSachByKiUrl, createSachUrl, updateSachUrl, deleteSachUrl, themTVSachUrl, getSachByIdUrl, getLoaiSachUrl, deleteTVSachhUrl, suaTVSachUrl } from '../../enums/url.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +43,16 @@ export class SachService {
     return this.http.delete(`${deleteSachUrl}?id=${id}`)
   }
 
+  deleteThanhVien(id: number): Observable<any>{
+    return this.http.delete(`${deleteTVSachhUrl}?id=${id}`)
+  }
+
   themThanhVien(data: any): Observable<any> {
-    return this.http.put(`${themTVSachUrl}`, data);
+    return this.http.post(`${themTVSachUrl}`, data);
+  }
+
+  suaThanhVien(data: any): Observable<any> {
+    return this.http.put(`${suaTVSachUrl}`, data);
   }
 
 }
