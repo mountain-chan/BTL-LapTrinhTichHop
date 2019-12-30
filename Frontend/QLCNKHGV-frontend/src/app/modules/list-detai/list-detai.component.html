@@ -1,10 +1,6 @@
 <div class="table-data">
   <div class="toolbar">
 
-    <button [routerLink]="['/detai-detail']"
-        class="btn">Detail
-      </button>
-
     <select class="form-control with-auto" (change)="onNamChange($event.target.value)">
       <option selected value="">Năm học</option>
       <option *ngFor="let nam of listNam" [value]="nam">{{nam}}</option>
@@ -31,8 +27,7 @@
             <th>Tên đề tài</th>
             <th>Loại đề tài</th>
             <th>Cơ quan quản lý</th>
-            <th>Số thành viên</th>
-            <th>Tình trạng</th>
+            <th>Số TV</th>
             <th>Năm học</th>
             <th>Kì học</th>
             <th style="min-width: 100px">Thao tác</th>
@@ -47,7 +42,6 @@
             <td (click)="viewdetai(detai?.Id)">{{detai?.LoaiDeTai.Ten}}</td>
             <td (click)="viewdetai(detai?.Id)">{{detai?.CoQuanQuanLy}}</td>
             <td (click)="viewdetai(detai?.Id)">{{detai?.SoThanhVien}}</td>
-            <td (click)="viewdetai(detai?.Id)">{{detai?.TinhTrang}}</td>
             <td (click)="viewdetai(detai?.Id)">{{detai?.NamHoc}}</td>
             <td (click)="viewdetai(detai?.Id)">{{detai?.KiHoc}}</td>
             <td>

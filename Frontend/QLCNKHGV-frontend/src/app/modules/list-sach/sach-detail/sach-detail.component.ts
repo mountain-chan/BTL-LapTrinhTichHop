@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { filter, tap } from 'rxjs/operators';
 import { GiaoVienService } from 'src/app/core/services/giaovien/giaovien.service';
 import { SachService } from 'src/app/core/services/sach/sach.service';
+import { DeleteMemberDialogComponent } from 'src/app/core/components/delete-member-dialog/delete-member-dialog.component';
 
 @Component({
   selector: 'app-sach-detail',
@@ -58,13 +59,33 @@ export class SachDetailComponent implements OnInit {
       })
   }
 
-  openDialog(action: string) {
+  openDialog(action: string, id: number, SoTrangDaViet: number) {
     const dialogRef = this.dialog.open(ThemtvDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
       data: {
         action,
-        id : this.sach.Id
+        id,
+        SoTrangDaViet
+      }
+    });
+    dialogRef.afterClosed()
+      .subscribe((data) => {
+        if (data !== null && data !== undefined) {
+          if (data === true) {
+            this.getListGiaoVien();
+          }
+        }
+      });
+  }
+
+  openDialogDelete(action: string, id: number) {
+    const dialogRef = this.dialog.open(DeleteMemberDialogComponent, {
+      width: '600px',
+      closeOnNavigation: true,
+      data: {
+        action,
+        id : id
       }
     });
     dialogRef.afterClosed()

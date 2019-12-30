@@ -8,7 +8,7 @@
         <div class="col-md-3 infor">
             <label class="block">Tên bài báo: {{baiBao?.Ten}}</label>
             <label class="block">Mã bài báo: {{baiBao?.Ma}}</label>
-            <button (click)="openDialog('baibao')"
+            <button (click)="openDialog('baibao', baiBao?.Id)"
                 class="btn btn-primary btn-tv">Thêm thành viên
             </button>
         </div>
@@ -25,16 +25,22 @@
                         <th>Tên giáo viên</th>
                         <th>Bộ môn</th>
                         <th>Email</th>
+                        <th>Thao tác</th>
                       </tr>
                     </thead>
                     <tbody *ngIf="listGiaoVien?.length > 0">
-                      <tr *ngFor="let giaovien of listGiaoVien; let i = index;"
-                       style="cursor: pointer;"  (click)="viewgiaovien(giaovien?.Id)">
-                        <td>{{(i + 1) }}</td>
-                        <td>{{giaovien?.Ma}}</td>
-                        <td>{{giaovien?.Ten}}</td>
-                        <td>{{giaovien?.BoMon.Ten}}</td>
-                        <td>{{giaovien?.Email}}</td>
+                      <tr *ngFor="let giaovien of listGiaoVien; let i = index;">
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{(i + 1) }}</td>
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ma}}</td>
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ten}}</td>
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.BoMon.Ten}}</td>
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Email}}</td>
+                        <td>
+                          <mat-icon (click)="openDialogDelete('baibao', giaovien?.IdGVBB)"
+                            class="mat-18" title="Xóa thành viên"
+                            style="cursor: pointer;">delete
+                          </mat-icon>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

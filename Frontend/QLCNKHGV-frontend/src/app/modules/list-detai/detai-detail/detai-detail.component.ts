@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, NavigationStart, RouterEvent } from '@angular/r
 import { MatDialog } from '@angular/material';
 import { filter, tap } from 'rxjs/operators';
 import { DeTaiService } from 'src/app/core/services/detai/detai.service';
+import { DeleteMemberDialogComponent } from 'src/app/core/components/delete-member-dialog/delete-member-dialog.component';
 
 @Component({
   selector: 'app-detai-detail',
@@ -58,13 +59,33 @@ export class DetaiDetailComponent implements OnInit {
       });
   }
 
-  openDialog(action: string) {
+  openDialog(action: string, id: number, laChuTri: number) {
     const dialogRef = this.dialog.open(ThemtvDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
       data: {
         action,
-        id : this.detai.Id
+        id,
+        laChuTri
+      }
+    });
+    dialogRef.afterClosed()
+      .subscribe((data) => {
+        if (data !== null && data !== undefined) {
+          if (data === true) {
+            this.getListGiaoVien();
+          }
+        }
+      });
+  }
+
+  openDialogDelete(action: string, id: number) {
+    const dialogRef = this.dialog.open(DeleteMemberDialogComponent, {
+      width: '600px',
+      closeOnNavigation: true,
+      data: {
+        action,
+        id : id
       }
     });
     dialogRef.afterClosed()

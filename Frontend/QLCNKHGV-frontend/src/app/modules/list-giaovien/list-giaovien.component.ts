@@ -7,6 +7,7 @@ import { updatePageSizeConfig } from 'src/app/core/helper/app.helper';
 import { PAGE_SIZE_CONFIG, LIST_GIAOVIEN } from 'src/app/core/enums/variables.enum';
 import { GiaovienDialogComponent } from 'src/app/core/components/giaovien-dialog/giaovien-dialog.component';
 import { filter, tap } from 'rxjs/operators';
+import { BoMonService } from 'src/app/core/services/bomon/bomon.service';
 
 @Component({
   selector: 'app-list-giaovien',
@@ -16,6 +17,7 @@ import { filter, tap } from 'rxjs/operators';
 export class ListGiaovienComponent implements OnInit {
 
   listGiaoVien: any[] = [];
+  listBoMon: any[] = [];
   pageSize = VariablesConstant.PAGE_SIZE;
   pageNumber = VariablesConstant.PAGE_NUMBER;
   totalItems: number;
@@ -23,6 +25,7 @@ export class ListGiaovienComponent implements OnInit {
 
   constructor(
     private giaoVienService: GiaoVienService,
+    private boMonService: BoMonService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
@@ -48,8 +51,13 @@ export class ListGiaovienComponent implements OnInit {
           this.pageNumber = params.page_number;
         }
         this.getListGiaoVien();
-      });
+    });
     
+    this.boMonService.getAllBoMon()
+      .subscribe((res) => {
+        this.listBoMon = res;
+    });
+
   }
 
   private getListGiaoVien() {
@@ -84,7 +92,7 @@ export class ListGiaovienComponent implements OnInit {
   }
 
   onBoMonChange(idBoMon: any) {
-    if(status !== undefined && status !== null && status !== ''){
+    if(idBoMon !== undefined && idBoMon !== null && idBoMon !== ''){
       this.giaoVienService.getGiaoVienByBoMon(idBoMon, this.pageSize, this.pageNumber)
       .subscribe((res) => {
         this.listGiaoVien = res.items;

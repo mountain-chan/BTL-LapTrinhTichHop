@@ -34,7 +34,7 @@ export class DetaiDialogComponent implements OnInit {
     this.detaiForm = this.formBuilder.group({
       Ma: [''],
       Ten: ['', [Validators.minLength(1), Validators.maxLength(255)]],
-      IdLoai: [''],
+      IdLoaiDeTai: [''],
       CoQuanQuanLy: ['', [Validators.minLength(1), Validators.maxLength(255)]],
       NamHoc: [String(this.curentYear-1)+'-'+String(this.curentYear)],
       KiHoc: ['']
@@ -87,7 +87,7 @@ export class DetaiDialogComponent implements OnInit {
     this.detaiForm.patchValue({
       Ma: detai.Ma,
       Ten: detai.Ten,
-      IdLoai: detai.IdLoai,
+      IdLoaiDeTai: detai.IdLoaiDeTai,
       CoQuanQuanLy: detai.CoQuanQuanLy,
       NamHoc: detai.NamHoc,
       KiHoc: detai.KiHoc
@@ -104,7 +104,7 @@ export class DetaiDialogComponent implements OnInit {
       if (this.action === 'create') {
         const data = {
           Ten: this.f.Ten.value.trim(),
-          IdLoai: this.f.IdLoai.value,
+          IdLoaiDeTai: this.f.IdLoaiDeTai.value,
           CoQuanQuanLy: this.f.CoQuanQuanLy.value.trim(),
           KiHoc: this.f.KiHoc.value,
           NamHoc: this.f.NamHoc.value
@@ -126,7 +126,7 @@ export class DetaiDialogComponent implements OnInit {
         const data = {
           Id: this.Id,
           Ten: this.f.Ten.value.trim(),
-          IdLoai: this.f.IdLoai.value,
+          IdLoaiDeTai: this.f.IdLoaiDeTai.value,
           CoQuanQuanLy: this.f.CoQuanQuanLy.value.trim(),
           KiHoc: this.f.KiHoc.value,
           NamHoc: this.f.NamHoc.value
@@ -164,9 +164,9 @@ export class DetaiDialogComponent implements OnInit {
     return (this.f.Ten.value === undefined 
         || this.f.Ten.value === null 
         || this.f.Ten.value.toString().trim() === ''
-        || this.f.IdLoai.value === undefined 
-        || this.f.IdLoai.value === null 
-        || this.f.IdLoai.value.toString().trim() === ''
+        || this.f.IdLoaiDeTai.value === undefined 
+        || this.f.IdLoaiDeTai.value === null 
+        || this.f.IdLoaiDeTai.value.toString().trim() === ''
         || this.f.CoQuanQuanLy.value === undefined 
         || this.f.CoQuanQuanLy.value === null 
         || this.f.CoQuanQuanLy.value.toString().trim() === ''
@@ -183,7 +183,7 @@ export class DetaiDialogComponent implements OnInit {
     if (this.detai) {
         return this.disableCreateButton() 
           || (this.f.Ten.value.toString().trim() === this.detai.Ten
-            && this.f.IdLoai.value === this.detai.IdLoai
+            && this.f.IdLoaiDeTai.value === this.detai.IdLoaiDeTai
             && this.f.CoQuanQuanLy.value === this.detai.CoQuanQuanLy
             && this.f.NamHoc.value === this.detai.NamHoc
             && this.f.KiHoc.value === this.detai.KiHoc)

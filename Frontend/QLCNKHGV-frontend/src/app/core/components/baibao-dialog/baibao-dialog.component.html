@@ -43,7 +43,7 @@
             <label>Loại bài báo</label>
           </div>
           <div class="form-group col-md-8">
-            <select  class="form-control " formControlName="IdLoai">
+            <select  class="form-control " formControlName="IdLoaiBaiBao">
               <option disabled selected value="">Loại bài báo</option>
               <option *ngFor="let loai of listLoai" [value]="loai?.Id">
                 {{loai?.Ten}}

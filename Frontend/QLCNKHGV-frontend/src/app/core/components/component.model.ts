@@ -9,6 +9,7 @@ import { BaibaoDialogComponent } from './baibao-dialog/baibao-dialog.component';
 import { DetaiDialogComponent } from './detai-dialog/detai-dialog.component';
 import { SachDialogComponent } from './sach-dialog/sach-dialog.component';
 import { ThemtvDialogComponent } from './themtv-dialog/themtv-dialog.component';
+import { DeleteMemberDialogComponent } from './delete-member-dialog/delete-member-dialog.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ThemtvDialogComponent } from './themtv-dialog/themtv-dialog.component';
     DetaiDialogComponent,
     SachDialogComponent,
     ThemtvDialogComponent,
+    DeleteMemberDialogComponent,
   ],
   imports: [
     // Core module
@@ -37,6 +39,7 @@ import { ThemtvDialogComponent } from './themtv-dialog/themtv-dialog.component';
       DetaiDialogComponent,
       SachDialogComponent,
       ThemtvDialogComponent,
+      DeleteMemberDialogComponent,
     ]
 })
 export class ComponentsModule { }

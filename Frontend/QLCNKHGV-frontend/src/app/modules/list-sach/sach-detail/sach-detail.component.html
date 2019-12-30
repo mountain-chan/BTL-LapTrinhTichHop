@@ -8,7 +8,7 @@
         <div class="col-md-3 infor">
             <label class="block">Tên sach: {{sach?.Ten}}</label>
             <label class="block">Mã sach: {{sach?.Ma}}</label>
-            <button (click)="openDialog('sach')"
+            <button (click)="openDialog('sach', sach?.Id, 0)"
                 class="btn btn-primary btn-tv">Thêm thành viên
             </button>
         </div>
@@ -23,18 +23,24 @@
                         <th>STT</th>
                         <th>Mã giáo viên</th>
                         <th>Tên giáo viên</th>
-                        <th>Bộ môn</th>
                         <th>Email</th>
+                        <th>Thao tác</th>
                       </tr>
                     </thead>
                     <tbody *ngIf="listGiaoVien?.length > 0">
-                      <tr *ngFor="let giaovien of listGiaoVien; let i = index;"
-                       style="cursor: pointer;"  (click)="viewgiaovien(giaovien?.Id)">
-                        <td>{{(i + 1) }}</td>
-                        <td>{{giaovien?.Ma}}</td>
-                        <td>{{giaovien?.Ten}}</td>
-                        <td>{{giaovien?.BoMon.Ten}}</td>
-                        <td>{{giaovien?.Email}}</td>
+                      <tr *ngFor="let giaovien of listGiaoVien; let i = index;">
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{(i + 1) }}</td>
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ma}}</td>
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ten}}</td>
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Email}}</td>
+                        <mat-icon (click)="openDialog('update-sach', giaovien?.IdGVSA, giaovien?.SoTrangDaViet)"
+                            class="mat-18" title="Sửa thông tin"
+                            titlePosition="below" style="cursor: pointer;">edit
+                          </mat-icon>
+                          <mat-icon (click)="openDialogDelete('sach', giaovien?.IdGVSA)"
+                            class="mat-18" title="Xóa thành viên"
+                            style="cursor: pointer;">delete
+                          </mat-icon>
                       </tr>
                     </tbody>
                   </table>

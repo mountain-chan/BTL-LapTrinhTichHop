@@ -90,7 +90,7 @@ export class ListDetaiComponent implements OnInit {
   }
 
   onNamChange(year: any) {
-    if(status !== undefined && status !== null && status !== ''){
+    if(year !== undefined && year !== null && year !== ''){
       this.namHocSelcted = year;
     }
     else{
@@ -105,7 +105,7 @@ export class ListDetaiComponent implements OnInit {
   }
 
   onKiHocChange(kiHoc: any) {
-    if(status !== undefined && status !== null && status !== ''){
+    if(kiHoc !== undefined && kiHoc !== null && kiHoc !== ''){
       this.kiHocSlected = kiHoc;
     }
     else{

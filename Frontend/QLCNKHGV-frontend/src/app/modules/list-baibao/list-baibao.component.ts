@@ -21,7 +21,7 @@ export class ListBaibaoComponent implements OnInit {
   pageNumber = VariablesConstant.PAGE_NUMBER;
   totalItems: number;
   pageSizeConfig: any;
-  namHocSelcted = 0;
+  namHocSelcted = '0';
   kiHocSlected = 0;
   curentYear = new Date().getFullYear();
   
@@ -90,11 +90,11 @@ export class ListBaibaoComponent implements OnInit {
   }
 
   onNamChange(year: any) {
-    if(status !== undefined && status !== null && status !== ''){
+    if(year !== undefined && year !== null && year !== ''){
       this.namHocSelcted = year;
     }
     else{
-      this.namHocSelcted = 0;
+      this.namHocSelcted = '0';
     }
 
     this.baiBaoService.getBaiBaoByKi(this.namHocSelcted, this.kiHocSlected, this.pageSize, this.pageNumber)
@@ -105,7 +105,7 @@ export class ListBaibaoComponent implements OnInit {
   }
 
   onKiHocChange(kiHoc: any) {
-    if(status !== undefined && status !== null && status !== ''){
+    if(kiHoc !== undefined && kiHoc !== null && kiHoc !== ''){
       this.kiHocSlected = kiHoc;
     }
     else{

@@ -34,7 +34,7 @@ export class BaibaoDialogComponent implements OnInit {
     this.baibaoForm = this.formBuilder.group({
       Ma: [''],
       Ten: ['', [Validators.minLength(1), Validators.maxLength(255)]],
-      IdLoai: [''],
+      IdLoaiBaiBao: [''],
       TenTapChiCongBo: ['', [Validators.minLength(1), Validators.maxLength(255)]],
       NamHoc: [String(this.curentYear-1)+'-'+String(this.curentYear)],
       KiHoc: ['']
@@ -87,7 +87,7 @@ export class BaibaoDialogComponent implements OnInit {
     this.baibaoForm.patchValue({
       Ma: baibao.Ma,
       Ten: baibao.Ten,
-      IdLoai: baibao.IdLoai,
+      IdLoaiBaiBao: baibao.IdLoaiBaiBao,
       KiHoc: baibao.KiHoc,
       TenTapChiCongBo: baibao.TenTapChiCongBo,
       NamHoc: baibao.NamHoc
@@ -104,10 +104,11 @@ export class BaibaoDialogComponent implements OnInit {
       if (this.action === 'create') {
         const data = {
           Ten: this.f.Ten.value.trim(),
-          IdLoai: this.f.IdLoai.value,
+          IdLoaiBaiBao: this.f.IdLoaiBaiBao.value,
           TenTapChiCongBo: this.f.TenTapChiCongBo.value.trim(),
           KiHoc: this.f.KiHoc.value,
-          NamHoc: this.f.NamHoc.value
+          NamHoc: this.f.NamHoc.value,
+          SoThanhVien: 0
         }
         this.baiBaoService.createBaiBao(data)
           .subscribe((res) => {
@@ -124,7 +125,7 @@ export class BaibaoDialogComponent implements OnInit {
         const data = {
           Id: this.Id,
           Ten: this.f.Ten.value.trim(),
-          IdLoai: this.f.IdLoai.value,
+          IdLoaiBaiBao: this.f.IdLoaiBaiBao.value,
           TenTapChiCongBo: this.f.TenTapChiCongBo.value.trim(),
           KiHoc: this.f.KiHoc.value,
           NamHoc: this.f.NamHoc.value
@@ -162,9 +163,9 @@ export class BaibaoDialogComponent implements OnInit {
     return (this.f.Ten.value === undefined 
         || this.f.Ten.value === null 
         || this.f.Ten.value.toString().trim() === ''
-        || this.f.IdLoai.value === undefined 
-        || this.f.IdLoai.value === null 
-        || this.f.IdLoai.value.toString().trim() === ''
+        || this.f.IdLoaiBaiBao.value === undefined 
+        || this.f.IdLoaiBaiBao.value === null 
+        || this.f.IdLoaiBaiBao.value.toString().trim() === ''
         || this.f.TenTapChiCongBo.value === undefined 
         || this.f.TenTapChiCongBo.value === null 
         || this.f.TenTapChiCongBo.value.toString().trim() === ''
@@ -181,7 +182,7 @@ export class BaibaoDialogComponent implements OnInit {
     if (this.baibao) {
         return this.disableCreateButton() 
           || (this.f.Ten.value.toString().trim() === this.baibao.Ten
-            && this.f.IdLoai.value === this.baibao.IdLoai
+            && this.f.IdLoaiBaiBao.value === this.baibao.IdLoaiBaiBao
             && this.f.TenTapChiCongBo.value === this.baibao.TenTapChiCongBo
             && this.f.NamHoc.value === this.baibao.NamHoc
             && this.f.KiHoc.value === this.baibao.KiHoc)

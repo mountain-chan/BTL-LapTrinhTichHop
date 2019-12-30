@@ -34,7 +34,7 @@ export class SachDialogComponent implements OnInit {
     this.sachForm = this.formBuilder.group({
       Ma: [''],
       Ten: ['', [Validators.minLength(1), Validators.maxLength(255)]],
-      IdLoai: [''],
+      IdLoaiSach: [''],
       NoiXuatBan: ['', [Validators.minLength(1), Validators.maxLength(255)]],
       NamHoc: [''],
       KiHoc: ['']
@@ -87,7 +87,7 @@ export class SachDialogComponent implements OnInit {
     this.sachForm.patchValue({
       Ma: sach.Ma,
       Ten: sach.Ten,
-      IdLoai: sach.IdLoai,
+      IdLoaiSach: sach.IdLoaiSach,
       NoiXuatBan: sach.NoiXuatBan,
       NamHoc: sach.NamHoc,
       KiHoc: sach.KiHoc
@@ -104,7 +104,7 @@ export class SachDialogComponent implements OnInit {
       if (this.action === 'create') {
         const data = {
           Ten: this.f.Ten.value.trim(),
-          IdLoai: this.f.IdLoai.value,
+          IdLoaiSach: this.f.IdLoaiSach.value,
           NoiXuatBan: this.f.NoiXuatBan.value.trim(),
           KiHoc: this.f.KiHoc.value,
           NamHoc: this.f.NamHoc.value
@@ -126,7 +126,7 @@ export class SachDialogComponent implements OnInit {
         const data = {
           Id: this.Id,
           Ten: this.f.Ten.value.trim(),
-          IdLoai: this.f.IdLoai.value,
+          IdLoaiSach: this.f.IdLoaiSach.value,
           NoiXuatBan: this.f.NoiXuatBan.value.trim(),
           KiHoc: this.f.KiHoc.value,
           NamHoc: this.f.NamHoc.value
@@ -164,9 +164,9 @@ export class SachDialogComponent implements OnInit {
     return (this.f.Ten.value === undefined 
         || this.f.Ten.value === null 
         || this.f.Ten.value.toString().trim() === ''
-        || this.f.IdLoai.value === undefined 
-        || this.f.IdLoai.value === null 
-        || this.f.IdLoai.value.toString().trim() === ''
+        || this.f.IdLoaiSach.value === undefined 
+        || this.f.IdLoaiSach.value === null 
+        || this.f.IdLoaiSach.value.toString().trim() === ''
         || this.f.NoiXuatBan.value === undefined 
         || this.f.NoiXuatBan.value === null 
         || this.f.NoiXuatBan.value.toString().trim() === ''
@@ -183,7 +183,7 @@ export class SachDialogComponent implements OnInit {
     if (this.sach) {
         return this.disableCreateButton() 
           || (this.f.Ten.value.toString().trim() === this.sach.Ten
-            && this.f.IdLoai.value === this.sach.IdLoai
+            && this.f.IdLoaiSach.value === this.sach.IdLoaiSach
             && this.f.NoiXuatBan.value === this.sach.NoiXuatBan
             && this.f.NamHoc.value === this.sach.NamHoc
             && this.f.KiHoc.value === this.sach.KiHoc)

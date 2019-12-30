@@ -1,0 +1,24 @@
+<div (click)="onClickOutSide($event)" class="dialog-container">
+    <div mat-dialog-title>
+      <h1 class="text-center" mat-dialog-title>
+          XÓA THÀNH VIÊN
+
+        <mat-icon (click)="cancel()" class="close close-dialog" style="cursor: pointer;">close
+        </mat-icon>
+      </h1>
+    </div>
+    <div mat-dialog-content>
+        <p>Bạn có chắc chăn muốn xóa thành viên này không?</p>
+    </div>
+
+  <div mat-dialog-actions class="toolbar">
+    <button (click)="cancel()" class="btn btn-danger my-btn">Hủy</button>
+
+    <button (click)="submit()"
+      class="btn btn-success my-btn">Đồng ý
+    </button>
+
+  </div>
+</div>
+  
+  

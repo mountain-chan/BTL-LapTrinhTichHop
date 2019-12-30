@@ -17,7 +17,6 @@ import { SuccessTitle, ErrorTitle } from '../../enums/notification.enum';
 })
 export class ThemtvDialogComponent implements OnInit {
 
-  IdGiaoVien: number;
   themTVForm: FormGroup;
   action: string;
   isDropDownManager = false;
@@ -38,6 +37,14 @@ export class ThemtvDialogComponent implements OnInit {
     private router: Router,
     private ref: ElementRef,
   ) {
+
+    // initial form
+    this.themTVForm = this.formBuilder.group({
+      IdGiaoVien: [''],
+      tenGV: [''],
+      SoTrangDaViet: [''],
+      LaChuBien: ['']
+    });
 
     // if data is not null, that's update profile user
     if (data !== null && data !== undefined) {
@@ -90,11 +97,9 @@ export class ThemtvDialogComponent implements OnInit {
 
   onTextChange(searchValue: string): void {  
     this.giaoVienService.searchGiaoVien(searchValue.toString().trim()).subscribe(data => {
-      if (data.status === true) {
-        this.suggestionListManagerUser = data;
-        if (this.suggestionListManagerUser !== null && this.suggestionListManagerUser.length > 0) {
-          this.isDropDownManager = true;
-        }
+      this.suggestionListManagerUser = data;
+      if (this.suggestionListManagerUser !== null && this.suggestionListManagerUser.length > 0) {
+        this.isDropDownManager = true;
       }
     });
   }
@@ -160,8 +165,26 @@ export class ThemtvDialogComponent implements OnInit {
 
 
   disableCreateButton() {
-    return (this.IdGiaoVien === undefined 
-      || this.IdGiaoVien === null
+    if(this.action === 'detai'){
+      return (this.f.IdGiaoVien.value === undefined 
+        || this.f.IdGiaoVien.value === null 
+        || this.f.IdGiaoVien.value === ''
+        || this.f.LaChuBien.value === undefined
+        || this.f.LaChuBien.value === ''
+        );
+    }
+    
+    if(this.action === 'sach'){
+      return (this.f.IdGiaoVien.value === undefined 
+        || this.f.IdGiaoVien.value === null 
+        || this.f.IdGiaoVien.value === ''
+        || this.f.SoTrangDaViet.value === undefined
+        || this.f.SoTrangDaViet.value === ''
+        );
+    }
+
+    return (this.f.IdGiaoVien.value === undefined 
+      || this.f.IdGiaoVien.value === null || this.f.IdGiaoVien.value === ''
       );
   }
 

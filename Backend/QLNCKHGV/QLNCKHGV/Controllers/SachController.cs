@@ -89,7 +89,7 @@ namespace QLNCKHGV.Controllers
                     }
                 }).ToList<SachModel>();
             }
-            else if (ki == 0)
+            else if (ki == 0 && nam!="0")
             {
                 listItems = db.Saches.Where(k => k.NamHoc == nam)
                 .Select(k => new SachModel()
@@ -109,7 +109,7 @@ namespace QLNCKHGV.Controllers
                     }
                 }).ToList<SachModel>();
             }
-            else if (nam == "0")
+            else if (nam == "0" && ki!=0)
             {
                 listItems = db.Saches.Where(k => k.KiHoc == ki)
                 .Select(k => new SachModel()

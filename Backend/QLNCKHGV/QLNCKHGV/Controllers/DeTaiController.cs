@@ -89,7 +89,7 @@ namespace QLNCKHGV.Controllers
                     }
                 }).ToList<DeTaiModel>();
             }
-            else if (ki == 0)
+            else if (ki == 0 && nam!="0")
             {
                 listItems = db.DeTais.Where(k => k.NamHoc == nam)
                 .Select(k => new DeTaiModel()
@@ -109,7 +109,7 @@ namespace QLNCKHGV.Controllers
                     }
                 }).ToList<DeTaiModel>();
             }
-            else if (nam == "0")
+            else if (nam == "0" && ki!=0)
             {
                 listItems = db.DeTais.Where(k => k.KiHoc == ki)
                 .Select(k => new DeTaiModel()

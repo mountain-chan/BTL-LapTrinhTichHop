@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { filter, tap } from 'rxjs/operators';
 import { ThemtvDialogComponent } from 'src/app/core/components/themtv-dialog/themtv-dialog.component';
 import { BaiBaoService } from 'src/app/core/services/baibao/baibao.service';
+import { DeleteMemberDialogComponent } from 'src/app/core/components/delete-member-dialog/delete-member-dialog.component';
 
 @Component({
   selector: 'app-baibao-detail',
@@ -38,6 +39,7 @@ export class BaibaoDetailComponent implements OnInit {
         if (params.id) {
           this.id = params.id;
         }
+        this.getBaiBaoById();
         this.getListGiaoVien();
       });
     
@@ -53,17 +55,36 @@ export class BaibaoDetailComponent implements OnInit {
   private getListGiaoVien() {
     this.giaoVienService.getGiaoVienByBaiBao(this.id)
       .subscribe((res) => {
-        this.listGiaoVien = res.items;
+        this.listGiaoVien = res;
       });
   }
 
-  openDialog(action: string) {
+  openDialog(action: string, id: number) {
     const dialogRef = this.dialog.open(ThemtvDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
       data: {
         action,
-        id : this.baiBao.Id
+        id : id
+      }
+    });
+    dialogRef.afterClosed()
+      .subscribe((data) => {
+        if (data !== null && data !== undefined) {
+          if (data === true) {
+            this.getListGiaoVien();
+          }
+        }
+      });
+  }
+
+  openDialogDelete(action: string, id: number) {
+    const dialogRef = this.dialog.open(DeleteMemberDialogComponent, {
+      width: '600px',
+      closeOnNavigation: true,
+      data: {
+        action,
+        id : id
       }
     });
     dialogRef.afterClosed()
