@@ -16,9 +16,11 @@
  
  ## Thông tin cơ bản gồm có: Bộ môn trực thuộc, tên, mã, địa chỉ, ...
  Xem tổng tải nghiên cứu khoa học theo năm học và kì học
+ 
  Xem danh sách các bài báo, đề tài và sach có tham gia
  
  ## Quản lý nghiên cứu khoa học gồm: 
+ 
   Bài báo: có chức năng thêm, sửa, xóa và thêm, xóa thành viên tham gia
  
   Nghiên cứu Đề tài: có chức năng thêm, sửa, xóa và thêm, xóa thành viên tham gia
