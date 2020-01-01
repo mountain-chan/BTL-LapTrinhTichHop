@@ -1,10 +1,12 @@
 # BTL-LapTrinhTichHop
 Đề tài: Quản lý nghiên cứu khoa học của giáo viên
 
+## Cấu hình lần đầu
+
 ### Back end:
   b1: Mở SQL lên và chạy file QuanLyGiaoVienDB_LTTH.sql
   
-  b2: vào file: Web.config trong đoạn:
+  b2: Vào file: Web.config trong đoạn:
   
   ```
 <connectionStrings>
