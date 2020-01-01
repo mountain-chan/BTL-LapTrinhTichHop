@@ -4,7 +4,14 @@
 ### Back end:
   b1: Mở SQL lên và chạy file QuanLyGiaoVienDB_LTTH.sql
   
-  b2: ...
+  b2: vào file: Web.config trong đoạn:
+  
+  <connectionStrings>
+    <add name="QuanLyGiaoVienDb" connectionString="data source=MOUNTAIN-CHAN\SQLEXPRESS;initial catalog=QuanLyGiaoVienDB_LTTH;integrated    security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  
+  Sửa lại: source=MOUNTAIN-CHAN\SQLEXPRESS; thành tên Sqlser của máy mình.
+  
   
  ### Front end: 
   Chạy bằng angular 7, trước tiên cần chạy lệnh "npm install" để add các thư viện cần thiết.
