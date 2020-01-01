@@ -24,6 +24,9 @@ export class ThemtvDialogComponent implements OnInit {
   isFormChange = false;
   suggestionListManagerUser: any[] = [];
   Id: number;
+  laChuTri: number;
+  SoTrangDaViet: number;
+  tenGV: string;
 
   constructor(
     public dialogRef: MatDialogRef<ThemtvDialogComponent>,
@@ -43,16 +46,30 @@ export class ThemtvDialogComponent implements OnInit {
       IdGiaoVien: [''],
       tenGV: [''],
       SoTrangDaViet: [''],
-      LaChuBien: ['']
+      LaChuTri: ['']
     });
 
     // if data is not null, that's update profile user
     if (data !== null && data !== undefined) {
-        this.action = data.action;
+      this.action = data.action;
 
-        if (data.id !== undefined) {
-            this.Id = data.id;
-        }
+      if (data.id !== undefined) {
+          this.Id = data.id;
+      }
+
+      if (data.laChuTri !== undefined) {
+        this.laChuTri = data.laChuTri;
+      }
+
+      if (data.SoTrangDaViet !== undefined) {
+        this.SoTrangDaViet = data.SoTrangDaViet;
+      }
+
+      if (data.tenGV !== undefined) {
+        this.tenGV = data.tenGV;
+      }
+
+      this.setValueForm();
     }
 
     // Close dialog ref on route changes
@@ -68,6 +85,14 @@ export class ThemtvDialogComponent implements OnInit {
 
   get f() {
     return this.themTVForm.controls;
+  }
+
+  private setValueForm() {
+    this.themTVForm.patchValue({
+      tenGV: this.tenGV,
+      SoTrangDaViet: this.SoTrangDaViet,
+      LaChuTri: this.laChuTri
+    });
   }
 
   cancel() {
@@ -124,9 +149,9 @@ export class ThemtvDialogComponent implements OnInit {
       } else if (this.action === 'detai') {
 
         const data = {
-          IdBaiBao: this.Id,
+          IdDeTai: this.Id,
           IdGiaoVien: this.f.IdGiaoVien.value,
-          LaChuBien: this.f.LaChuBien
+          LaChuTri: Number(this.f.LaChuTri.value)
         }
 
         this.deTaiService.themThanhVien(data)
@@ -140,15 +165,51 @@ export class ThemtvDialogComponent implements OnInit {
             }
           });
         
-      } else {
+      } else if (this.action === 'sach') {
 
         const data = {
-          IdBaiBao: this.Id,
+          IdSach: this.Id,
           IdGiaoVien: this.f.IdGiaoVien.value,
-          SoTrangDaViet: this.f.SoTrangDaViet
+          SoTrangDaViet: this.f.SoTrangDaViet.value
         }
 
         this.sachService.themThanhVien(data)
+          .subscribe((res) => {
+            if (res.status === true) {
+              this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
+              this.dialogRef.close(true);
+            }
+            else if (res.status === false) {
+              this.notificationService.showError(res.message, ErrorTitle, 3000);
+            }
+          });
+          
+      } else if (this.action === 'update-detai') {
+
+        const data = {
+          Id: this.Id,
+          LaChuTri: Number(this.f.LaChuTri.value)
+        }
+
+        this.deTaiService.suaThanhVien(data)
+          .subscribe((res) => {
+            if (res.status === true) {
+              this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
+              this.dialogRef.close(true);
+            }
+            else if (res.status === false) {
+              this.notificationService.showError(res.message, ErrorTitle, 3000);
+            }
+          });
+          
+      } else {
+
+        const data = {
+          Id: this.Id,
+          SoTrangDaViet: this.f.SoTrangDaViet.value
+        }
+
+        this.sachService.suaThanhVien(data)
           .subscribe((res) => {
             if (res.status === true) {
               this.notificationService.showSuccess(res.message, SuccessTitle, 3000);
@@ -169,8 +230,8 @@ export class ThemtvDialogComponent implements OnInit {
       return (this.f.IdGiaoVien.value === undefined 
         || this.f.IdGiaoVien.value === null 
         || this.f.IdGiaoVien.value === ''
-        || this.f.LaChuBien.value === undefined
-        || this.f.LaChuBien.value === ''
+        || this.f.LaChuTri.value === undefined
+        || this.f.LaChuTri.value === ''
         );
     }
     
@@ -186,6 +247,22 @@ export class ThemtvDialogComponent implements OnInit {
     return (this.f.IdGiaoVien.value === undefined 
       || this.f.IdGiaoVien.value === null || this.f.IdGiaoVien.value === ''
       );
+  }
+
+  disableUpdateButton() {
+    if(this.action === 'detai'){
+      return (this.f.laChuTri.value === undefined
+        || this.f.LaChuTri.value === ''
+        || this.f.LaChuTri.value === this.laChuTri
+        );
+    }
+    
+    if(this.action === 'sach'){
+      return (this.f.SoTrangDaViet.value === undefined
+        || this.f.SoTrangDaViet.value === ''
+        || this.f.SoTrangDaViet.value === this.SoTrangDaViet
+        );
+    }
   }
 
 }

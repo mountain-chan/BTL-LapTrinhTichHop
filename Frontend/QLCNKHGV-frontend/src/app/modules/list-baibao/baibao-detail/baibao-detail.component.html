@@ -23,7 +23,6 @@
                         <th>STT</th>
                         <th>Mã giáo viên</th>
                         <th>Tên giáo viên</th>
-                        <th>Bộ môn</th>
                         <th>Email</th>
                         <th>Thao tác</th>
                       </tr>
@@ -33,7 +32,6 @@
                         <td (click)="viewgiaovien(giaovien?.Id)">{{(i + 1) }}</td>
                         <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ma}}</td>
                         <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ten}}</td>
-                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.BoMon.Ten}}</td>
                         <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Email}}</td>
                         <td>
                           <mat-icon (click)="openDialogDelete('baibao', giaovien?.IdGVBB)"

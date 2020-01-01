@@ -1,36 +1,24 @@
 <nav class="navbar navbar-expand-sm fixed-top navbar-custom ">
-  <div (click)="onClickOutSide()">
+  <div (click)="onClickOutSide($event)">
 
     <input class="form-control custom" (input)="onNameChange($event.target.value)"
-    onClick="this.setSelectionRange(0, this.value.length)" type="text" placeholder="Search">
+    onClick="this.setSelectionRange(0, this.value.length)" type="text" placeholder="Mã/tên giáo viên">
 
-    <div class="search-result" *ngIf="focused">
-      <ul class="list-users">
-        <li (click)="detailUser(user._id)" *ngFor="let user of resultSearchUsers" class="user row">
-          
-          <div class="col-md-4 margin-auto">
-            <span class="block m-t-xs">
-              <strong class="font-bold">{{user.Ten}}
-              </strong>
-            </span>
-            <span class="text-muted text-xs block">
-              {{user.Ma}}
-            </span>
+    <ul *ngIf="focused"
+      class="list-users" [ngStyle]="{'display':resultSearchUsers?.length > 0 ? 'block' : 'none' }">
+      <li (click)="detailUser(user.Id)" *ngFor="let user of resultSearchUsers">
+        <div class="row">
+          <div class="col-md-8">
+            {{user?.Ten}}
           </div>
-          <div class="col-md-4 margin-auto">
-            <span class="text-muted text-xs block">
-              {{user.DienThoai}}
-            </span>
-            <span class="text-muted text-xs block">
-              {{user.Email}}
-            </span>
+          <div class="col-md-4">
+            {{user?.Ma}}
           </div>
-        </li>
-      </ul>
-      <div *ngIf="resultSearchUsers.length === 0">
-        Không tìm thấy kết quả
-      </div>
-    </div>
+        </div>
+        
+      </li>
+    </ul>
+
   </div>
   
 </nav>

@@ -53,19 +53,20 @@ export class DetaiDetailComponent implements OnInit {
   }
 
   private getListGiaoVien() {
-    this.giaoVienService.getGiaoVienByBaiBao(this.id)
+    this.giaoVienService.getGiaoVienByDeTai(this.id)
       .subscribe((res) => {
-        this.listGiaoVien = res.items;
+        this.listGiaoVien = res;
       });
   }
 
-  openDialog(action: string, id: number, laChuTri: number) {
+  openDialog(action: string, id: number, tenGV?: string, laChuTri?: number) {
     const dialogRef = this.dialog.open(ThemtvDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
       data: {
         action,
         id,
+        tenGV,
         laChuTri
       }
     });

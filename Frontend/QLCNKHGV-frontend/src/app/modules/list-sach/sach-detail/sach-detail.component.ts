@@ -46,9 +46,9 @@ export class SachDetailComponent implements OnInit {
   }
 
   private getListGiaoVien() {
-    this.giaoVienService.getGiaoVienByBaiBao(this.id)
+    this.giaoVienService.getGiaoVienBySach(this.id)
       .subscribe((res) => {
-        this.listGiaoVien = res.items;
+        this.listGiaoVien = res;
       });
   }
 
@@ -59,13 +59,14 @@ export class SachDetailComponent implements OnInit {
       })
   }
 
-  openDialog(action: string, id: number, SoTrangDaViet: number) {
+  openDialog(action: string, id: number, tenGV?: string, SoTrangDaViet?: number) {
     const dialogRef = this.dialog.open(ThemtvDialogComponent, {
       width: '600px',
       closeOnNavigation: true,
       data: {
         action,
         id,
+        tenGV,
         SoTrangDaViet
       }
     });

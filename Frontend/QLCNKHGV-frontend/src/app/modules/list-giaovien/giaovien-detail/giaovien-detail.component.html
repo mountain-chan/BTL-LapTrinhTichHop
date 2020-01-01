@@ -18,7 +18,7 @@
                 </div>
                 
 
-                <select class="form-control with-auto" >
+                <select class="form-control with-auto" (change)="onNamChange($event.target.value)" >
                     <option *ngFor="let nam of listNam" [value]="nam">{{nam}}</option>
                 </select>
 
@@ -26,7 +26,7 @@
                     <label>Kì học: </label>
                 </div>
 
-                <select class="form-control with-auto" >
+                <select class="form-control with-auto" (change)="onKiHocChange($event.target.value)">
                     <option selected [value]=1>Kì 1</option>
                     <option [value]=2>Kì 2</option>
                 </select>
@@ -102,7 +102,10 @@
                             <td>{{detai?.Ten}}</td>
                             <td>{{detai?.LoaiDeTai.Ten}}</td>
                             <td>{{detai?.CoQuanQuanLy}}</td>
-                            <td>{{detai?.ChuTri}}</td>
+                            <td>
+                              <span *ngIf="detai?.LaChuTri === 0">Thành viên</span>
+                              <span *ngIf="detai?.LaChuTri === 1">Chủ trì</span>
+                            </td>
                             <td>{{detai?.NamHoc}}</td>
                             <td>{{detai?.KiHoc}}</td>
                             <td>{{detai?.SoGio}}</td>
@@ -125,7 +128,7 @@
                             <th>Tên sách</th>
                             <th>Loại sách</th>
                             <th>Nơi xuất bản</th>
-                            <th>Vai trò</th>
+                            <th>Số trang viết</th>
                             <th>Năm học</th>
                             <th>Kì học</th>
                             <th>Số giờ</th>
@@ -139,7 +142,7 @@
                             <td>{{sach?.Ten}}</td>
                             <td>{{sach?.LoaiSach.Ten}}</td>
                             <td>{{sach?.NoiXuatBan}}</td>
-                            <td>{{sach?.ChuBien}}</td>
+                            <td>{{sach?.SoTrangDaViet}}</td>
                             <td>{{sach?.NamHoc}}</td>
                             <td>{{sach?.KiHoc}}</td>
                             <td>{{sach?.SoGio}}</td>

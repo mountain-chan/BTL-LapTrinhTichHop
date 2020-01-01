@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { GiaoVienService } from 'src/app/core/services/giaovien/giaovien.service';
 import { Router } from '@angular/router';
 
@@ -14,6 +14,7 @@ export class TopnavbarComponent implements OnInit {
   constructor(
     private giaoVienService: GiaoVienService,
     private router: Router,
+    private ref: ElementRef,
   ) { }
 
   ngOnInit() {
@@ -25,9 +26,7 @@ export class TopnavbarComponent implements OnInit {
 
     this.giaoVienService.searchGiaoVien(searchValue)
       .subscribe((res) => {
-        if (res.status) {
-          this.resultSearchUsers = res.data;
-        }
+        this.resultSearchUsers = res;
       });
   }
 
@@ -35,9 +34,16 @@ export class TopnavbarComponent implements OnInit {
     return this.router.navigateByUrl(`/giaovien-detail?id=${id}`);
   }
 
-  onClickOutSide() {
-    if(this.focused) this.focused = false;
-    this.resultSearchUsers = [];
+  onClickOutSide($event: MouseEvent) {
+    if (this.ref.nativeElement.contains($event.target)) {
+      if(this.focused) this.focused = false;
+      this.resultSearchUsers = [];
+    }
   }
+
+  // onClickOutSide() {
+  //   if(this.focused) this.focused = false;
+  //   this.resultSearchUsers = [];
+  // }
 
 }

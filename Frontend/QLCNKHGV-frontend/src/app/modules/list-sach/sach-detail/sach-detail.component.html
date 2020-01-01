@@ -8,7 +8,7 @@
         <div class="col-md-3 infor">
             <label class="block">Tên sach: {{sach?.Ten}}</label>
             <label class="block">Mã sach: {{sach?.Ma}}</label>
-            <button (click)="openDialog('sach', sach?.Id, 0)"
+            <button (click)="openDialog('sach', sach?.Id)"
                 class="btn btn-primary btn-tv">Thêm thành viên
             </button>
         </div>
@@ -23,7 +23,7 @@
                         <th>STT</th>
                         <th>Mã giáo viên</th>
                         <th>Tên giáo viên</th>
-                        <th>Email</th>
+                        <th>Số trang viết</th>
                         <th>Thao tác</th>
                       </tr>
                     </thead>
@@ -32,8 +32,8 @@
                         <td (click)="viewgiaovien(giaovien?.Id)">{{(i + 1) }}</td>
                         <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ma}}</td>
                         <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ten}}</td>
-                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Email}}</td>
-                        <mat-icon (click)="openDialog('update-sach', giaovien?.IdGVSA, giaovien?.SoTrangDaViet)"
+                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.SoTrangDaViet}}</td>
+                        <mat-icon (click)="openDialog('update-sach', giaovien?.IdGVSA, giaovien?.Ten, giaovien?.SoTrangDaViet)"
                             class="mat-18" title="Sửa thông tin"
                             titlePosition="below" style="cursor: pointer;">edit
                           </mat-icon>

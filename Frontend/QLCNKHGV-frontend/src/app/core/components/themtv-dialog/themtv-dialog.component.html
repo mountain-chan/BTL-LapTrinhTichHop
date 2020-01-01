@@ -10,7 +10,7 @@
         </mat-icon>
       </h1>
     </div>
-    <div mat-dialog-content [ngStyle]="{'height':isDropDownManager ? '20vh' : 'auto' }">
+    <div mat-dialog-content [ngStyle]="{'height':isDropDownManager ? '30vh' : 'auto' }">
 
       <form [formGroup]="themTVForm">
 
@@ -21,6 +21,8 @@
             <div class="form-group col-md-8">
                 <input 
                     formControlName="tenGV"
+                    [attr.tabindex]="(action==='update-detai'||action==='update-sach') ? -1 : ''"
+                    [ngClass]="{'disabled': action==='update-detai'||action==='update-sach'}"
                     (focus)="focusManager()"
                     type="text"
                     autocomplete="off"
@@ -37,7 +39,7 @@
             </div>
         </div>
 
-        <div class="row" *ngIf="action=='sach'">
+        <div class="row" *ngIf="action=='sach' || action==='update-sach'">
           <div class="col-md-4">
             <label>Số trang đã viết</label>
           </div>
@@ -48,13 +50,13 @@
           </div>
         </div>
 
-        <div class="row" *ngIf="action=='detai'">
+        <div class="row" *ngIf="action=='detai' || action==='update-detai'">
           <div class="col-md-4">
             <label>Vai trò</label>
           </div>
           <div class="form-group col-md-8">
-            <select  class="form-control " formControlName="LaChuBien">
-                <option selected disabled value="">Vai trò</option>
+            <select  class="form-control " formControlName="LaChuTri">
+                <option disabled selected value="">Vai trò</option>
                 <option [value]=1>Chủ trì</option>
                 <option [value]=0>Thành viên</option>
             </select>
@@ -67,8 +69,14 @@
   <div mat-dialog-actions class="toolbar">
     <button (click)="cancel()" class="btn btn-danger my-btn">Hủy</button>
 
-    <button (click)="submit()" [disabled]="disableCreateButton()"
+    <button *ngIf="action!=='update-sach' && action!=='update-detai'"
+      (click)="submit()" [disabled]="disableCreateButton()"
       class="btn btn-success my-btn">Thêm
+    </button>
+
+    <button *ngIf="action==='update-sach' || action==='update-detai'"
+      (click)="submit()" [disabled]="disableUpdateButton()"
+      class="btn btn-success my-btn">Cập nhật
     </button>
 
   </div>

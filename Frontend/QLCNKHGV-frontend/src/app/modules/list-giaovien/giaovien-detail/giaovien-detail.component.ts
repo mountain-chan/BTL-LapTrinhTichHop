@@ -22,8 +22,8 @@ export class GiaovienDetailComponent implements OnInit {
   giaoVien: any;
   id: number;
   TongTai = 0;
-  namHocSelcted = '0';
-  kiHocSlected = 0;
+  namHocSelcted = '2015-2016';
+  kiHocSlected = 1;
 
   constructor(
     private giaoVienService: GiaoVienService,
@@ -42,6 +42,11 @@ export class GiaovienDetailComponent implements OnInit {
 
   ngOnInit() {
 
+    for (let year = 2015; year < Number(this.curentYear); year++) {
+      const yearStr = String(year) + '-' + String(year+1);
+      this.listNam.push(yearStr);
+    }
+
     this.route.queryParams
       .subscribe((params) => {
         if (params.id) {
@@ -53,10 +58,7 @@ export class GiaovienDetailComponent implements OnInit {
         this.getListSach();
       });
 
-    for (let year = 2015; year < Number(this.curentYear); year++) {
-      const yearStr = String(year) + '-' + String(year+1);
-      this.listNam.push(yearStr);
-    }
+    
   }
 
   private getGiaoVienById(){
@@ -70,13 +72,20 @@ export class GiaovienDetailComponent implements OnInit {
     this.baiBaoService.getBaiBaoByGiaoVien(this.id, this.namHocSelcted, this.kiHocSlected)
       .subscribe((res) => {
         this.listBaiBao = res;
+        this.listBaiBao.forEach(obj => {
+          this.TongTai = this.TongTai + obj.SoGio;
+        });
       })
+
   }
 
   private getListDeTai(){
     this.deTaiService.getDeTaiByGiaoVien(this.id, this.namHocSelcted, this.kiHocSlected)
       .subscribe((res) => {
         this.listDeTai = res;
+        this.listDeTai.forEach(obj => {
+          this.TongTai = this.TongTai + obj.SoGio;
+        });
       })
   }
 
@@ -84,30 +93,27 @@ export class GiaovienDetailComponent implements OnInit {
     this.sachService.getSachByGiaoVien(this.id, this.namHocSelcted, this.kiHocSlected)
       .subscribe((res) => {
         this.listSach = res;
+        this.listSach.forEach(obj => {
+          this.TongTai = this.TongTai + obj.SoGio;
+        });
       })
   }
 
   onNamChange(year: any) {
-    if(status !== undefined && status !== null && status !== ''){
+    if(year !== undefined && year !== null && year !== ''){
       this.namHocSelcted = year;
     }
-    else{
-      this.namHocSelcted = '0';
-    }
-
+    this.TongTai = 0;
     this.getListBaiBao();
     this.getListDeTai();
     this.getListSach();
   }
 
   onKiHocChange(kiHoc: any) {
-    if(status !== undefined && status !== null && status !== ''){
+    if(kiHoc !== undefined && kiHoc !== null && kiHoc !== ''){
       this.kiHocSlected = kiHoc;
     }
-    else{
-      this.kiHocSlected = 0;
-    }
-
+    this.TongTai = 0;
     this.getListBaiBao();
     this.getListDeTai();
     this.getListSach();

@@ -8,7 +8,7 @@
         <div class="col-md-3 infor">
             <label class="block">Tên đề tài: {{detai?.Ten}}</label>
             <label class="block">Mã đề tài: {{detai?.Ma}}</label>
-            <button (click)="openDialog('detai', detai?.Id, 0)"
+            <button (click)="openDialog('detai', detai?.Id)"
                 class="btn btn-primary btn-tv">Thêm thành viên
             </button>
         </div>
@@ -23,7 +23,7 @@
                         <th>STT</th>
                         <th>Mã giáo viên</th>
                         <th>Tên giáo viên</th>
-                        <th>Email</th>
+                        <th>Vai trò</th>
                         <th>Thao tác</th>
                       </tr>
                     </thead>
@@ -32,9 +32,12 @@
                         <td (click)="viewgiaovien(giaovien?.Id)">{{(i + 1) }}</td>
                         <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ma}}</td>
                         <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Ten}}</td>
-                        <td (click)="viewgiaovien(giaovien?.Id)">{{giaovien?.Email}}</td>
+                        <td (click)="viewgiaovien(giaovien?.Id)">
+                          <span *ngIf="giaovien?.LaChuTri === 0">Thành viên</span>
+                          <span *ngIf="giaovien?.LaChuTri === 1">Chủ trì</span>
+                        </td>
                         <td>
-                          <mat-icon (click)="openDialog('update-detai', giaovien?.IdGVDT, giaovien?.LaChuTri)"
+                          <mat-icon (click)="openDialog('update-detai', giaovien?.IdGVDT, giaovien?.Ten, giaovien?.LaChuTri)"
                             class="mat-18" title="Sửa thông tin"
                             titlePosition="below" style="cursor: pointer;">edit
                           </mat-icon>

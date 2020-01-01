@@ -19,6 +19,17 @@ body {
     padding: 60px 30px 30px;
 }
 
+.disabled{
+    background-color: #e9ecef;
+    opacity: 1;
+    cursor: default;
+    pointer-events:none;
+}
+
+.mat-tab-group {
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+
 // custom css table
 .table-data{
     padding: 60px 30px 30px;
