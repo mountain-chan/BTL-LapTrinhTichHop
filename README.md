@@ -6,11 +6,13 @@
   
   b2: vào file: Web.config trong đoạn:
   
-  <connectionStrings>
+  ```
+<connectionStrings>
     <add name="QuanLyGiaoVienDb" connectionString="data source=MOUNTAIN-CHAN\SQLEXPRESS;initial catalog=QuanLyGiaoVienDB_LTTH;integrated    security=True;MultipleActiveResultSets=True;App=EntityFramework" providerName="System.Data.SqlClient" />
-  </connectionStrings>
+ </connectionStrings>
+  ```
   
-  Sửa lại: source=MOUNTAIN-CHAN\SQLEXPRESS; thành tên Sqlser của máy mình.
+  Sửa lại: ``` source=MOUNTAIN-CHAN\SQLEXPRESS; ``` thành tên Sqlser của máy mình.
   
   
  ### Front end: 
