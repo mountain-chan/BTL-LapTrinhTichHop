@@ -22,7 +22,7 @@ export class GiaovienDetailComponent implements OnInit {
   giaoVien: any;
   id: number;
   TongTai = 0;
-  namHocSelcted = '2015-2016';
+  namHocSelcted = String(this.curentYear-1)+'-'+String(this.curentYear);
   kiHocSlected = 1;
 
   constructor(
@@ -42,8 +42,8 @@ export class GiaovienDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    for (let year = 2015; year < Number(this.curentYear); year++) {
-      const yearStr = String(year) + '-' + String(year+1);
+    for (let year = Number(this.curentYear); year > 2015; year--) {
+      const yearStr = String(year-1) + '-' + String(year);
       this.listNam.push(yearStr);
     }
 

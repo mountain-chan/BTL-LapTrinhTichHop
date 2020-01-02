@@ -1,7 +1,10 @@
 <div (click)="onClickOutSide($event)" class="dialog-container">
     <div mat-dialog-title>
       <h1 class="text-center" mat-dialog-title>
-          THÊM THÀNH VIÊN
+        
+        <span *ngIf="action==='update-sach'">CẬP NHẬT SỐ TRANG ĐÃ VIẾT</span>
+        <span *ngIf="action==='update-detai'">CẬP NHẬT VAI TRÒ</span>
+        <span *ngIf="action!=='update-detai' && action!=='update-sach'">THÊM THÀNH VIÊN</span>
         <span *ngIf="action=='baibao'">BÀI BÁO</span>
         <span *ngIf="action=='detai'">ĐỀ TÀI</span>
         <span *ngIf="action=='sach'">SÁCH</span>

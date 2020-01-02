@@ -55,8 +55,8 @@ export class ListSachComponent implements OnInit {
         this.getlistSach();
     });
 
-    for (let year = 2015; year <= Number(this.curentYear); year++) {
-      const yearStr = String(year) + '-' + String(year+1);
+    for (let year = Number(this.curentYear); year > 2015; year--) {
+      const yearStr = String(year-1) + '-' + String(year);
       this.listNam.push(yearStr);
     }
 

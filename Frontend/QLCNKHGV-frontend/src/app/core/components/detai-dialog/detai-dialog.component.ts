@@ -36,7 +36,7 @@ export class DetaiDialogComponent implements OnInit {
       Ten: ['', [Validators.minLength(1), Validators.maxLength(255)]],
       IdLoaiDeTai: [''],
       CoQuanQuanLy: ['', [Validators.minLength(1), Validators.maxLength(255)]],
-      NamHoc: [String(this.curentYear-1)+'-'+String(this.curentYear)],
+      NamHoc: [''],
       KiHoc: ['']
     });
 
@@ -64,8 +64,8 @@ export class DetaiDialogComponent implements OnInit {
         this.listLoai = res;
     });
     
-    for (let year = 2015; year < Number(this.curentYear); year++) {
-      const yearStr = String(year) + '-' + String(year+1);
+    for (let year = Number(this.curentYear); year > 2015; year--) {
+      const yearStr = String(year-1) + '-' + String(year);
       this.listNam.push(yearStr);
     }
 

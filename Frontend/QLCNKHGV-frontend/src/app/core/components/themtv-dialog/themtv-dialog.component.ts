@@ -250,14 +250,14 @@ export class ThemtvDialogComponent implements OnInit {
   }
 
   disableUpdateButton() {
-    if(this.action === 'detai'){
-      return (this.f.laChuTri.value === undefined
+    if(this.action === 'update-detai'){
+      return (this.f.LaChuTri.value === undefined
         || this.f.LaChuTri.value === ''
         || this.f.LaChuTri.value === this.laChuTri
         );
     }
     
-    if(this.action === 'sach'){
+    if(this.action === 'update-sach'){
       return (this.f.SoTrangDaViet.value === undefined
         || this.f.SoTrangDaViet.value === ''
         || this.f.SoTrangDaViet.value === this.SoTrangDaViet

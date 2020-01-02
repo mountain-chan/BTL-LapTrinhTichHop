@@ -55,8 +55,8 @@ export class ListDetaiComponent implements OnInit {
         this.getlistDeTai();
     });
 
-    for (let year = 2015; year <= Number(this.curentYear); year++) {
-      const yearStr = String(year) + '-' + String(year+1);
+    for (let year = Number(this.curentYear); year > 2015; year--) {
+      const yearStr = String(year-1) + '-' + String(year);
       this.listNam.push(yearStr);
     }
 
